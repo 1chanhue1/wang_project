@@ -1,8 +1,12 @@
 package com.chanhue.dps.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class DogProfile(
 
-    val id:Int,
+    val id: Int,
     val name: String,
     val dogImage: MutableList<String>,
     val gender: Boolean,
@@ -11,4 +15,4 @@ data class DogProfile(
     val species: String,
     val introduce: String,
     val personality: String
-)
+) : Parcelable
