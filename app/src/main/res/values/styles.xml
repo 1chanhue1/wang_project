@@ -6,4 +6,17 @@
         <item name="android:windowExitAnimation">@anim/dialog_slide_down</item>
     </style>
 
+    <style name="AppToolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/AppTextTitle.S18</item>
+    </style>
+
+    <style name="AppTextTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/warm_black</item>
+    </style>
+
+    <style name="AppTextTitle.S18">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

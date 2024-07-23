@@ -2,4 +2,7 @@
     <string name="app_name">dps</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  Dialog -->
+    <string name="description_add_pet_profile">추가할 반려동물의 프로필 이미지</string>
 </resources>

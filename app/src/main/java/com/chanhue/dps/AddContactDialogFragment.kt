@@ -3,11 +3,16 @@ package com.chanhue.dps
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
 import com.chanhue.dps.databinding.DialogAddContactBinding
@@ -36,10 +41,7 @@ class AddContactDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvAddContact.setOnClickListener {
-            // Do something
-            dismissWithAnimation()
-        }
+        setOnBackPressedHandler()
     }
 
     private fun dismissWithAnimation() {
@@ -53,5 +55,15 @@ class AddContactDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setOnBackPressedHandler() {
+        // 뒤로가기 버튼을 눌렀을 때 다이얼로그를 닫는다.
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                DiaglogStateManager.setIsShowing(false)
+                dismissWithAnimation()
+            }
+        })
     }
 }
