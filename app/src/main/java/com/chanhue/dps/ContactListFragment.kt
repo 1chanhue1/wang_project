@@ -56,14 +56,22 @@ class ContactListFragment : Fragment() {
     }
 
     private fun showDialog() {
-        val newFragment = AddContactDialogFragment()
+        if (DiaglogStateManager.isShowing) return
+
+        val dialogFragment = AddContactDialogFragment()
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.commit {
             setReorderingAllowed(true)
             addToBackStack(null)
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            add(android.R.id.content, newFragment)
+            setCustomAnimations(
+                R.anim.dialog_slide_up,  // 프래그먼트가 나타날 때의 애니메이션
+                R.anim.dialog_slide_down,  // 프래그먼트가 사라질 때의 애니메이션
+                R.anim.dialog_slide_up,  // 백 스택에서 다시 나타날 때의 애니메이션
+                R.anim.dialog_slide_down  // 백 스택에서 사라질 때의 애니메이션
+            )
+            add(android.R.id.content, dialogFragment)
         }
+        DiaglogStateManager.setIsShowing(true)
     }
 
     override fun onDestroyView() {

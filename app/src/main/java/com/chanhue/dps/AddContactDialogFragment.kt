@@ -2,19 +2,20 @@ package com.chanhue.dps
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.commit
 import com.chanhue.dps.databinding.DialogAddContactBinding
 
 class AddContactDialogFragment : DialogFragment() {
 
     private var _binding: DialogAddContactBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,15 +27,10 @@ class AddContactDialogFragment : DialogFragment() {
         return binding.root
     }
 
-    // The system calls this only when creating the layout in a dialog.
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // The only reason you might override this method when using
-        // onCreateView() is to modify the dialog characteristics. For example,
-        // the dialog includes a title by default, but your custom layout might
-        // not need it. Here, you can remove the dialog title, but you must
-        // call the superclass to get the Dialog.
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.setWindowAnimations(R.style.AppDialogAnimation) // 다이얼로그 애니메이션 설정
         return dialog
     }
 
@@ -42,7 +38,20 @@ class AddContactDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tvAddContact.setOnClickListener {
             // Do something
-            dismiss()
+            dismissWithAnimation()
         }
+    }
+
+    private fun dismissWithAnimation() {
+        parentFragmentManager.commit {
+            setCustomAnimations(0, R.anim.dialog_slide_down)
+            remove(this@AddContactDialogFragment)
+        }
+        DiaglogStateManager.setIsShowing(false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
