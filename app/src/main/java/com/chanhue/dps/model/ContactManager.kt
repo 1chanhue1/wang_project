@@ -7,7 +7,7 @@ object ContactManager {
         return mutableListOf(
             Contact(
                 1,
-                DogProfile(
+                PetProfile(
                     1,
                     "https://post-phinf.pstatic.net/MjAyNDAxMzBfMjQ3/MDAxNzA2NTg4MzUzNDE0.tnVXDqzdrbm9PLfoMttZyBuL0uzr1dbySOwbruch4a4g.ZyQBiTAwqe3DDruXKp5NyrP4wqpbzmM7UR10dD8B5KQg.JPEG/8a89645c136a15dbe15ce70525630cc835aa0e4c.jpg?type=w1200",
                     "두부",
@@ -35,7 +35,7 @@ object ContactManager {
             ),
             Contact(
                 2,
-                DogProfile(
+                PetProfile(
                     2,
                     "https://cdn.ngetnews.com/news/photo/202005/301734_12608_1735.jpg",
                     "몽이",
@@ -66,7 +66,7 @@ object ContactManager {
             // 추가 데이터들
             Contact(
                 3,
-                DogProfile(
+                PetProfile(
                     3,
                     "https://post-phinf.pstatic.net/MjAyNDAxMzBfMTg4/MDAxNzA2NTg4MzUzNzUx.5zKpsYHCu5Ytxr9QjkAqf-6IytgeLndBZ7wPd3AYXS4g.eouiZGK32ErX8JT7fEcd6XzZ1sKLkOVphOeJicDLA3Mg.JPEG/b84e4a32f0afead898e9b20beef5723107aa8dbb.jpg?type=w1200",
                     "초코",
@@ -92,7 +92,7 @@ object ContactManager {
             ),
             Contact(
                 4,
-                DogProfile(
+                PetProfile(
                     4,
                     "https://perrodog.co.kr/files/attach/images/2023/06/07/7ec0544c0a3878c60cfaf48aaafc52c7.jpg",
                     "눈송이",
@@ -121,7 +121,7 @@ object ContactManager {
             ),
             Contact(
                 5,
-                DogProfile(
+                PetProfile(
                     5,
                     "https://img.famtimes.co.kr/resources/2019/02/15/USWOZ7hcLD3SnOv5.jpg",
                     "댕댕이",
@@ -152,7 +152,7 @@ object ContactManager {
             ),
             Contact(
                 6,
-                DogProfile(
+                PetProfile(
                     6,
                     "https://t1.daumcdn.net/news/202105/25/dogmate/20210525045430145gtll.jpg",
                     "멍멍이",
@@ -178,7 +178,7 @@ object ContactManager {
             ),
             Contact(
                 7,
-                DogProfile(
+                PetProfile(
                     7,
                     "https://i.namu.wiki/i/paGSt-Agyaph_hPmknmB4J0u6nqEP-DUdVfmP7Y61D_nvXozhm9s1_wWAzOcWF5m_T49cUZyfMIMDnCQZN7IaQ.webp",
                     "바둑이",
@@ -205,7 +205,7 @@ object ContactManager {
             ),
             Contact(
                 8,
-                DogProfile(
+                PetProfile(
                     8,
                     "https://t1.daumcdn.net/news/202105/25/dogmate/20210525045430145gtll.jpg",
                     "달래",
@@ -233,7 +233,7 @@ object ContactManager {
             ),
             Contact(
                 9,
-                DogProfile(
+                PetProfile(
                     9,
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJVgxx2MC4C4Ec_Bcz5cz0K1xtfDE-0u4iJDU_ixp0xiFYTtb6le1hAmWfVBkbFmJmlIk&usqp=CAU",
                     "까미",
@@ -259,7 +259,7 @@ object ContactManager {
             ),
             Contact(
                 10,
-                DogProfile(
+                PetProfile(
                     10,
                     "https://perrodog.co.kr/files/attach/images/2023/06/07/7ec0544c0a3878c60cfaf48aaafc52c7.jpg",
                     "아리",
@@ -286,7 +286,7 @@ object ContactManager {
             ),
             Contact(
                 11,
-                DogProfile(
+                PetProfile(
                     11,
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJVgxx2MC4C4Ec_Bcz5cz0K1xtfDE-0u4iJDU_ixp0xiFYTtb6le1hAmWfVBkbFmJmlIk&usqp=CAU",
                     "구름이",
@@ -311,7 +311,7 @@ object ContactManager {
             ),
             Contact(
                 12,
-                DogProfile(
+                PetProfile(
                     12,
                     "https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjNfNjkg/MDAxNTk1NTAxMzU3OTU0.c3cNYzSUnzwwFof34Ljr958vYCcDUZUTAju5AcPHncMg.GBkzSNM1CUEEtSP4RWJIxQ27_Qpx3eDyhS1zNwD1_VIg.JPEG.hyousang/2.jpg?type=w800",
                     "복실이",
@@ -336,7 +336,7 @@ object ContactManager {
             ),
             Contact(
                 13,
-                DogProfile(
+                PetProfile(
                     13,
                     "https://i.namu.wiki/i/p8f5LesuquLp-iZqt7celuMAnechji6RS0HwQzOsF5BBMBrikXUpTDS7OR8s7bQahBhpAlLeNzH-Uqu2ksatabCHq0LH7gwkDtM45Pjlug66aQ_z75OCEPg1WvuYGvdtSG9gHiXPi7uoGL8Tfezpfw.webp",
                     "뭉치",
@@ -361,7 +361,7 @@ object ContactManager {
             ),
             Contact(
                 14,
-                DogProfile(
+                PetProfile(
                     14,
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFnlyzPp5qykyS36GW7j_GEzF6yJISxADm1PHqd17OJT6va24ZxNqA91YyKXtIvFma83U&usqp=CAU",
                     "토리",
@@ -386,7 +386,7 @@ object ContactManager {
             ),
             Contact(
                 15,
-                DogProfile(
+                PetProfile(
                     15,
                     "https://mblogthumb-phinf.pstatic.net/MjAyMjExMjhfMjk2/MDAxNjY5NjA2NDQwNjIx.CdPTYrTuwq-6S7llBAqjCdMoKioZx1aXQD7DPc79FHkg._Cvzm80uNCkc0habhhUOrz7DfD9uqH8bQERJ3GkPXHUg.JPEG.lael_v_v/IMG_0186.jpg?type=w800",
                     "솜사탕",
@@ -411,7 +411,7 @@ object ContactManager {
             ),
             Contact(
                 16,
-                DogProfile(
+                PetProfile(
                     16,
                     "https://i.pinimg.com/originals/10/74/25/107425756bbfd5102867ed0f02c69095.jpg",
                     "하늘",
@@ -436,7 +436,7 @@ object ContactManager {
             ),
             Contact(
                 17,
-                DogProfile(
+                PetProfile(
                     17,
                     "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202105/01/736a415d-a55d-48b0-8192-c304793d9c7e.jpg",
                     "태양",
@@ -461,7 +461,7 @@ object ContactManager {
             ),
             Contact(
                 18,
-                DogProfile(
+                PetProfile(
                     18,
                     "https://raingroup.co.kr/data/editor/2305/07f12eb7dd7a8321a87639b68bf165b8_1684475633_3204.jpg",
                     "해피",
@@ -486,7 +486,7 @@ object ContactManager {
             ),
             Contact(
                 19,
-                DogProfile(
+                PetProfile(
                     19,
                     "https://cdn.ngetnews.com/news/photo/202005/301734_12608_1735.jpg",
                     "복덩이",
@@ -511,7 +511,7 @@ object ContactManager {
             ),
             Contact(
                 20,
-                DogProfile(
+                PetProfile(
                     20,
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR3sLWXzpeywivrovkSC1uxzlHD-3UDep2bw&s",
                     "반달이",
@@ -536,7 +536,7 @@ object ContactManager {
             ),
             Contact(
                 21,
-                DogProfile(
+                PetProfile(
                     21,
                     "https://i.namu.wiki/i/z2O0p4vXdL7rV-QjZ1chB5_B39l9IO21-awQQdzeuyr7mDWvrwGHFUkex899yyLHwuFwYsp-wl8105822ym-Xw.webp",
                     "누렁이",
@@ -561,7 +561,7 @@ object ContactManager {
             ),
             Contact(
                 22,
-                DogProfile(
+                PetProfile(
                     22,
                     "https://t1.daumcdn.net/tistoryfile/fs3/17_7_3_3_blog35112_attach_1_118.JPG?original",
                     "복돌이",
@@ -586,7 +586,7 @@ object ContactManager {
             ),
             Contact(
                 23,
-                DogProfile(
+                PetProfile(
                     23,
                     "https://cdn.ecobs.co.kr/news/photo/202005/26017_22785_3939.jpg",
                     "마루",
@@ -611,7 +611,7 @@ object ContactManager {
             ),
             Contact(
                 24,
-                DogProfile(
+                PetProfile(
                     24,
                     "https://mblogthumb-phinf.pstatic.net/MjAyMjExMDFfMjIg/MDAxNjY3MzEwMjgzNDYw._v7Y2yUe0T3Nh9hKKIF1vQVJpe4dJGxSMumHkNsuxAsg.I4H7xDUh4DlFEoZA1JY--eDEsN8oUHFOxT0IsHEyl88g.JPEG.hwadojinhaus/20221101_(11).jpg?type=w800",
                     "꼬미",
@@ -636,7 +636,7 @@ object ContactManager {
             ),
             Contact(
                 25,
-                DogProfile(
+                PetProfile(
                     25,
                     "https://cdn.pixabay.com/photo/2021/08/18/09/34/dachshund-6555136_960_720.jpg",
                     "바비",
@@ -661,7 +661,7 @@ object ContactManager {
             ),
             Contact(
                 26,
-                DogProfile(
+                PetProfile(
                     26,
                     "https://blog.kakaocdn.net/dn/ekbnmV/btqMgtiqXni/DG9CE8ZEllV5rKlDgbSQok/img.jpg",
                     "쿠키",
@@ -686,7 +686,7 @@ object ContactManager {
             ),
             Contact(
                 27,
-                DogProfile(
+                PetProfile(
                     27,
                     "https://i.namu.wiki/i/4BLiiPCZ592quXxgRmTRlKPilyQNk9a95Tjv929llJh2RGLo_1PcLqWC8FqFz5BcbuDqHwjCMQp9L4MnsAJ9vtHnhkeMcfzbW-EkHJxcL1z9R7l75dtOn8HzaVSRh46WvG1x5BZZlkQf3-io1oE1kw.webp",
                     "뽀삐",
@@ -711,7 +711,7 @@ object ContactManager {
             ),
             Contact(
                 28,
-                DogProfile(
+                PetProfile(
                     28,
                     "https://lh3.googleusercontent.com/proxy/XuiGDQkMhYFGfrVqyx67xoNzenc3i8w9YYelJbCdgs6mPAQQt8OYCJssOc8VahhucViQSMD85cBqzG_LR2Qa4dzqI90ydy6vHGA3b6rIrJKVMpYLvQ",
                     "코코",
@@ -736,7 +736,7 @@ object ContactManager {
             ),
             Contact(
                 29,
-                DogProfile(
+                PetProfile(
                     29,
                     "https://perrodog.co.kr/files/attach/images/2023/06/07/7ec0544c0a3878c60cfaf48aaafc52c7.jpg",
                     "루피",
@@ -761,7 +761,7 @@ object ContactManager {
             ),
             Contact(
                 30,
-                DogProfile(
+                PetProfile(
                     30,
                     "https://t1.daumcdn.net/news/202105/25/dogmate/20210525045430145gtll.jpg",
                     "메리",
@@ -789,16 +789,21 @@ object ContactManager {
 
     // 강아지 이름순 정렬
     fun getContactListByDogName(): List<Contact> {
-        return contactList.sortedBy { it.dogProfile.name }
+        return contactList.sortedBy { it.petProfile.name }
     }
 
     // 연락처 하나 가져오기
     fun getContactById(id: Int): Contact {
-        return contactList.find { it.dogProfile.id == id }!!
+        return contactList.find { it.petProfile.id == id }!!
     }
 
     // 임시) 연락처 첫 번째 하나 가져오기
     fun getFirstContact(): Contact {
         return contactList.first()
+    }
+
+    // 임시) 연락처 5개 리스트 가져오기
+    fun getLikeContactList(): List<Contact> {
+        return contactList.subList(0, 5)
     }
 }
