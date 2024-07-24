@@ -5,4 +5,25 @@
 
     <!--  Dialog -->
     <string name="description_add_pet_profile">추가할 반려동물의 프로필 이미지</string>
+    <string name="description_close_dialog">다이얼로그 닫기 아이콘 이미지</string>
+    <string name="label_add_contact">연락처 추가</string>
+    <string name="btn_label_add_contact">추가</string>
+    <string name="hint_owner_name">ex) 홍길동</string>
+    <string name="label_pet_profile_image">반려동물 프로필</string>
+    <string name="label_owner_name">주인 이름</string>
+    <string name="label_owner_gender">주인 성별</string>
+    <string name="label_gender_male">남</string>
+    <string name="label_gender_female">여</string>
+    <string name="label_phone_number">전화번호</string>
+    <string name="hint_phone_number">\'-\' 없이 입력하세요</string>
+    <string name="label_region">사는 지역</string>
+    <string name="label_pet_name">반려동물 이름</string>
+    <string name="label_pet_gender">반려동물 성별</string>
+    <string name="hint_pet_name">ex) 코코</string>
+    <string name="label_pet_species">종</string>
+    <string name="label_pet_age">나이</string>
+    <string name="description_dialog_fold_icon">Number Picker를 띄우라고 알려주는 아이콘</string>
+    <string name="label_memo">메모</string>
+    <string name="hint_memo">50자 이내로 입력해주세요</string>
+    <string name="label_personality">성격</string>
 </resources>

@@ -7,33 +7,334 @@
     android:background="@color/white"
     android:elevation="6dp">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <include
         android:id="@+id/toolbar_dialog_add_contact"
-        style="@style/AppToolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        layout="@layout/item_toolbar_dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="연락처 추가" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_label_pet_profile"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="강아지 프로필 이미지"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_dialog_add_contact" />
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/toolbar_dialog_add_contact"
+        app:layout_constraintStart_toStartOf="@id/toolbar_dialog_add_contact"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_dialog_add_contact">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@color/gray"
-        android:contentDescription="@string/description_add_pet_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_label_pet_profile" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_label_dialog_pet_profile"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/label_pet_profile_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_dialog_pet_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/shp_dialog_pet_profile"
+                android:clipToOutline="true"
+                android:contentDescription="@string/description_add_pet_profile"
+                android:padding="35dp"
+                android:src="@drawable/ic_add_photo"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_profile"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_pet_profile" />
+
+            <TextView
+                android:id="@+id/tv_label_dialog_owner_name"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/label_owner_name"
+                app:layout_constraintEnd_toStartOf="@id/tv_label_dialog_owner_gender"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_profile"
+                app:layout_constraintTop_toBottomOf="@id/iv_dialog_pet_profile" />
+
+            <EditText
+                android:id="@+id/et_input_owner_name"
+                style="@style/AppEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:hint="@string/hint_owner_name"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_owner_name"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_owner_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_owner_name" />
+
+            <TextView
+                android:id="@+id/tv_label_dialog_owner_gender"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_owner_gender"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_profile"
+                app:layout_constraintStart_toEndOf="@id/tv_label_dialog_owner_name"
+                app:layout_constraintTop_toTopOf="@id/tv_label_dialog_owner_name" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/group_btn_owner_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:checkedButton="@+id/button2"
+                app:layout_constraintBottom_toBottomOf="@+id/et_input_owner_name"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_owner_gender"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_owner_gender"
+                app:layout_constraintTop_toTopOf="@id/et_input_owner_name"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_label_owner_gender_male"
+                    style="@style/AppMaterialToggleButton"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="0dp"
+                    android:paddingVertical="13dp"
+                    android:text="@string/label_gender_male" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_label_owner_gender_female"
+                    style="@style/AppMaterialToggleButton"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="0dp"
+                    android:paddingVertical="13dp"
+                    android:text="@string/label_gender_female" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:id="@+id/tv_label_dialog_phone_number"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_phone_number"
+                app:layout_constraintEnd_toEndOf="@id/group_btn_owner_gender"
+                app:layout_constraintStart_toStartOf="@id/et_input_owner_name"
+                app:layout_constraintTop_toBottomOf="@id/et_input_owner_name" />
+
+            <EditText
+                android:id="@+id/et_input_phone_number"
+                style="@style/AppEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:hint="@string/hint_phone_number"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_phone_number"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_phone_number"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_phone_number"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:id="@+id/tv_label_dialog_region"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_region"
+                app:layout_constraintEnd_toEndOf="@id/et_input_phone_number"
+                app:layout_constraintStart_toStartOf="@id/et_input_phone_number"
+                app:layout_constraintTop_toBottomOf="@id/et_input_phone_number" />
+
+            <EditText
+                android:id="@+id/et_input_region"
+                style="@style/AppEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:hint="@null"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_region"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_region"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_region" />
+
+            <TextView
+                android:id="@+id/tv_label_dialog_pet_name"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/label_pet_name"
+                app:layout_constraintEnd_toStartOf="@id/tv_label_dialog_pet_gender"
+                app:layout_constraintStart_toStartOf="@id/et_input_region"
+                app:layout_constraintTop_toBottomOf="@id/et_input_region" />
+
+            <EditText
+                android:id="@+id/et_input_pet_name"
+                style="@style/AppEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:hint="@string/hint_pet_name"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_name"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_pet_name" />
+
+            <TextView
+                android:id="@+id/tv_label_dialog_pet_gender"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_pet_gender"
+                app:layout_constraintEnd_toEndOf="@id/et_input_region"
+                app:layout_constraintStart_toEndOf="@id/tv_label_dialog_pet_name"
+                app:layout_constraintTop_toTopOf="@id/tv_label_dialog_pet_name" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/group_btn_pet_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:checkedButton="@+id/button2"
+                app:layout_constraintBottom_toBottomOf="@+id/et_input_pet_name"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_gender"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_gender"
+                app:layout_constraintTop_toTopOf="@id/et_input_pet_name"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_label_pet_gender_male"
+                    style="@style/AppMaterialToggleButton"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="0dp"
+                    android:paddingVertical="13dp"
+                    android:text="@string/label_gender_male" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_label_pet_gender_female"
+                    style="@style/AppMaterialToggleButton"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="0dp"
+                    android:paddingVertical="13dp"
+                    android:text="@string/label_gender_female" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:id="@+id/tv_label_dialog_pet_species"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/label_pet_species"
+                app:layout_constraintEnd_toStartOf="@id/tv_label_dialog_pet_age"
+                app:layout_constraintStart_toStartOf="@id/et_input_pet_name"
+                app:layout_constraintTop_toBottomOf="@id/et_input_pet_name" />
+
+            <EditText
+                android:id="@+id/et_input_pet_species"
+                style="@style/AppEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:hint="@string/hint_pet_name"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_species"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_species"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_pet_species" />
+
+            <TextView
+                android:id="@+id/tv_label_dialog_pet_age"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_pet_age"
+                app:layout_constraintEnd_toEndOf="@id/group_btn_pet_gender"
+                app:layout_constraintStart_toEndOf="@id/tv_label_dialog_pet_species"
+                app:layout_constraintTop_toTopOf="@id/tv_label_dialog_pet_species" />
+
+            <EditText
+                android:id="@+id/et_input_pet_age"
+                style="@style/AppEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@null"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_age"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_age"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_pet_age" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/baseline_unfold_more_24"
+                android:contentDescription="@string/description_dialog_fold_icon"
+                app:layout_constraintBottom_toBottomOf="@id/et_input_pet_age"
+                app:layout_constraintEnd_toEndOf="@id/et_input_pet_age"
+                app:layout_constraintTop_toTopOf="@id/et_input_pet_age" />
+
+            <TextView
+                android:id="@+id/tv_label_dialog_memo"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_memo"
+                app:layout_constraintEnd_toEndOf="@id/et_input_pet_age"
+                app:layout_constraintStart_toStartOf="@id/et_input_pet_species"
+                app:layout_constraintTop_toBottomOf="@id/et_input_pet_species" />
+
+            <EditText
+                android:id="@+id/et_input_memo"
+                style="@style/AppEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="80dp"
+                android:layout_marginTop="6dp"
+                android:gravity="top"
+                android:hint="@string/hint_memo"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_memo"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_memo"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_memo" />
+
+            <TextView
+                android:id="@+id/tv_label_dialog_personality"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_personality"
+                app:layout_constraintEnd_toEndOf="@id/et_input_memo"
+                app:layout_constraintStart_toStartOf="@id/et_input_memo"
+                app:layout_constraintTop_toBottomOf="@id/et_input_memo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

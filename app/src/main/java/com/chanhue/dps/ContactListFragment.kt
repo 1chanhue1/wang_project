@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.chanhue.dps.databinding.FragmentContactListBinding
+import com.chanhue.dps.ui.AddContactDialogFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,12 +64,13 @@ class ContactListFragment : Fragment() {
         fragmentManager.commit {
             setReorderingAllowed(true)
             addToBackStack(null)
-            setCustomAnimations(
-                R.anim.dialog_slide_up,  // 프래그먼트가 나타날 때의 애니메이션
-                R.anim.dialog_slide_down,  // 프래그먼트가 사라질 때의 애니메이션
-                R.anim.dialog_slide_up,  // 백 스택에서 다시 나타날 때의 애니메이션
-                R.anim.dialog_slide_down  // 백 스택에서 사라질 때의 애니메이션
-            )
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//            setCustomAnimations(
+//                R.anim.dialog_slide_up,  // 프래그먼트가 나타날 때의 애니메이션
+//                R.anim.dialog_slide_down,  // 프래그먼트가 사라질 때의 애니메이션
+//                R.anim.dialog_slide_up,  // 백 스택에서 다시 나타날 때의 애니메이션
+//                R.anim.dialog_slide_down  // 백 스택에서 사라질 때의 애니메이션
+//            )
             add(android.R.id.content, dialogFragment)
         }
         DiaglogStateManager.setIsShowing(true)

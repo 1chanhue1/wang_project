@@ -1,20 +1,16 @@
-package com.chanhue.dps
+package com.chanhue.dps.ui
 
-import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
+import com.chanhue.dps.DiaglogStateManager
+import com.chanhue.dps.R
 import com.chanhue.dps.databinding.DialogAddContactBinding
 
 class AddContactDialogFragment : DialogFragment() {
@@ -34,14 +30,23 @@ class AddContactDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.window?.setWindowAnimations(R.style.AppDialogAnimation) // 다이얼로그 애니메이션 설정
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.window?.setWindowAnimations(R.style.AppDialogAnimation) // 다이얼로그 애니메이션 설정
+        // R.style.AppFullScreenDialog 적용하기
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        //dialog.window?.attributes?.windowAnimations = R.style.AppFullScreenDialog
         return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnBackPressedHandler()
+        // AgeNumPickerDialog를 띄운다.
+        binding.etInputPetAge.setOnClickListener {
+            val ageNumPickerDialog = AgeNumPickerDialog(requireContext())
+            ageNumPickerDialog.show()
+        }
     }
 
     private fun dismissWithAnimation() {
