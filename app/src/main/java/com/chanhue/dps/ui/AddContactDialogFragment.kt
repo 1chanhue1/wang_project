@@ -12,8 +12,9 @@ import androidx.fragment.app.commit
 import com.chanhue.dps.DiaglogStateManager
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.DialogAddContactBinding
+import com.chanhue.dps.ui.dialog.AgeNumPickerDialog
 
-class AddContactDialogFragment : DialogFragment() {
+class AddContactDialogFragment : DialogFragment(), AgeSelectListener {
 
     private var _binding: DialogAddContactBinding? = null
     private val binding get() = _binding!!
@@ -23,30 +24,32 @@ class AddContactDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout to use as a dialog or embedded fragment.
         _binding = DialogAddContactBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.window?.setWindowAnimations(R.style.AppDialogAnimation) // 다이얼로그 애니메이션 설정
-        // R.style.AppFullScreenDialog 적용하기
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        //dialog.window?.attributes?.windowAnimations = R.style.AppFullScreenDialog
         return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnBackPressedHandler()
-        // AgeNumPickerDialog를 띄운다.
+        initPetAgeEditText()
+    }
+
+    private fun initPetAgeEditText() {
         binding.etInputPetAge.setOnClickListener {
-            val ageNumPickerDialog = AgeNumPickerDialog(requireContext())
-            ageNumPickerDialog.show()
+            showAgeNumPickerDialog()
         }
+    }
+
+    private fun showAgeNumPickerDialog() {
+        val ageNumPickerDialog = AgeNumPickerDialog(requireContext(), this)
+        ageNumPickerDialog.show()
     }
 
     private fun dismissWithAnimation() {
@@ -70,5 +73,9 @@ class AddContactDialogFragment : DialogFragment() {
                 dismissWithAnimation()
             }
         })
+    }
+
+    override fun onAgeSelected(age: Int) {
+        binding.etInputPetAge.setText(age.toString())
     }
 }

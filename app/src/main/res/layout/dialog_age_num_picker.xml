@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/shp_button_left_bottom_radius"
-        android:text="닫기"
+        android:text="@string/btn_label_close"
         app:layout_constraintEnd_toStartOf="@id/btn_number_picker_confirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/number_picker_age" />
@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/shp_button_right_bottom_radius"
-        android:text="확인"
+        android:text="@string/btn_label_confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_number_picker_close"
         app:layout_constraintTop_toTopOf="@id/btn_number_picker_close" />

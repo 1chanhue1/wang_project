@@ -1,14 +1,17 @@
-package com.chanhue.dps.ui
+package com.chanhue.dps.ui.dialog
 
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
-import com.chanhue.dps.R
 import com.chanhue.dps.databinding.DialogAgeNumPickerBinding
+import com.chanhue.dps.ui.AgeSelectListener
 
-class AgeNumPickerDialog(context: Context) : Dialog(context) {
+class AgeNumPickerDialog(
+    context: Context,
+    private val listener: AgeSelectListener
+) : Dialog(context) {
     private val binding: DialogAgeNumPickerBinding by lazy {
         DialogAgeNumPickerBinding.inflate(layoutInflater)
     }
@@ -27,7 +30,7 @@ class AgeNumPickerDialog(context: Context) : Dialog(context) {
         setAlarmTimePicker()
 
         binding.btnNumberPickerConfirm.setOnClickListener {
-            Toast.makeText(context, age.toString(), Toast.LENGTH_SHORT).show()
+            listener.onAgeSelected(age)
             dismiss()
         }
 

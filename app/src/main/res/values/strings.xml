@@ -26,5 +26,8 @@
     <string name="label_memo">메모</string>
     <string name="hint_memo">50자 이내로 입력해주세요</string>
     <string name="label_personality">성격</string>
-    <string name="hint_age">20</string>
+    <string name="hint_age">5</string>
+    <string name="hint_personality">추가할 성격을 입력해주세요</string>
+    <string name="btn_label_close">닫기</string>
+    <string name="btn_label_confirm">확인</string>
 </resources>

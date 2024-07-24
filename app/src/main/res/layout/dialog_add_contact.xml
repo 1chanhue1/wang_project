@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:gravity="center"
                 android:text="@string/label_pet_profile_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +52,7 @@
                 android:contentDescription="@string/description_add_pet_profile"
                 android:padding="35dp"
                 android:src="@drawable/ic_add_photo"
+                app:layout_constraintEnd_toEndOf="@+id/tv_label_dialog_pet_profile"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_profile"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_pet_profile" />
 
@@ -59,7 +61,7 @@
                 style="@style/AppTextTitle.S16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/label_owner_name"
                 app:layout_constraintEnd_toStartOf="@id/tv_label_dialog_owner_gender"
@@ -70,7 +72,7 @@
                 android:id="@+id/et_input_owner_name"
                 style="@style/AppEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="6dp"
                 android:hint="@string/hint_owner_name"
                 android:importantForAutofill="no"
@@ -107,7 +109,7 @@
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="0dp"
-                    android:paddingVertical="13dp"
+                    android:paddingVertical="14dp"
                     android:text="@string/label_gender_male" />
 
                 <com.google.android.material.button.MaterialButton
@@ -116,7 +118,7 @@
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="0dp"
-                    android:paddingVertical="13dp"
+                    android:paddingVertical="14dp"
                     android:text="@string/label_gender_female" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -136,7 +138,7 @@
                 android:id="@+id/et_input_phone_number"
                 style="@style/AppEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="6dp"
                 android:hint="@string/hint_phone_number"
                 android:importantForAutofill="no"
@@ -161,7 +163,7 @@
                 android:id="@+id/et_input_region"
                 style="@style/AppEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="6dp"
                 android:hint="@null"
                 android:importantForAutofill="no"
@@ -186,7 +188,7 @@
                 android:id="@+id/et_input_pet_name"
                 style="@style/AppEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="6dp"
                 android:hint="@string/hint_pet_name"
                 android:importantForAutofill="no"
@@ -223,7 +225,7 @@
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="0dp"
-                    android:paddingVertical="13dp"
+                    android:paddingVertical="14dp"
                     android:text="@string/label_gender_male" />
 
                 <com.google.android.material.button.MaterialButton
@@ -232,7 +234,7 @@
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="0dp"
-                    android:paddingVertical="13dp"
+                    android:paddingVertical="14dp"
                     android:text="@string/label_gender_female" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -253,7 +255,7 @@
                 android:id="@+id/et_input_pet_species"
                 style="@style/AppEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="6dp"
                 android:hint="@string/hint_pet_name"
                 android:importantForAutofill="no"
@@ -276,8 +278,7 @@
                 android:id="@+id/et_input_pet_age"
                 style="@style/AppEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_height="48dp"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:hint="@string/hint_age"
@@ -285,7 +286,7 @@
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_age"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_age"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_pet_age" />
+                app:layout_constraintTop_toTopOf="@id/et_input_pet_species" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -381,7 +382,6 @@
                     android:layout_height="38dp"
                     android:background="@drawable/shp_chip_add"
                     android:src="@drawable/ic_plus" />
-
 
             </com.google.android.material.chip.ChipGroup>
 
