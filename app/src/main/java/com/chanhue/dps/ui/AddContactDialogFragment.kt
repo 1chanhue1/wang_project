@@ -48,7 +48,8 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
 
     private fun initPetAgeEditText() {
         binding.etInputPetAge.setOnClickListener {
-            showAgeNumPickerDialog()
+            // etInputPetAge의 텍스트값을 전달
+            showAgeNumPickerDialog(binding.etInputPetAge.text.toString().toIntOrNull())
         }
     }
 
@@ -67,8 +68,8 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         }
     }
 
-    private fun showAgeNumPickerDialog() {
-        val ageNumPickerDialog = AgeNumPickerDialog(requireContext(), this)
+    private fun showAgeNumPickerDialog(num : Int?) {
+        val ageNumPickerDialog = AgeNumPickerDialog(requireContext(), false, num, this)
         ageNumPickerDialog.show()
     }
 

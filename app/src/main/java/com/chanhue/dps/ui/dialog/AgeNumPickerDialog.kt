@@ -10,6 +10,8 @@ import com.chanhue.dps.ui.AgeSelectListener
 
 class AgeNumPickerDialog(
     context: Context,
+    private val isOwner: Boolean,
+    private val originNum : Int?,
     private val listener: AgeSelectListener
 ) : Dialog(context) {
     private val binding: DialogAgeNumPickerBinding by lazy {
@@ -40,11 +42,20 @@ class AgeNumPickerDialog(
     }
 
     private fun setAlarmTimePicker() {
-        with(binding.numberPickerAge) {
-            minValue = 0
-            maxValue = 30
-            value = 20
-            wrapSelectorWheel = false
+        if (isOwner) {
+            with(binding.numberPickerAge) {
+                minValue = 0
+                maxValue = 100
+                value = originNum ?: 20
+                wrapSelectorWheel = false
+            }
+        } else {
+            with(binding.numberPickerAge) {
+                minValue = 0
+                maxValue = 30
+                value = originNum ?: 5
+                wrapSelectorWheel = false
+            }
         }
     }
 }
