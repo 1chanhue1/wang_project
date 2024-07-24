@@ -130,7 +130,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/label_phone_number"
-                app:layout_constraintEnd_toEndOf="@id/group_btn_owner_gender"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toStartOf="@id/tv_label_dialog_owner_age"
                 app:layout_constraintStart_toStartOf="@id/et_input_owner_name"
                 app:layout_constraintTop_toBottomOf="@id/et_input_owner_name" />
 
@@ -149,13 +150,47 @@
                 tools:ignore="TextFields" />
 
             <TextView
+                android:id="@+id/tv_label_dialog_owner_age"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_owner_age"
+                app:layout_constraintEnd_toEndOf="@id/group_btn_owner_gender"
+                app:layout_constraintStart_toEndOf="@id/tv_label_dialog_phone_number"
+                app:layout_constraintTop_toTopOf="@id/tv_label_dialog_phone_number" />
+
+            <EditText
+                android:id="@+id/et_input_owner_age"
+                style="@style/AppEditText"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/hint_owner_age"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_owner_age"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_owner_age"
+                app:layout_constraintTop_toTopOf="@id/et_input_phone_number" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/description_dialog_fold_icon"
+                android:src="@drawable/baseline_unfold_more_24"
+                app:layout_constraintBottom_toBottomOf="@id/et_input_owner_age"
+                app:layout_constraintEnd_toEndOf="@id/et_input_owner_age"
+                app:layout_constraintTop_toTopOf="@id/et_input_owner_age" />
+
+            <TextView
                 android:id="@+id/tv_label_dialog_region"
                 style="@style/AppTextTitle.S16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/label_region"
-                app:layout_constraintEnd_toEndOf="@id/et_input_phone_number"
+                app:layout_constraintEnd_toEndOf="@+id/et_input_owner_age"
                 app:layout_constraintStart_toStartOf="@id/et_input_phone_number"
                 app:layout_constraintTop_toBottomOf="@id/et_input_phone_number" />
 
@@ -281,7 +316,7 @@
                 android:layout_height="48dp"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:hint="@string/hint_age"
+                android:hint="@string/hint_pet_age"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_age"

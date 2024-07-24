@@ -41,23 +41,35 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnBackPressedHandler()
+        initOwnerAgeEditText()
         initPetAgeEditText()
         setPersonalityChips()
         initAddPersonalityImageView()
     }
 
+    private fun initOwnerAgeEditText() {
+        with(binding.etInputOwnerAge) {
+            setOnClickListener {
+                showAgeNumPickerDialog(text.toString().toIntOrNull(), true)
+            }
+        }
+    }
+
     private fun initPetAgeEditText() {
-        binding.etInputPetAge.setOnClickListener {
-            // etInputPetAge의 텍스트값을 전달
-            showAgeNumPickerDialog(binding.etInputPetAge.text.toString().toIntOrNull())
+        with(binding.etInputPetAge) {
+            setOnClickListener {
+                showAgeNumPickerDialog(text.toString().toIntOrNull(), false)
+            }
         }
     }
 
     private fun setPersonalityChips() {
         for (personality in personalityList) {
             val chip = createNewChip(personality)
-            val position = binding.chipGroupDialogPersonality.childCount - 1
-            binding.chipGroupDialogPersonality.addView(chip, position)
+            with(binding.chipGroupDialogPersonality) {
+                val position = childCount - 1
+                addView(chip, position)
+            }
         }
     }
 
@@ -68,8 +80,8 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         }
     }
 
-    private fun showAgeNumPickerDialog(num : Int?) {
-        val ageNumPickerDialog = AgeNumPickerDialog(requireContext(), false, num, this)
+    private fun showAgeNumPickerDialog(num : Int?, isOwner: Boolean) {
+        val ageNumPickerDialog = AgeNumPickerDialog(requireContext(), isOwner, num, this)
         ageNumPickerDialog.show()
     }
 
@@ -96,17 +108,25 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         })
     }
 
-    override fun onAgeSelected(age: Int) {
-        binding.etInputPetAge.setText(age.toString())
+    override fun onAgeSelected(age: Int, isOwner: Boolean) {
+        with(binding) {
+            if (isOwner) {
+                etInputOwnerAge.setText(age.toString())
+            } else {
+                etInputPetAge.setText(age.toString())
+            }
+        }
     }
 
     override fun onPersonalityUpdated(personality: String) {
         val chip = createNewChip(personality)
-        if (binding.chipGroupDialogPersonality.childCount > 0) {
-            val position = binding.chipGroupDialogPersonality.childCount - 1
-            binding.chipGroupDialogPersonality.addView(chip, position)
-        } else {
-            binding.chipGroupDialogPersonality.addView(chip)
+        with(binding.chipGroupDialogPersonality) {
+            if (childCount > 0) {
+                val position = childCount - 1
+                addView(chip, position)
+            } else {
+                addView(chip)
+            }
         }
         personalityList.add(personality)
     }
@@ -122,14 +142,16 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     }
 
     private fun deleteChip(text: String) {
-        for (i in 0 until binding.chipGroupDialogPersonality.childCount) {
-            val childView = binding.chipGroupDialogPersonality.getChildAt(i)
-            if (childView is Chip) {
-                val chip = childView as Chip
-                if (chip.text == text) {
-                    personalityList.remove(text)
-                    binding.chipGroupDialogPersonality.removeView(chip)
-                    break
+        with(binding.chipGroupDialogPersonality) {
+            for (i in 0 until childCount) {
+                val childView = getChildAt(i)
+                if (childView is Chip) {
+                    val chip = childView as Chip
+                    if (chip.text == text) {
+                        personalityList.remove(text)
+                        removeView(chip)
+                        break
+                    }
                 }
             }
         }

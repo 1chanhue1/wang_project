@@ -32,7 +32,7 @@ class AgeNumPickerDialog(
         setAlarmTimePicker()
 
         binding.btnNumberPickerConfirm.setOnClickListener {
-            listener.onAgeSelected(age)
+            listener.onAgeSelected(age, isOwner)
             dismiss()
         }
 
