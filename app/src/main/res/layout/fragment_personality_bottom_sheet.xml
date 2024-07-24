@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/shp_bottom_sheet"
     android:paddingHorizontal="20dp"
     android:paddingBottom="40dp">
 
@@ -26,24 +27,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="20dp"
+        android:paddingVertical="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_input_personality">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_category"
+            android:id="@+id/chip_group_personality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
             android:inputType="textMultiLine"
-            android:visibility="visible"
-            app:chipSpacingHorizontal="11dp"
-            app:chipSpacingVertical="6dp"
-            app:singleSelection="true"
-            tools:visibility="visible">
+            app:chipSpacingHorizontal="8dp"
+            app:chipSpacingVertical="0dp">
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -67,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:background="@drawable/shp_button_enabled"
-        android:text="@string/btn_label_confirm"
+        android:text="@string/btn_label_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_personality_close"
         app:layout_constraintTop_toTopOf="@id/btn_personality_close" />

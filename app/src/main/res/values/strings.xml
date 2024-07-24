@@ -30,4 +30,5 @@
     <string name="hint_personality">추가할 성격을 입력해주세요</string>
     <string name="btn_label_close">닫기</string>
     <string name="btn_label_confirm">확인</string>
+    <string name="btn_label_add">추가</string>
 </resources>
