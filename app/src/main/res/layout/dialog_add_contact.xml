@@ -26,7 +26,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp">
 
             <TextView
                 android:id="@+id/tv_label_dialog_pet_profile"
@@ -279,7 +280,7 @@
                 android:layout_marginTop="6dp"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:hint="@null"
+                android:hint="@string/hint_age"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_age"
@@ -290,8 +291,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:src="@drawable/baseline_unfold_more_24"
                 android:contentDescription="@string/description_dialog_fold_icon"
+                android:src="@drawable/baseline_unfold_more_24"
                 app:layout_constraintBottom_toBottomOf="@id/et_input_pet_age"
                 app:layout_constraintEnd_toEndOf="@id/et_input_pet_age"
                 app:layout_constraintTop_toTopOf="@id/et_input_pet_age" />
@@ -312,12 +313,12 @@
                 style="@style/AppEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:minHeight="80dp"
                 android:layout_marginTop="6dp"
                 android:gravity="top"
                 android:hint="@string/hint_memo"
                 android:importantForAutofill="no"
-                android:inputType="text"
+                android:inputType="textMultiLine"
+                android:minHeight="80dp"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_memo"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_memo"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_memo" />
@@ -332,6 +333,57 @@
                 app:layout_constraintEnd_toEndOf="@id/et_input_memo"
                 app:layout_constraintStart_toStartOf="@id/et_input_memo"
                 app:layout_constraintTop_toBottomOf="@id/et_input_memo" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="6dp"
+                app:checkedChip="@id/chip_active"
+                app:chipSpacingHorizontal="11dp"
+                app:chipSpacingVertical="6dp"
+                app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_personality"
+                app:layout_constraintStart_toStartOf="@id/tv_label_dialog_personality"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_personality"
+                app:selectionRequired="true"
+                app:singleSelection="true"
+                tools:visibility="visible">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_active"
+                    style="@style/CustomChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="온순"
+                    android:textAlignment="center"
+                    android:translationY="-2dp" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/CustomChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="활발"
+                    android:textAlignment="center"
+                    android:translationY="-2dp" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/CustomChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고집이 쎔"
+                    android:textAlignment="center"
+                    android:translationY="-2dp" />
+
+                <ImageView
+                    android:id="@+id/iv_add_category"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/shp_chip_add"
+                    android:src="@drawable/ic_plus" />
+
+
+            </com.google.android.material.chip.ChipGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

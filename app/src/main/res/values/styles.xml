@@ -20,6 +20,25 @@
         <item name="cornerRadius">6dp</item>
     </style>
 
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipStrokeColor">@color/sel_stroke_color_chip_state</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipBackgroundColor">@color/sel_bg_chip_state</item>
+        <item name="android:textColor">@color/sel_text_color_chip_state</item>
+        <item name="textStartPadding">8dp</item>
+        <item name="textEndPadding">8dp</item>
+        <item name="chipIconVisible">false</item>
+        <!--<item name="chipIconTint">@color/icon_tint_category_state</item>
+        <item name="chipIconSize">12dp</item>
+        <item name="iconStartPadding">6dp</item>-->
+        <item name="chipEndPadding">3dp</item>
+        <item name="android:theme">@style/ChipOverlayTheme</item>
+    </style>
+
+    <style name="ChipOverlayTheme" parent="Theme.Material3.DayNight.NoActionBar">
+
+    </style>
+
     <style name="AppToolbar" parent="Widget.Material3.Toolbar">
         <item name="titleTextAppearance">@style/AppTextTitle.S18</item>
     </style>
