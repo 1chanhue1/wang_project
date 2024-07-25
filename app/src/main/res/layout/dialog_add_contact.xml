@@ -51,6 +51,7 @@
                 android:clipToOutline="true"
                 android:contentDescription="@string/description_add_pet_profile"
                 android:padding="35dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_add_photo"
                 app:layout_constraintEnd_toEndOf="@+id/tv_label_dialog_pet_profile"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_profile"
@@ -96,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:checkedButton="@+id/button2"
+                app:checkedButton="@+id/btn_label_owner_gender_male"
                 app:layout_constraintBottom_toBottomOf="@+id/et_input_owner_name"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_owner_gender"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_owner_gender"
@@ -129,8 +130,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/label_phone_number"
                 android:layout_marginEnd="10dp"
+                android:text="@string/label_phone_number"
                 app:layout_constraintEnd_toStartOf="@id/tv_label_dialog_owner_age"
                 app:layout_constraintStart_toStartOf="@id/et_input_owner_name"
                 app:layout_constraintTop_toBottomOf="@id/et_input_owner_name" />
@@ -247,7 +248,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:checkedButton="@+id/button2"
+                app:checkedButton="@+id/btn_label_pet_gender_male"
                 app:layout_constraintBottom_toBottomOf="@+id/et_input_pet_name"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_gender"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_gender"
@@ -382,30 +383,30 @@
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_personality"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_personality">
 
-<!--                <com.google.android.material.chip.Chip-->
-<!--                    android:id="@+id/chip_active"-->
-<!--                    style="@style/CustomChipStyle"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="온순"-->
-<!--                    android:textAlignment="center"-->
-<!--                    android:translationY="-2dp" />-->
+                <!--                <com.google.android.material.chip.Chip-->
+                <!--                    android:id="@+id/chip_active"-->
+                <!--                    style="@style/CustomChipStyle"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="온순"-->
+                <!--                    android:textAlignment="center"-->
+                <!--                    android:translationY="-2dp" />-->
 
-<!--                <com.google.android.material.chip.Chip-->
-<!--                    style="@style/CustomChipStyle"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="활발"-->
-<!--                    android:textAlignment="center"-->
-<!--                    android:translationY="-2dp" />-->
+                <!--                <com.google.android.material.chip.Chip-->
+                <!--                    style="@style/CustomChipStyle"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="활발"-->
+                <!--                    android:textAlignment="center"-->
+                <!--                    android:translationY="-2dp" />-->
 
-<!--                <com.google.android.material.chip.Chip-->
-<!--                    style="@style/CustomChipStyle"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="고집이 쎔"-->
-<!--                    android:textAlignment="center"-->
-<!--                    android:translationY="-2dp" />-->
+                <!--                <com.google.android.material.chip.Chip-->
+                <!--                    style="@style/CustomChipStyle"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="고집이 쎔"-->
+                <!--                    android:textAlignment="center"-->
+                <!--                    android:translationY="-2dp" />-->
 
                 <ImageView
                     android:id="@+id/iv_add_category"

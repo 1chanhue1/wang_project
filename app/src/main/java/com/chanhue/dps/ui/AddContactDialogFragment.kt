@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
@@ -63,11 +64,39 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         setLayout()
     }
 
+    override fun onAgeSelected(age: Int, isOwner: Boolean) {
+        with(binding) {
+            if (isOwner) {
+                etInputOwnerAge.setText(age.toString())
+            } else {
+                etInputPetAge.setText(age.toString())
+            }
+        }
+    }
+
+    override fun onPersonalityUpdated(personality: String) {
+        val chip = createNewChip(personality)
+        with(binding.chipGroupDialogPersonality) {
+            if (childCount > 0) {
+                val position = childCount - 1
+                addView(chip, position)
+            } else {
+                addView(chip)
+            }
+        }
+        personalityList.add(personality)
+    }
+
+    override fun onPersonalityDeleted(personality: String) {
+        deleteChip(personality)
+    }
+
     private fun setLayout() {
         initOwnerAgeEditText()
         initPetAgeEditText()
         setPersonalityChips()
         initAddPersonalityImageView()
+        setPetProfileImage()
     }
 
     private fun initOwnerAgeEditText() {
@@ -102,6 +131,12 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         }
     }
 
+    private fun setPetProfileImage() {
+        binding.ivDialogPetProfile.setOnClickListener {
+            openGalleryForImage()
+        }
+    }
+
     private fun showAgeNumPickerDialog(num : Int?, isOwner: Boolean) {
         val ageNumPickerDialog = AgeNumPickerDialog(requireContext(), isOwner, num, this)
         ageNumPickerDialog.show()
@@ -112,31 +147,8 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         personalityBottomSheet.show(parentFragmentManager, tag)
     }
 
-    override fun onAgeSelected(age: Int, isOwner: Boolean) {
-        with(binding) {
-            if (isOwner) {
-                etInputOwnerAge.setText(age.toString())
-            } else {
-                etInputPetAge.setText(age.toString())
-            }
-        }
-    }
-
-    override fun onPersonalityUpdated(personality: String) {
-        val chip = createNewChip(personality)
-        with(binding.chipGroupDialogPersonality) {
-            if (childCount > 0) {
-                val position = childCount - 1
-                addView(chip, position)
-            } else {
-                addView(chip)
-            }
-        }
-        personalityList.add(personality)
-    }
-
-    override fun onPersonalityDeleted(personality: String) {
-        deleteChip(personality)
+    private fun openGalleryForImage() {
+        pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     private fun createNewChip(text: String): Chip {
