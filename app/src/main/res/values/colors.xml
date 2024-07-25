@@ -6,5 +6,6 @@
     <color name="light_orange">#FFDDC9</color>
     <color name="light_yellow">#FFFCE1</color>
     <color name="gray">#BCBCBC</color>
+    <color name="light_gray">#EFEFEF</color>
 
 </resources>

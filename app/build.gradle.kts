@@ -9,6 +9,7 @@ android {
     namespace = "com.chanhue.dps"
     compileSdk = 34
 
+
     defaultConfig {
         applicationId = "com.chanhue.dps"
         minSdk = 31
@@ -34,6 +35,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
