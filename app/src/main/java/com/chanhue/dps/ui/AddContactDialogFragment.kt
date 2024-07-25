@@ -167,8 +167,8 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     }
 
     private fun showPersonalityBottomSheetDialog() {
-        val personalityBottomSheet = PersonalityBottomSheet(personalityList, this)
-        personalityBottomSheet.show(parentFragmentManager, personalityBottomSheet.tag)
+        val personalityBottomSheetFragment = PersonalityBottomSheetFragment(personalityList, this)
+        personalityBottomSheetFragment.show(parentFragmentManager, personalityBottomSheetFragment.tag)
     }
 
     private fun openGalleryForImage() {
