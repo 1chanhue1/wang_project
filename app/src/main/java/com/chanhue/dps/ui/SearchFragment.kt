@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -35,6 +36,16 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setOnBackPressedHandler()
         initRecyclerView()
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searchListAdapter.filter.filter(newText)
+                return true
+            }
+        })
     }
 
     private fun initRecyclerView() {
