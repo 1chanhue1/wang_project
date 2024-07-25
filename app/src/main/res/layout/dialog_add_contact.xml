@@ -144,7 +144,7 @@
                 android:layout_marginTop="6dp"
                 android:hint="@string/hint_phone_number"
                 android:importantForAutofill="no"
-                android:inputType="number"
+                android:inputType="phone"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_phone_number"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_phone_number"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_dialog_phone_number"
@@ -409,7 +409,7 @@
                 <!--                    android:translationY="-2dp" />-->
 
                 <ImageView
-                    android:id="@+id/iv_add_category"
+                    android:id="@+id/iv_add_personality"
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:background="@drawable/shp_chip_add"

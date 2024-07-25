@@ -3,6 +3,8 @@ package com.chanhue.dps.ui
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +44,21 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
             }
         }
 
+    private var isValidPetProfileImage = false
+    private var isValidOwnerName = false
+    private var isValidOwnerGender = false
+    private var isValidPhoneNumber = false
+    private var isValidOwnerAge = false
+    private var isValidRegion = false
+
+    private var isValidPetName = false
+    private var isValidPetGender = false
+    private var isValidPetSpecies = false
+    private var isValidPetAge = false
+    private var isValidPersonality = false
+
+    private var isValidMemo = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,6 +79,11 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         super.onViewCreated(view, savedInstanceState)
         setOnBackPressedHandler()
         setLayout()
+        binding.etInputPhoneNumber.apply {
+            filters = arrayOf(InputFilter.LengthFilter(13)) // 전화번호 입력 시 자동으로 - 추가
+            addTextChangedListener(PhoneNumberFormattingTextWatcher()) // 전화번호 입력 시 자동으로 - 추가
+        }
+
     }
 
     override fun onAgeSelected(age: Int, isOwner: Boolean) {
@@ -94,8 +116,9 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     private fun setLayout() {
         initOwnerAgeEditText()
         initPetAgeEditText()
-        setPersonalityChips()
+        initPhoneNumberEditText()
         initAddPersonalityImageView()
+        setPersonalityChips()
         setPetProfileImage()
     }
 
@@ -115,6 +138,19 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         }
     }
 
+    private fun initPhoneNumberEditText() {
+        binding.etInputPhoneNumber.apply {
+            filters = arrayOf(InputFilter.LengthFilter(13)) // 전화번호 입력 시 자동으로 - 추가
+            addTextChangedListener(PhoneNumberFormattingTextWatcher()) // 전화번호 입력 시 자동으로 - 추가
+        }
+    }
+
+    private fun initAddPersonalityImageView() {
+        binding.ivAddPersonality.setOnClickListener {
+            showPersonalityBottomSheetDialog()
+        }
+    }
+
     private fun setPersonalityChips() {
         for (personality in personalityList) {
             val chip = createNewChip(personality)
@@ -122,12 +158,6 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
                 val position = childCount - 1
                 addView(chip, position)
             }
-        }
-    }
-
-    private fun initAddPersonalityImageView() {
-        binding.ivAddCategory.setOnClickListener {
-            showPersonalityBottomSheetDialog()
         }
     }
 
@@ -144,7 +174,7 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
 
     private fun showPersonalityBottomSheetDialog() {
         val personalityBottomSheet = PersonalityBottomSheet(personalityList, this)
-        personalityBottomSheet.show(parentFragmentManager, tag)
+        personalityBottomSheet.show(parentFragmentManager, personalityBottomSheet.tag)
     }
 
     private fun openGalleryForImage() {
