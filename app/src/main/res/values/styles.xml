@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppFullScreenDialog" parent="Theme.AppCompat.Light.DialogWhenLarge">
+        <item name="android:statusBarColor">#AFD517</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
+    </style>
+
+    <style name="AppDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/dialog_slide_down</item>
+    </style>
+
+    <style name="AppMaterialToggleButton">
+        <item name="android:backgroundTint">@color/sel_gender_button</item>
+        <item name="android:textColor">@color/sel_gender_button_text</item>
+        <item name="strokeColor">@color/light_orange</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">6dp</item>
+    </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipStrokeColor">@color/sel_stroke_color_chip_state</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipBackgroundColor">@color/sel_bg_chip_state</item>
+        <item name="android:textColor">@color/sel_text_color_chip_state</item>
+        <item name="textStartPadding">10dp</item>
+        <item name="textEndPadding">8dp</item>
+        <item name="chipIconVisible">false</item>
+        <!--<item name="chipIconTint">@color/icon_tint_category_state</item>
+        <item name="chipIconSize">12dp</item>
+        <item name="iconStartPadding">6dp</item>-->
+        <item name="android:theme">@style/ChipOverlayTheme</item>
+    </style>
+
+    <style name="ChipOverlayTheme" parent="Theme.Material3.DayNight.NoActionBar">
+
+    </style>
+
+    <style name="CustomChipStyleWithIcon" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipStrokeColor">@color/sel_stroke_color_chip_state</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipBackgroundColor">@color/sel_bg_chip_state</item>
+        <item name="android:textColor">@color/sel_text_color_chip_state</item>v
+        <item name="android:textSize">16sp</item>
+        <item name="textStartPadding">10dp</item>
+        <item name="textEndPadding">2dp</item>
+        <item name="closeIconVisible">true</item>
+        <item name="closeIconEnabled">true</item>
+        <item name="closeIcon">@drawable/ic_close</item>
+        <item name="closeIconTint">@color/gray</item>
+        <item name="closeIconSize">18dp</item>
+        <item name="chipEndPadding">1dp</item>
+        <item name="closeIconEndPadding">11dp</item>
+        <item name="android:theme">@style/ChipOverlayTheme</item>
+    </style>
+
+    <style name="AppToolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/AppTextTitle.S18</item>
+    </style>
+
+    <style name="AppEditText">
+        <item name="android:textColor">@color/warm_black</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/sel_text_input_background</item>
+        <item name="android:paddingHorizontal">14dp</item>
+        <item name="android:paddingVertical">11dp</item>
+    </style>
+
+    <style name="AppTextTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/warm_black</item>
+    </style>
+
+    <style name="AppTextTitle.S18">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTextTitle.S16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTextTitle.S14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTextTitle.S16.Orange">
+        <item name="android:textColor">@color/orange</item>
+    </style>
+
+</resources>

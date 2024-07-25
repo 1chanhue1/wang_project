@@ -3,4 +3,6 @@
     <dimen name="sizeTitleText">32sp</dimen>
     <dimen name="sizeSubtitleText">22sp</dimen>
     <dimen name="sizeBodyText">18sp</dimen>
+    <dimen name="icon_size">110dp</dimen>
+
 </resources>
