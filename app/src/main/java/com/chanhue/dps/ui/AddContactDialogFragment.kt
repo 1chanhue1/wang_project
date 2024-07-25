@@ -9,14 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
-import com.chanhue.dps.DiaglogStateManager
+import com.chanhue.dps.DialogStateManager
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.DialogAddContactBinding
 import com.chanhue.dps.ui.dialog.AgeNumPickerDialog
@@ -79,11 +78,6 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         super.onViewCreated(view, savedInstanceState)
         setOnBackPressedHandler()
         setLayout()
-        binding.etInputPhoneNumber.apply {
-            filters = arrayOf(InputFilter.LengthFilter(13)) // 전화번호 입력 시 자동으로 - 추가
-            addTextChangedListener(PhoneNumberFormattingTextWatcher()) // 전화번호 입력 시 자동으로 - 추가
-        }
-
     }
 
     override fun onAgeSelected(age: Int, isOwner: Boolean) {
@@ -207,7 +201,7 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         // 뒤로가기 버튼을 눌렀을 때 다이얼로그를 닫는다.
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                DiaglogStateManager.setIsShowing(false)
+                DialogStateManager.setIsShowing(false)
                 dismissWithAnimation()
             }
         })
@@ -218,7 +212,7 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
             setCustomAnimations(0, R.anim.dialog_slide_down)
             remove(this@AddContactDialogFragment)
         }
-        DiaglogStateManager.setIsShowing(false)
+        DialogStateManager.setIsShowing(false)
     }
 
     override fun onDestroyView() {

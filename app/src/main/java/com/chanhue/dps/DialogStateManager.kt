@@ -1,6 +1,6 @@
 package com.chanhue.dps
 
-object DiaglogStateManager {
+object DialogStateManager {
     var isShowing = false
         private set
 

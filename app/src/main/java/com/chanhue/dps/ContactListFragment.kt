@@ -57,7 +57,7 @@ class ContactListFragment : Fragment() {
     }
 
     private fun showDialog() {
-        if (DiaglogStateManager.isShowing) return
+        if (DialogStateManager.isShowing) return
 
         val dialogFragment = AddContactDialogFragment()
         val fragmentManager = requireActivity().supportFragmentManager
@@ -73,7 +73,7 @@ class ContactListFragment : Fragment() {
 //            )
             add(android.R.id.content, dialogFragment)
         }
-        DiaglogStateManager.setIsShowing(true)
+        DialogStateManager.setIsShowing(true)
     }
 
     override fun onDestroyView() {
