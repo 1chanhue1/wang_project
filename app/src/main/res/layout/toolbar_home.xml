@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_toolbar_home_search_icon"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:contentDescription="@string/description_toolbar_main_search_icon"

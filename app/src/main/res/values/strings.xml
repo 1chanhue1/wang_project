@@ -38,5 +38,8 @@
     <string name="btn_label_close">닫기</string>
     <string name="btn_label_confirm">확인</string>
     <string name="btn_label_add">추가</string>
+    <string name="description_back">뒤로 가긱 아이콘</string>
+    <string name="hint_search">전화번호, 이름 검색</string>
+    <string name="format_item_name">%1$s | %2$s</string>
 
 </resources>
