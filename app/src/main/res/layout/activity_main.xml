@@ -7,18 +7,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <include
+        android:id="@+id/toolbar_home"
+        layout="@layout/toolbar_home" />
 
-    </androidx.appcompat.widget.Toolbar>
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@android:color/holo_blue_dark"
-        app:tabSelectedTextColor="@android:color/holo_blue_dark"
-        app:tabTextColor="@android:color/black"/>
+        android:background="@drawable/shp_tab_layout"
+        app:tabIndicatorColor="@color/orange"
+        app:tabIndicatorFullWidth="true"
+        app:tabSelectedTextColor="@color/orange"
+        app:tabTextColor="@color/warm_black" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

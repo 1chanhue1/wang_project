@@ -69,6 +69,11 @@
         <item name="android:paddingVertical">11dp</item>
     </style>
 
+    <style name="AppTabText">
+        <item name="android:textStyle">bold</item>
+        <item name="tabTextColor">@color/warm_black</item>
+    </style>
+
     <style name="AppTextTitle">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/warm_black</item>
