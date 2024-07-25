@@ -1,12 +1,16 @@
 package com.chanhue.dps.ui
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
 import com.chanhue.dps.DiaglogStateManager
@@ -21,6 +25,21 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     private val binding get() = _binding!!
 
     private val personalityList = mutableListOf("활발", "온순", "고집이 쎔")
+    private var petProfileImageUri = ""
+    val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            uri?.also { imageUri ->
+                binding.ivDialogPetProfile.apply {
+                    setPadding(0)
+                    setImageURI(imageUri)
+                }
+                petProfileImageUri = imageUri.toString()
+                requireActivity().contentResolver.takePersistableUriPermission(
+                    imageUri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +60,10 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnBackPressedHandler()
+        setLayout()
+    }
+
+    private fun setLayout() {
         initOwnerAgeEditText()
         initPetAgeEditText()
         setPersonalityChips()
@@ -75,8 +98,7 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
 
     private fun initAddPersonalityImageView() {
         binding.ivAddCategory.setOnClickListener {
-            val personalityBottomSheet = PersonalityBottomSheet(personalityList, this)
-            personalityBottomSheet.show(parentFragmentManager, tag)
+            showPersonalityBottomSheetDialog()
         }
     }
 
@@ -85,27 +107,9 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         ageNumPickerDialog.show()
     }
 
-    private fun dismissWithAnimation() {
-        parentFragmentManager.commit {
-            setCustomAnimations(0, R.anim.dialog_slide_down)
-            remove(this@AddContactDialogFragment)
-        }
-        DiaglogStateManager.setIsShowing(false)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun setOnBackPressedHandler() {
-        // 뒤로가기 버튼을 눌렀을 때 다이얼로그를 닫는다.
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                DiaglogStateManager.setIsShowing(false)
-                dismissWithAnimation()
-            }
-        })
+    private fun showPersonalityBottomSheetDialog() {
+        val personalityBottomSheet = PersonalityBottomSheet(personalityList, this)
+        personalityBottomSheet.show(parentFragmentManager, tag)
     }
 
     override fun onAgeSelected(age: Int, isOwner: Boolean) {
@@ -155,5 +159,28 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
                 }
             }
         }
+    }
+
+    private fun setOnBackPressedHandler() {
+        // 뒤로가기 버튼을 눌렀을 때 다이얼로그를 닫는다.
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                DiaglogStateManager.setIsShowing(false)
+                dismissWithAnimation()
+            }
+        })
+    }
+
+    private fun dismissWithAnimation() {
+        parentFragmentManager.commit {
+            setCustomAnimations(0, R.anim.dialog_slide_down)
+            remove(this@AddContactDialogFragment)
+        }
+        DiaglogStateManager.setIsShowing(false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
