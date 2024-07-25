@@ -5,4 +5,4 @@ data class MyProfile(
     val phoneNumber:String,
     val region:String,
     val emergencyNumber:String
-    )
+)
