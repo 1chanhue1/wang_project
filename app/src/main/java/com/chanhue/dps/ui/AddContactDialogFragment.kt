@@ -17,18 +17,18 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
 import com.chanhue.dps.DialogStateManager
 import com.chanhue.dps.R
-import com.chanhue.dps.databinding.DialogAddContactBinding
+import com.chanhue.dps.databinding.FragmentAddContactDialogBinding
 import com.chanhue.dps.ui.dialog.AgeNumPickerDialog
 import com.google.android.material.chip.Chip
 
 class AddContactDialogFragment : DialogFragment(), AgeSelectListener, PersonalityListener {
 
-    private var _binding: DialogAddContactBinding? = null
+    private var _binding: FragmentAddContactDialogBinding? = null
     private val binding get() = _binding!!
 
     private val personalityList = mutableListOf("활발", "온순", "고집이 쎔")
     private var petProfileImageUri = ""
-    val pickMedia =
+    private val pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             uri?.also { imageUri ->
                 binding.ivDialogPetProfile.apply {
@@ -63,7 +63,7 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DialogAddContactBinding.inflate(inflater, container, false)
+        _binding = FragmentAddContactDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
