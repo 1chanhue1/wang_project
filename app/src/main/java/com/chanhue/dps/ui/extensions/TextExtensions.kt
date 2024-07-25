@@ -26,7 +26,7 @@ fun String.isValidPhoneNumber(): Boolean {
 
 fun String.isValidPersonality(): Boolean {
     // 리스트의 길이가 0 초과 2이하 인지 확인
-    return split(",").size in 1..2
+    return isNotBlank() && split(",").size in 1..2
 }
 
 fun String.isValidMemo(): Boolean {
