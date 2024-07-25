@@ -92,37 +92,38 @@
                 app:layout_constraintStart_toEndOf="@id/tv_label_dialog_owner_name"
                 app:layout_constraintTop_toTopOf="@id/tv_label_dialog_owner_name" />
 
-            <com.google.android.material.button.MaterialButtonToggleGroup
+            <RadioGroup
                 android:id="@+id/group_btn_owner_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkedButton="@id/radio_btn_owner_gender_male"
                 android:orientation="horizontal"
-                app:checkedButton="@+id/btn_label_owner_gender_male"
                 app:layout_constraintBottom_toBottomOf="@+id/et_input_owner_name"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_owner_gender"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_owner_gender"
-                app:layout_constraintTop_toTopOf="@id/et_input_owner_name"
-                app:singleSelection="true">
+                app:layout_constraintTop_toTopOf="@id/et_input_owner_name">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_label_owner_gender_male"
-                    style="@style/AppMaterialToggleButton"
+                <RadioButton
+                    android:id="@+id/radio_btn_owner_gender_male"
                     android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="0dp"
-                    android:paddingVertical="14dp"
-                    android:text="@string/label_gender_male" />
+                    android:layout_height="48dp"
+                    android:background="@drawable/sel_radio_btn_left"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/label_gender_male"
+                    android:textColor="@color/sel_radio_btn_text" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_label_owner_gender_female"
-                    style="@style/AppMaterialToggleButton"
+                <RadioButton
+                    android:id="@+id/radio_btn_owner_gender_female"
                     android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="0dp"
-                    android:paddingVertical="14dp"
-                    android:text="@string/label_gender_female" />
+                    android:layout_height="48dp"
+                    android:background="@drawable/sel_radio_btn_right"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/label_gender_female"
+                    android:textColor="@color/sel_radio_btn_text" />
 
-            </com.google.android.material.button.MaterialButtonToggleGroup>
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/tv_label_dialog_phone_number"
@@ -243,37 +244,38 @@
                 app:layout_constraintStart_toEndOf="@id/tv_label_dialog_pet_name"
                 app:layout_constraintTop_toTopOf="@id/tv_label_dialog_pet_name" />
 
-            <com.google.android.material.button.MaterialButtonToggleGroup
+            <RadioGroup
                 android:id="@+id/group_btn_pet_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkedButton="@id/radio_btn_pet_gender_male"
                 android:orientation="horizontal"
-                app:checkedButton="@+id/btn_label_pet_gender_male"
                 app:layout_constraintBottom_toBottomOf="@+id/et_input_pet_name"
                 app:layout_constraintEnd_toEndOf="@id/tv_label_dialog_pet_gender"
                 app:layout_constraintStart_toStartOf="@id/tv_label_dialog_pet_gender"
-                app:layout_constraintTop_toTopOf="@id/et_input_pet_name"
-                app:singleSelection="true">
+                app:layout_constraintTop_toTopOf="@id/et_input_pet_name">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_label_pet_gender_male"
-                    style="@style/AppMaterialToggleButton"
+                <RadioButton
+                    android:id="@+id/radio_btn_pet_gender_male"
                     android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="0dp"
-                    android:paddingVertical="14dp"
-                    android:text="@string/label_gender_male" />
+                    android:layout_height="48dp"
+                    android:background="@drawable/sel_radio_btn_left"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/label_gender_male"
+                    android:textColor="@color/sel_radio_btn_text" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_label_pet_gender_female"
-                    style="@style/AppMaterialToggleButton"
+                <RadioButton
+                    android:id="@+id/radio_btn_pet_gender_female"
                     android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="0dp"
-                    android:paddingVertical="14dp"
-                    android:text="@string/label_gender_female" />
+                    android:layout_height="48dp"
+                    android:background="@drawable/sel_radio_btn_right"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/label_gender_female"
+                    android:textColor="@color/sel_radio_btn_text" />
 
-            </com.google.android.material.button.MaterialButtonToggleGroup>
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/tv_label_dialog_pet_species"
