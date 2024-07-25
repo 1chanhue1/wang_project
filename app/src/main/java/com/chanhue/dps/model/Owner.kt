@@ -6,7 +6,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Owner(
-
     val id:Int,
     val name:String,
     val gender:Boolean, // false 남자 true 여자
