@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = "마이페이지"
             }
         }.attach()
+        // test
 
 
 
