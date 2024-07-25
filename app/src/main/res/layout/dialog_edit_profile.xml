@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이름" />
+
+    <EditText
+        android:id="@+id/editPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="전화번호" />
+
+    <EditText
+        android:id="@+id/editRegion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="사는곳" />
+
+    <EditText
+        android:id="@+id/editEmergencyNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="긴급연락망" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.5"
+            android:background="@drawable/cancel_button_bg_round"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="취소"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.5"
+            android:background="@drawable/button_bg_round"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="저장"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</LinearLayout>
