@@ -34,6 +34,8 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     private val contactViewModel: ContactViewModel by activityViewModels()
     private var isGridLayout = false // 기본은 리스트 레이아웃
 
+    private lateinit var adapter: ContactAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,15 +49,23 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         initFloatingButton()
         initLayoutToggleButton()
 
-        // ViewModel - LiveData
+        adapter = ContactAdapter(emptyList())
+        binding.recyclerViewContacts.adapter = adapter
+
         contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-            val adapter = ContactAdapter(contacts)
-            binding.recyclerViewContacts.adapter = adapter
-            setLayoutManager()
+            adapter.updateContacts(contacts)
         }
 
-        binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
+        setLayoutManager()
 
+        // ViewModel - LiveData
+//        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
+//            val adapter = ContactAdapter(contacts)
+//            binding.recyclerViewContacts.adapter = adapter
+//            setLayoutManager()
+//        }
+
+        binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
     }
 
     private fun initFloatingButton() {
@@ -117,6 +127,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     }
 
     override fun onContactUpdated(contact: Contact) {
-        TODO("Not yet implemented")
+        contactViewModel.addContact(contact)
+
     }
 }
