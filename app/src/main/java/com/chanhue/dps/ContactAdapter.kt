@@ -7,32 +7,12 @@ import com.chanhue.dps.R
 import com.chanhue.dps.databinding.ItemContactBinding
 import com.chanhue.dps.model.Contact
 
-class ContactAdapter(private var contacts: List<Contact>, private val favoriteListener: (Contact) -> Unit) :
-    RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
+class ContactAdapter(
+    private var contactList: List<Contact>,
+    private val toggleFavoriteCallback: (Contact) -> Unit
+) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
-    inner class ContactViewHolder(private val binding: ItemContactBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(contact: Contact) {
-            // 연락처 정보를 뷰에 바인딩
-            val petProfile = contact.petProfile
-            binding.nameTextView.text = petProfile.name
-            binding.speciesTextView.text = petProfile.species
-            binding.ageTextView.text = petProfile.age.toString()
-            Glide.with(binding.thumbnailImageView.context)
-                .load(petProfile.thumbnailImage)
-                .error(R.drawable.mypage_default_image) // 기본 이미지 로드 실패 시
-                .into(binding.thumbnailImageView)
-
-            binding.ivFavorite.setImageResource(
-                if (contact.isFavorite) R.drawable.ic_heart_filled else R.drawable.ic_heart_empty
-            )
-
-            binding.ivFavorite.setOnClickListener {
-                favoriteListener(contact)
-            }
-        }
-    }
+    var onItemClick: ((Contact) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val binding = ItemContactBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -40,24 +20,39 @@ class ContactAdapter(private var contacts: List<Contact>, private val favoriteLi
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.bind(contacts[position])
+        val contact = contactList[position]
+        holder.bind(contact)
     }
 
-    override fun getItemCount(): Int {
-        return contacts.size
+    override fun getItemCount(): Int = contactList.size
+
+    inner class ContactViewHolder(private val binding: ItemContactBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(contact: Contact) {
+            binding.nameTextView.text = contact.owner.name
+            binding.speciesTextView.text = contact.petProfile.species
+            binding.ageTextView.text = contact.petProfile.age.toString()
+            // 썸네일 이미지와 즐겨찾기 아이콘 설정
+            Glide.with(binding.thumbnailImageView.context)
+                .load(contact.petProfile.thumbnailImage)
+                .into(binding.thumbnailImageView)
+
+            binding.ivFavorite.setImageResource(
+                if (contact.isFavorite) R.drawable.ic_favorite_full else R.drawable.ic_heart_empty
+            )
+
+            binding.ivFavorite.setOnClickListener {
+                toggleFavoriteCallback(contact)
+            }
+
+            itemView.setOnClickListener {
+                onItemClick?.invoke(contact)
+            }
+        }
     }
 
     fun updateContacts(newContacts: List<Contact>) {
-        contacts = newContacts
+        contactList = newContacts
         notifyDataSetChanged()
-    }
-
-    fun updateContactList(newContacts: List<Contact>) {
-        val diffCallback = ContactDiffCallback(contacts, newContacts)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-
-        contacts = newContacts
-        diffResult.dispatchUpdatesTo(this)
     }
 }
 
