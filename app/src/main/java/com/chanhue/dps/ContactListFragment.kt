@@ -24,7 +24,7 @@ import com.chanhue.dps.viewmodel.ContactViewModel
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+private const val ARG_CONTACT = "contact"
 
 class ContactListFragment : Fragment(), ContactUpdateListener {
 
@@ -33,7 +33,6 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 
     private val contactViewModel: ContactViewModel by activityViewModels()
     private var isGridLayout = false // 기본은 리스트 레이아웃
-    private lateinit var adapter: ContactAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,22 +47,12 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         initFloatingButton()
         initLayoutToggleButton()
 
-
-
-        adapter = ContactAdapter(emptyList())
-        binding.recyclerViewContacts.adapter = adapter
-
-        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-            adapter.updateContacts(contacts)
-        }
-        setLayoutManager()
-
         // ViewModel - LiveData
-//        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-//            val adapter = ContactAdapter(contacts)
-//            binding.recyclerViewContacts.adapter = adapter
-//            setLayoutManager()
-//        }
+        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
+            val adapter = ContactAdapter(contacts)
+            binding.recyclerViewContacts.adapter = adapter
+            setLayoutManager()
+        }
 
         binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
 
@@ -93,7 +82,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     private fun showDialog() {
         if (DialogStateManager.isShowing) return
 
-        val dialogFragment = AddContactDialogFragment(this)
+        val dialogFragment = AddContactDialogFragment.newInstance(ContactManager.getDefaultContact(), this)
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.commit {
             setReorderingAllowed(true)
@@ -111,17 +100,23 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(contact: Contact) =
+            ContactListFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_CONTACT, contact)
+                }
+            }
+
+        /*fun newInstance(param1: String, param2: String) =
             ContactListFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
-            }
+            }*/
     }
 
     override fun onContactUpdated(contact: Contact) {
-        contactViewModel.addContact(contact)
-
+        TODO("Not yet implemented")
     }
 }

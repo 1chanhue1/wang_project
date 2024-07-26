@@ -34,8 +34,13 @@ import com.chanhue.dps.ui.extensions.isValidPhoneNumber
 import com.google.android.material.chip.Chip
 
 class AddContactDialogFragment(
-    private val listener: ContactUpdateListener
+
 ) : DialogFragment(), AgeSelectListener, PersonalityListener {
+
+    private var listener: ContactUpdateListener? = null
+    private var contact: Contact? = null
+
+
 
     private var _binding: FragmentAddContactDialogBinding? = null
     private val binding get() = _binding!!
@@ -74,6 +79,20 @@ class AddContactDialogFragment(
 
     private var ownerGender = false
     private var petGender = false
+
+    companion object {
+        private const val ARG_CONTACT = "contact"
+
+        fun newInstance(contact: Contact, listener: ContactUpdateListener): AddContactDialogFragment {
+            return AddContactDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_CONTACT, contact)
+                    Log.d("AddContactDialog", "contact: $contact")
+                }
+                this.listener = listener
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -170,7 +189,7 @@ class AddContactDialogFragment(
             if (isAllInputValid()) {
                 createContact().let {
                     Log.d("AddContactDialog", "contact: $it")
-                    listener.onContactUpdated(it)
+                    listener?.onContactUpdated(it)
                     dismiss()
                 }
             } else {
