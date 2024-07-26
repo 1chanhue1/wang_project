@@ -64,6 +64,7 @@ class ContactListFragment : Fragment() {
 
         binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
 
+
     }
 
     private fun initFloatingButton() {
