@@ -26,9 +26,9 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.chanhue.dps.Constants.ITEM_INDEX
 import com.chanhue.dps.databinding.ActivityDetailBinding
 import com.chanhue.dps.model.Contact
-import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.model.ContactManager.getContactById
 import com.chanhue.dps.ui.AddContactDialogFragment
 import com.chanhue.dps.ui.ContactUpdateListener
@@ -42,7 +42,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     private lateinit var adapter: PhotoRecyclerAdapter
 
     private var imageFile = File("")
-    private val data = getContactById(1)
+    private var data: Contact? = null
     private var param = ""
     private var delayTime = 0
     private val random = Random
@@ -58,7 +58,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                 Toast.makeText(this, "Notification permission is required", Toast.LENGTH_SHORT).show()
             }
         }
-
 
     private val galleryPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -91,114 +90,127 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        data = intent.getParcelableExtra<Contact>(ITEM_INDEX)
+
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val randomNumber = random.nextInt(colors.size)
-        adapter = PhotoRecyclerAdapter(data.petProfile.dogImageList.toMutableList())
+        if (data != null) {
+            val randomNumber = random.nextInt(colors.size)
+            adapter = PhotoRecyclerAdapter(data!!.petProfile.dogImageList.toMutableList())
 
-        adapter.itemClick = object : PhotoRecyclerAdapter.ItemClick {
-            override fun onLongClick(view: View, position: Int) {
-                Log.d("DetailActivity", "onLongClick position: $position")
-                if (position > 0) {
-                    adapter.removeItem(position)
-                } else {
-                    Toast.makeText(
-                        this@DetailActivity,
-                        "Cannot delete this item",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            override fun onClick(view: View, position: Int) {
-                if (position == 0) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        galleryPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
+            adapter.itemClick = object : PhotoRecyclerAdapter.ItemClick {
+                override fun onLongClick(view: View, position: Int) {
+                    Log.d("DetailActivity", "onLongClick position: $position")
+                    if (position > 0) {
+                        adapter.removeItem(position)
                     } else {
-                        galleryPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        Toast.makeText(
+                            this@DetailActivity,
+                            "Cannot delete this item",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onClick(view: View, position: Int) {
+                    if (position == 0) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            galleryPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
+                        } else {
+                            galleryPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        }
                     }
                 }
             }
-        }
 
-        with(binding) {
-            with(detailToolbar) {
-                setOnMenuItemClickListener {
-                    when (it.itemId) {
-                        R.id.detail_edit_btn -> {
-                            val dataToSend = data
-                            val dialogFragment = AddContactDialogFragment.newInstance(dataToSend, this@DetailActivity)
-                            val fragmentManager = supportFragmentManager
-                            fragmentManager.commit {
-                                setReorderingAllowed(true)
-                                addToBackStack(null)
-                                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                add(R.id.detail_fragmenr_container, dialogFragment)
-                            }
+            with(binding) {
+                with(detailToolbar) {
+                    setOnMenuItemClickListener {
+                        when (it.itemId) {
+                            R.id.detail_edit_btn -> {
+                                val dataToSend = data
+                                val dialogFragment = dataToSend?.let { it1 ->
+                                    AddContactDialogFragment.newInstance(
+                                        it1, this@DetailActivity)
+                                }
+                                val fragmentManager = supportFragmentManager
+                                fragmentManager.commit {
+                                    setReorderingAllowed(true)
+                                    addToBackStack(null)
+                                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                    if (dialogFragment != null) {
+                                        add(R.id.detail_fragmenr_container, dialogFragment)
+                                    }
+                                }
 
-                            return@setOnMenuItemClickListener true
-                        }
-                        R.id.detail_favorite_btn -> {
-                            if (isClicked) {
-                                it.setIcon(R.drawable.ic_favorite_full)
-                                isClicked = false
-                                return@setOnMenuItemClickListener true
-                            } else {
-                                it.setIcon(R.drawable.ic_favorite)
-                                isClicked = true
                                 return@setOnMenuItemClickListener true
                             }
-                        }
-                        else -> {
-                            val dialog = NotificationDialogFragment(this@DetailActivity, "알람", 1)
-                            dialog.isCancelable = false
-                            dialog.show(this@DetailActivity.supportFragmentManager, "ConfirmDialog")
+                            R.id.detail_favorite_btn -> {
+                                if (isClicked) {
+                                    it.setIcon(R.drawable.ic_favorite_full)
+                                    isClicked = false
+                                    return@setOnMenuItemClickListener true
+                                } else {
+                                    it.setIcon(R.drawable.ic_favorite)
+                                    isClicked = true
+                                    return@setOnMenuItemClickListener true
+                                }
+                            }
+                            else -> {
+                                val dialog = NotificationDialogFragment(this@DetailActivity, "알람", 1)
+                                dialog.isCancelable = false
+                                dialog.show(this@DetailActivity.supportFragmentManager, "ConfirmDialog")
 
-                            return@setOnMenuItemClickListener true
+                                return@setOnMenuItemClickListener true
+                            }
+                        }
+                    }
+                    setBackgroundResource(colors[randomNumber])
+                }
+
+                detailPhotoRV.layoutManager =
+                    GridLayoutManager(this@DetailActivity, 3, GridLayoutManager.VERTICAL, false)
+                detailPhotoRV.adapter = adapter
+
+                detailBackground.setBackgroundResource(colors[randomNumber])
+                detailDivider.setBackgroundResource(colors[randomNumber])
+
+                detailBackBtn.setOnClickListener {
+                    finish()
+                }
+
+                Glide.with(detailProfileImg)
+                    .load(data!!.petProfile.thumbnailImage)
+                    .into(detailProfileImg)
+
+                detailNickname.text = data!!.owner.name
+                detailGenderAge.text = if (data!!.owner.gender) "여" else "남"
+                detailLocation.text = data!!.owner.region
+                detailCharacteristic.text = data!!.petProfile.memo
+
+                detailPhoneNumber.apply {
+                    text = data!!.owner.phoneNumber
+                    setOnClickListener {
+                        if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(this@DetailActivity, arrayOf(Manifest.permission.CALL_PHONE), PERMISSIONS_CALL_PHONE)
+                        } else {
+                            val callIntent = Intent(Intent.ACTION_CALL)
+                            callIntent.data = Uri.parse("tel:${data!!.owner.phoneNumber}")
+                            startActivity(callIntent)
                         }
                     }
                 }
-                setBackgroundResource(colors[randomNumber])
+                detailName.text = data!!.petProfile.name
+                detailAge.text = data!!.petProfile.age.toString()
+                detailSpecies.text = data!!.petProfile.species
+                detailGender.text = if (data!!.petProfile.gender) "여" else "남"
+                detailCharacter.text = data!!.petProfile.personality
             }
-
-            detailPhotoRV.layoutManager =
-                GridLayoutManager(this@DetailActivity, 3, GridLayoutManager.VERTICAL, false)
-            detailPhotoRV.adapter = adapter
-
-            detailBackground.setBackgroundResource(colors[randomNumber])
-            detailDivider.setBackgroundResource(colors[randomNumber])
-
-            detailBackBtn.setOnClickListener {
-                finish()
-            }
-
-            Glide.with(detailProfileImg)
-                .load(data.petProfile.thumbnailImage)
-                .into(detailProfileImg)
-
-            detailNickname.text = data.owner.name
-            detailGenderAge.text = if (data.owner.gender) "여" else "남"
-            detailLocation.text = data.owner.region
-            detailCharacteristic.text = data.petProfile.memo
-
-            detailPhoneNumber.apply {
-                text = data.owner.phoneNumber
-                setOnClickListener {
-                    if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(this@DetailActivity, arrayOf(Manifest.permission.CALL_PHONE), PERMISSIONS_CALL_PHONE)
-                    } else {
-                        val callIntent = Intent(Intent.ACTION_CALL)
-                        callIntent.data = Uri.parse("tel:${data.owner.phoneNumber}")
-                        startActivity(callIntent)
-                    }
-                }
-            }
-            detailName.text = data.petProfile.name
-            detailAge.text = data.petProfile.age.toString()
-            detailSpecies.text = data.petProfile.species
-            detailGender.text = if (data.petProfile.gender) "여" else "남"
-            detailCharacter.text = data.petProfile.personality
+        } else {
+            // 데이터가 null인 경우 적절한 처리를 합니다. 예를 들어, 에러 메시지를 보여주거나 액티비티를 종료합니다.
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show()
+            finish()
         }
 
         // Request notification permission on startup
@@ -260,8 +272,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
         }
     }
 
-
-
     fun scheduleNotification(data: String, delay: Int) {
         if (!notificationScheduled) {
             notificationScheduled = true
@@ -275,7 +285,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
         }
     }
 
-
     override fun onSubmitButtonClick(id: Int) {
         scheduleNotification(param, delayTime)
     }
@@ -287,7 +296,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     }
 
     override fun onContactUpdated(contact: Contact) {
-        TODO("Not yet implemented")
+        // TODO: Not yet implemented
     }
-
 }
