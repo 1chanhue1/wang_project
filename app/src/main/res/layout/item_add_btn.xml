@@ -5,9 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/detail_shp_img_bg"
     android:elevation="10dp"
-    android:layout_margin="6dp"
-    android:clickable="true"
-    android:focusable="true">
+    android:layout_margin="6dp">
 
     <ImageButton
         android:id="@+id/item_add_a_photo_btn"

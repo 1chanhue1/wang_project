@@ -2,6 +2,7 @@ package com.chanhue.dps
 
 import ContactAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import com.chanhue.dps.viewmodel.ContactViewModel
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private const val ARG_CONTACT = "contact"
 
 
 class ContactListFragment : Fragment() {
@@ -33,9 +35,11 @@ class ContactListFragment : Fragment() {
     private val contactViewModel: ContactViewModel by activityViewModels()
     private var isGridLayout = false // 기본은 리스트 레이아웃
 
+    private var param: Contact? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentContactListBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,13 +57,23 @@ class ContactListFragment : Fragment() {
             setLayoutManager()
         }
 
+        arguments?.let {
+            param = it.getParcelable(ARG_CONTACT)
+            Log.d("ContactListFragment1", param.toString())
+        }
+
         binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
 
     }
 
     private fun initFloatingButton() {
         binding.ivContact.setOnClickListener {
-            showDialog()
+            param.let {
+                Log.d("ContactListFragment2", "param: $it")
+                if (it != null) {
+                    showDialog(it)
+                }
+            }
         }
     }
 
@@ -78,10 +92,10 @@ class ContactListFragment : Fragment() {
         }
     }
 
-    private fun showDialog() {
+    private fun showDialog(data: Contact) {
         if (DialogStateManager.isShowing) return
 
-        val dialogFragment = AddContactDialogFragment()
+        val dialogFragment = AddContactDialogFragment.newInstance(data)
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.commit {
             setReorderingAllowed(true)
@@ -99,12 +113,19 @@ class ContactListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(contact: Contact) =
+            ContactListFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_CONTACT, contact)
+                }
+            }
+
+        /*fun newInstance(param1: String, param2: String) =
             ContactListFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
-            }
+            }*/
     }
 }

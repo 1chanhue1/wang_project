@@ -1,5 +1,6 @@
 package com.chanhue.dps
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +51,7 @@ class PhotoRecyclerAdapter(val items: MutableList<String>) : RecyclerView.Adapte
         // Setting long click listener
         holder.itemView.setOnLongClickListener {
             itemClick?.onLongClick(it, position)
-            true // Return true to indicate that the long click event has been handled
+            true
         }
     }
 
@@ -58,14 +59,14 @@ class PhotoRecyclerAdapter(val items: MutableList<String>) : RecyclerView.Adapte
 
     fun addItem(imageUri: String) {
         items.add(imageUri)
-        notifyItemInserted(items.size) // Notify item inserted
+        notifyItemInserted(items.size)
     }
 
     fun removeItem(position: Int) {
-        if (position > 0 && position < items.size + 1) { // Adjust position for header
-            items.removeAt(position - 1) // Adjust position due to header
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, items.size) // Notify that items may have shifted
+        if (position > 0 && position <= items.size) {
+            items.removeAt(position - 1)
+            notifyItemRemoved(position - 1)
+            notifyItemRangeChanged(position - 1, items.size)
         }
     }
 
@@ -87,9 +88,9 @@ class PhotoRecyclerAdapter(val items: MutableList<String>) : RecyclerView.Adapte
                 .load(item)
                 .into(binding.itemImg)
 
-            // Click listener
-            binding.itemImg.setOnClickListener {
-                itemClick?.onClick(it, adapterPosition + 1) // +1 for header
+            binding.itemImg.setOnLongClickListener {
+                itemClick?.onLongClick(it, adapterPosition)
+                true
             }
         }
     }
