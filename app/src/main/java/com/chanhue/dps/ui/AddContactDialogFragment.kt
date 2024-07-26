@@ -73,6 +73,17 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     private var ownerGender = false
     private var petGender = false
 
+    companion object {
+        private const val ARG_CONTACT = "contact"
+
+        fun newInstance(contact: Contact) =
+            AddContactDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_CONTACT, contact)
+                }
+            }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

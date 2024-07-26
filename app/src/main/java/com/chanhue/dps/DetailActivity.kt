@@ -8,6 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.chanhue.dps.databinding.ActivityDetailBinding
 import com.chanhue.dps.model.ContactManager.getContactById
+import com.chanhue.dps.ui.AddContactDialogFragment
 import java.io.File
 import kotlin.random.Random
 
@@ -25,12 +28,16 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var adapter: PhotoRecyclerAdapter
 
+    private val ARG_CONTACT = "contact"
+
     private var imageFile = File("")
 
     private val data = getContactById(1)
 
     private val random = Random
     private val colors = arrayListOf(R.color.light_orange, R.color.light_yellow)
+
+    private var isClicked = false
 
     private val galleryPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -67,10 +74,15 @@ class DetailActivity : AppCompatActivity() {
 
         adapter.itemClick = object : PhotoRecyclerAdapter.ItemClick {
             override fun onLongClick(view: View, position: Int) {
+                Log.d("DetailActivity", "onLongClick position: $position")
                 if (position > 0) {
                     adapter.removeItem(position)
                 } else {
-                    Toast.makeText(this@DetailActivity, "Cannot delete this item", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@DetailActivity,
+                        "Cannot delete this item",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -86,18 +98,42 @@ class DetailActivity : AppCompatActivity() {
         }
 
         with(binding) {
-            detailPhotoRV.layoutManager = GridLayoutManager(this@DetailActivity, 3, GridLayoutManager.VERTICAL, false)
-            detailPhotoRV.adapter = adapter
+            detailToolbar.setOnMenuItemClickListener {
+                when(it.itemId) {
+                    R.id.detail_edit_btn -> {
+                        val dataToSend = data
+                        val fragment = ContactListFragment.newInstance(dataToSend)
 
-            detailToolbar.apply {
-                setOnMenuItemClickListener {
-                    when (it.itemId) {
-                        0 -> true
-                        else -> false
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.detail_fragmenr_container, fragment)
+                            .commit()
+
+                        detailHeader.visibility = View.GONE
+
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.detail_favorite_btn -> {
+                        if (isClicked) {
+                            it.setIcon(R.drawable.ic_favorite_full)
+                            isClicked = false
+                            return@setOnMenuItemClickListener true
+                        } else {
+                            it.setIcon(R.drawable.ic_favorite)
+                            isClicked = true
+                            return@setOnMenuItemClickListener true
+                        }
+                    }
+                    else -> {
+                        return@setOnMenuItemClickListener true
                     }
                 }
-                setBackgroundResource(colors[randomNumber])
             }
+
+            detailPhotoRV.layoutManager =
+                GridLayoutManager(this@DetailActivity, 3, GridLayoutManager.VERTICAL, false)
+            detailPhotoRV.adapter = adapter
+
 
             detailBackground.setBackgroundResource(colors[randomNumber])
             detailDivider.setBackgroundResource(colors[randomNumber])

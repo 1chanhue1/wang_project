@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_favorite"
         android:title="@string/detail_favorite_btn"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/detail_notification_btn"
+        android:icon="@drawable/ic_notification"
+        android:title="@string/detail_notification_btn"
+        app:showAsAction="always" />
 </menu>
