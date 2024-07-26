@@ -1,4 +1,4 @@
-package com.chanhue.dps.ui
+package com.chanhue.dps.ui.fragment
 
 import android.app.Dialog
 import android.content.Intent

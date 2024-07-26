@@ -4,9 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Window
-import android.widget.Toast
 import com.chanhue.dps.databinding.DialogAgeNumPickerBinding
-import com.chanhue.dps.ui.AgeSelectListener
 
 class AgeNumPickerDialog(
     context: Context,

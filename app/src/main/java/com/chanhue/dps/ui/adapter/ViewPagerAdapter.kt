@@ -1,9 +1,10 @@
-package com.chanhue.dps
+package com.chanhue.dps.ui.adapter
 
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.chanhue.dps.ui.fragment.MyPageFragment
 
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 

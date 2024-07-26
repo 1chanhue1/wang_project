@@ -1,4 +1,4 @@
-package com.chanhue.dps.ui
+package com.chanhue.dps.ui.fragment
 
 import android.os.Bundle
 import android.util.Log

@@ -1,4 +1,4 @@
-package com.chanhue.dps.ui
+package com.chanhue.dps.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import com.chanhue.dps.DialogStateManager
-import com.chanhue.dps.MainActivity
+import com.chanhue.dps.ui.activity.MainActivity
 import com.chanhue.dps.databinding.FragmentSearchBinding
 import com.chanhue.dps.model.ContactManager
+import com.chanhue.dps.ui.adapter.SearchListAdapter
 
 class SearchFragment : Fragment() {
 

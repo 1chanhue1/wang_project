@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dps">
         <activity
-            android:name=".DetailActivity"
+            android:name=".ui.activity.DetailActivity"
             android:exported="true" >
 
 <!--            <intent-filter>-->
@@ -30,7 +30,7 @@
 
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
