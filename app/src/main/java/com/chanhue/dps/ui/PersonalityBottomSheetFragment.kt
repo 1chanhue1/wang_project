@@ -10,7 +10,7 @@ import com.chanhue.dps.databinding.FragmentPersonalityBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 
-class PersonalityBottomSheet(
+class PersonalityBottomSheetFragment(
     private var personalityList: List<String>,
     private val listener: PersonalityListener
 ) : BottomSheetDialogFragment() {

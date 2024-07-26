@@ -10,5 +10,6 @@ data class Owner(
     val name:String,
     val gender:Boolean, // false 남자 true 여자
     val phoneNumber:String,
+    val age: Int,
     val region:String
 ):Parcelable

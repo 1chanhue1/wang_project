@@ -5,30 +5,42 @@ import android.content.Intent
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.text.InputFilter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.setPadding
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
+import com.chanhue.dps.Constants
 import com.chanhue.dps.DialogStateManager
 import com.chanhue.dps.R
-import com.chanhue.dps.databinding.DialogAddContactBinding
+import com.chanhue.dps.databinding.FragmentAddContactDialogBinding
+import com.chanhue.dps.model.Contact
+import com.chanhue.dps.model.ContactManager
+import com.chanhue.dps.model.Owner
+import com.chanhue.dps.model.PetProfile
 import com.chanhue.dps.ui.dialog.AgeNumPickerDialog
+import com.chanhue.dps.ui.extensions.isValidInput
+import com.chanhue.dps.ui.extensions.isValidMemo
+import com.chanhue.dps.ui.extensions.isValidPersonality
+import com.chanhue.dps.ui.extensions.isValidPhoneNumber
 import com.google.android.material.chip.Chip
 
 class AddContactDialogFragment : DialogFragment(), AgeSelectListener, PersonalityListener {
 
-    private var _binding: DialogAddContactBinding? = null
+    private var _binding: FragmentAddContactDialogBinding? = null
     private val binding get() = _binding!!
 
     private val personalityList = mutableListOf("활발", "온순", "고집이 쎔")
     private var petProfileImageUri = ""
-    val pickMedia =
+    private val pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             uri?.also { imageUri ->
                 binding.ivDialogPetProfile.apply {
@@ -45,25 +57,28 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
 
     private var isValidPetProfileImage = false
     private var isValidOwnerName = false
-    private var isValidOwnerGender = false
+//    private var isValidOwnerGender = false
     private var isValidPhoneNumber = false
     private var isValidOwnerAge = false
     private var isValidRegion = false
 
     private var isValidPetName = false
-    private var isValidPetGender = false
+//    private var isValidPetGender = false 라디오 버튼이라 항상 true
     private var isValidPetSpecies = false
     private var isValidPetAge = false
     private var isValidPersonality = false
 
     private var isValidMemo = false
 
+    private var ownerGender = false
+    private var petGender = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DialogAddContactBinding.inflate(inflater, container, false)
+        _binding = FragmentAddContactDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -114,6 +129,8 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         initAddPersonalityImageView()
         setPersonalityChips()
         setPetProfileImage()
+        setTextInput()
+        initAddContactButton()
     }
 
     private fun initOwnerAgeEditText() {
@@ -134,7 +151,7 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
 
     private fun initPhoneNumberEditText() {
         binding.etInputPhoneNumber.apply {
-            filters = arrayOf(InputFilter.LengthFilter(13)) // 전화번호 입력 시 자동으로 - 추가
+            filters = arrayOf(InputFilter.LengthFilter(Constants.PHONE_NUMBER_FORMAT_LENGTH)) // 전화번호 입력 시 자동으로 - 추가
             addTextChangedListener(PhoneNumberFormattingTextWatcher()) // 전화번호 입력 시 자동으로 - 추가
         }
     }
@@ -142,6 +159,74 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     private fun initAddPersonalityImageView() {
         binding.ivAddPersonality.setOnClickListener {
             showPersonalityBottomSheetDialog()
+        }
+    }
+
+    private fun initAddContactButton() {
+        binding.toolbarDialogAddContact.tvToolbarAction.setOnClickListener {
+            validateInputs()
+            if (isAllInputValid()) {
+                createContact()?.let {
+                    Log.d("AddContactDialog", "contact: $it")
+                    dismissWithAnimation()
+                }
+            }
+        }
+    }
+
+    private fun validateInputs() {
+        with(binding) {
+            isValidPetProfileImage = petProfileImageUri.isValidInput()
+            isValidOwnerName = etInputOwnerName.text.toString().isValidInput()
+            ownerGender = radioBtnOwnerGenderFemale.isChecked
+            isValidPhoneNumber = etInputPhoneNumber.text.toString().isValidPhoneNumber()
+            isValidOwnerAge = etInputOwnerAge.text.toString().isValidInput()
+            isValidRegion = etInputRegion.text.toString().isValidInput()
+            isValidPetName = etInputPetName.text.toString().isValidInput()
+            petGender = radioBtnPetGenderFemale.isChecked
+            isValidPetSpecies = etInputPetSpecies.text.toString().isValidInput()
+            isValidPetAge = etInputPetAge.text.toString().isValidInput()
+            isValidPersonality = chipGroupDialogPersonality.checkedChipIds
+                .map { chipId -> chipGroupDialogPersonality.findViewById<Chip>(chipId).text.toString() }
+                .joinToString(", ")
+                .isValidPersonality()
+            isValidMemo = etInputMemo.text.toString().isValidMemo()
+        }
+    }
+
+    private fun isAllInputValid(): Boolean {
+        return isValidPetProfileImage && isValidOwnerName && isValidPhoneNumber && isValidOwnerAge && isValidRegion &&
+                isValidPetName && isValidPetSpecies && isValidPetAge && isValidPersonality && isValidMemo
+    }
+
+    private fun createContact(): Contact {
+        with(binding) {
+            val selectedChipList = chipGroupDialogPersonality.checkedChipIds.map { chipId ->
+                chipGroupDialogPersonality.findViewById<Chip>(chipId).text.toString()
+            }
+
+            return Contact(
+                ContactManager.getContactLastId() + 1,
+                PetProfile(
+                    ContactManager.getPetProfileLastId() + 1,
+                    petProfileImageUri,
+                    etInputPetName.text.toString(),
+                    petGender,
+                    etInputPetAge.text.toString().toInt(),
+                    etInputPetSpecies.text.toString(),
+                    mutableListOf(),
+                    selectedChipList.joinToString(", "),
+                    etInputMemo.text.toString()
+                ),
+                Owner(
+                    ContactManager.getOwnerLastId() + 1,
+                    etInputOwnerName.text.toString(),
+                    ownerGender,
+                    etInputPhoneNumber.text.toString(),
+                    etInputOwnerAge.text.toString().toInt(),
+                    etInputRegion.text.toString()
+                )
+            )
         }
     }
 
@@ -161,14 +246,30 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         }
     }
 
+    private fun setTextInput() {
+        binding.etInputPhoneNumber.doAfterTextChanged {
+            val phoneNumber = it?.toString() ?: ""
+            isValidPhoneNumber = phoneNumber.isValidPhoneNumber()
+            updateEditTextFocusState(binding.etInputPhoneNumber, isValidPhoneNumber)
+        }
+    }
+
+    private fun updateEditTextFocusState(editText: EditText, isValid: Boolean) {
+        if (!isValid) {
+            editText.setBackgroundResource(R.drawable.sel_text_input_background_red)
+        } else {
+            editText.setBackgroundResource(R.drawable.sel_text_input_background)
+        }
+    }
+
     private fun showAgeNumPickerDialog(num : Int?, isOwner: Boolean) {
         val ageNumPickerDialog = AgeNumPickerDialog(requireContext(), isOwner, num, this)
         ageNumPickerDialog.show()
     }
 
     private fun showPersonalityBottomSheetDialog() {
-        val personalityBottomSheet = PersonalityBottomSheet(personalityList, this)
-        personalityBottomSheet.show(parentFragmentManager, personalityBottomSheet.tag)
+        val personalityBottomSheetFragment = PersonalityBottomSheetFragment(personalityList, this)
+        personalityBottomSheetFragment.show(parentFragmentManager, personalityBottomSheetFragment.tag)
     }
 
     private fun openGalleryForImage() {

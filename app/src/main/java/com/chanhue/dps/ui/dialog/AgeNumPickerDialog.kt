@@ -44,14 +44,14 @@ class AgeNumPickerDialog(
     private fun setAlarmTimePicker() {
         if (isOwner) {
             with(binding.numberPickerAge) {
-                minValue = 0
+                minValue = 1
                 maxValue = 100
                 value = originNum ?: 20
                 wrapSelectorWheel = false
             }
         } else {
             with(binding.numberPickerAge) {
-                minValue = 0
+                minValue = 1
                 maxValue = 30
                 value = originNum ?: 5
                 wrapSelectorWheel = false
