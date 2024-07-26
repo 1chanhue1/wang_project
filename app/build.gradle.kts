@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id ("kotlin-parcelize") //Parcelable 인터페이스 위함
+    id("kotlin-kapt") // kapt 플러그인
+
 
 }
 
@@ -53,6 +55,9 @@ dependencies {
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("androidx.fragment:fragment-ktx:1.3.6")
     implementation ("com.google.android.material:material:1.4.0")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    kapt ("com.github.bumptech.glide:compiler:4.12.0")
+
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 }
