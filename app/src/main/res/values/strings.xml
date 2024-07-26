@@ -42,4 +42,10 @@
     <string name="hint_search">전화번호, 이름 검색</string>
     <string name="format_item_name">%1$s | %2$s</string>
 
+
+    <!-- detailActivity -->
+    <string name="detail_info_title">정보</string>
+    <string name="detail_edit_btn">edit</string>
+    <string name="detail_memory_title">추억</string>
+    <string name="detail_favorite_btn">favorite</string>
 </resources>
