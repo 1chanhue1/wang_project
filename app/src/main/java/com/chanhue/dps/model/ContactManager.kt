@@ -868,4 +868,10 @@ object ContactManager {
     fun getContactListByPetAgeRange(range: Int): List<Contact> {
         return contactList.filter { it.petProfile.age in (range * 5 - 4)..(range * 5) }
     }
+
+    fun addContact(contact: Contact): List<Contact> {
+        // 첫번째 인덱스에 추가
+        contactList.add(0, contact)
+        return contactList
+    }
 }

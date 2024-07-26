@@ -33,7 +33,9 @@ import com.chanhue.dps.ui.extensions.isValidPersonality
 import com.chanhue.dps.ui.extensions.isValidPhoneNumber
 import com.google.android.material.chip.Chip
 
-class AddContactDialogFragment : DialogFragment(), AgeSelectListener, PersonalityListener {
+class AddContactDialogFragment(
+    private val listener: ContactUpdateListener
+) : DialogFragment(), AgeSelectListener, PersonalityListener {
 
     private var _binding: FragmentAddContactDialogBinding? = null
     private val binding get() = _binding!!
@@ -166,10 +168,13 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         binding.toolbarDialogAddContact.tvToolbarAction.setOnClickListener {
             validateInputs()
             if (isAllInputValid()) {
-                createContact()?.let {
+                createContact().let {
                     Log.d("AddContactDialog", "contact: $it")
-                    dismissWithAnimation()
+                    listener.onContactUpdated(it)
+                    dismiss()
                 }
+            } else {
+                Log.d("AddContactDialog", "입력값이 올바르지 않습니다.")
             }
         }
     }

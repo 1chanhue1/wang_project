@@ -17,6 +17,7 @@ import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.model.Owner
 import com.chanhue.dps.model.PetProfile
 import com.chanhue.dps.ui.AddContactDialogFragment
+import com.chanhue.dps.ui.ContactUpdateListener
 import com.chanhue.dps.viewmodel.ContactViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,13 +26,14 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class ContactListFragment : Fragment() {
+class ContactListFragment : Fragment(), ContactUpdateListener {
 
     private var _binding: FragmentContactListBinding? = null
     private val binding get() = _binding!!
 
     private val contactViewModel: ContactViewModel by activityViewModels()
     private var isGridLayout = false // 기본은 리스트 레이아웃
+    private lateinit var adapter: ContactAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +48,22 @@ class ContactListFragment : Fragment() {
         initFloatingButton()
         initLayoutToggleButton()
 
-        // ViewModel - LiveData
+
+
+        adapter = ContactAdapter(emptyList())
+        binding.recyclerViewContacts.adapter = adapter
+
         contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-            val adapter = ContactAdapter(contacts)
-            binding.recyclerViewContacts.adapter = adapter
-            setLayoutManager()
+            adapter.updateContacts(contacts)
         }
+        setLayoutManager()
+
+        // ViewModel - LiveData
+//        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
+//            val adapter = ContactAdapter(contacts)
+//            binding.recyclerViewContacts.adapter = adapter
+//            setLayoutManager()
+//        }
 
         binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
 
@@ -81,7 +93,7 @@ class ContactListFragment : Fragment() {
     private fun showDialog() {
         if (DialogStateManager.isShowing) return
 
-        val dialogFragment = AddContactDialogFragment()
+        val dialogFragment = AddContactDialogFragment(this)
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.commit {
             setReorderingAllowed(true)
@@ -106,5 +118,10 @@ class ContactListFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onContactUpdated(contact: Contact) {
+        contactViewModel.addContact(contact)
+
     }
 }

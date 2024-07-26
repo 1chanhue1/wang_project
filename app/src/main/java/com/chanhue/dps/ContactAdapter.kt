@@ -1,12 +1,13 @@
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.ItemContactBinding
 import com.chanhue.dps.model.Contact
 
-class ContactAdapter(private val contacts: List<Contact>) :
+class ContactAdapter(private var contacts: List<Contact>) :
     RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
     inner class ContactViewHolder(private val binding: ItemContactBinding) :
@@ -37,5 +38,35 @@ class ContactAdapter(private val contacts: List<Contact>) :
 
     override fun getItemCount(): Int {
         return contacts.size
+    }
+
+    fun updateContacts(newContacts: List<Contact>) {
+        val diffCallback = ContactDiffCallback(contacts, newContacts)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        contacts = newContacts
+        diffResult.dispatchUpdatesTo(this)
+    }
+}
+
+class ContactDiffCallback(
+    private val oldList: List<Contact>,
+    private val newList: List<Contact>
+) : DiffUtil.Callback() {
+
+    override fun getOldListSize(): Int {
+        return oldList.size
+    }
+
+    override fun getNewListSize(): Int {
+        return newList.size
+    }
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition].id == newList[newItemPosition].id
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 }
