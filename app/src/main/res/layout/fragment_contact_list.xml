@@ -36,6 +36,88 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_like_list" />
 
+            <TextView
+                android:id="@+id/tv_filter_region"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shp_chip_add"
+                android:drawableRight="@drawable/ic_drop_down"
+                android:text="지역"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hsv_friend" />
+
+            <TextView
+                android:id="@+id/tv_filter_species"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shp_chip_add"
+                android:drawableRight="@drawable/ic_drop_down"
+                android:text="종"
+                app:layout_constraintStart_toEndOf="@id/tv_filter_region"
+                app:layout_constraintTop_toTopOf="@id/tv_filter_region" />
+
+            <TextView
+                android:id="@+id/tv_filter_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shp_chip_add"
+                android:drawableRight="@drawable/ic_drop_down"
+                android:text="나이"
+                app:layout_constraintStart_toEndOf="@id/tv_filter_species"
+                app:layout_constraintTop_toTopOf="@id/tv_filter_species" />
+
+            <!--            <com.google.android.material.chip.ChipGroup-->
+            <!--                android:id="@+id/chip_group_contact_filter"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center_vertical"-->
+            <!--                android:layout_marginHorizontal="16dp"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintEnd_toStartOf="@id/toggleLayoutButton"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/hsv_friend">-->
+
+            <!--                <com.google.android.material.chip.Chip-->
+            <!--                    android:id="@+id/chip_region"-->
+            <!--                    style="@style/CustomChipStyleWithIcon.Filter"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="지역"-->
+            <!--                    android:textAlignment="center"-->
+            <!--                    android:translationY="-2dp" />-->
+
+            <!--                <com.google.android.material.chip.Chip-->
+            <!--                    android:id="@+id/chip_species"-->
+            <!--                    style="@style/CustomChipStyleWithIcon.Filter"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="종"-->
+            <!--                    android:textAlignment="center"-->
+            <!--                    android:translationY="-2dp" />-->
+
+            <!--                <com.google.android.material.chip.Chip-->
+            <!--                    android:id="@+id/chip_age"-->
+            <!--                    style="@style/CustomChipStyleWithIcon.Filter"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="나이"-->
+            <!--                    android:textAlignment="center"-->
+            <!--                    android:translationY="-2dp" />-->
+
+            <!--            </com.google.android.material.chip.ChipGroup>-->
+
+            <ImageView
+                android:id="@+id/toggleLayoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:src="@drawable/ic_grid_view"
+                app:layout_constraintBottom_toBottomOf="@id/tv_filter_age"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toTopOf="@id/tv_filter_age" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewContacts"
                 android:layout_width="0dp"
@@ -44,19 +126,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hsv_friend"
+                app:layout_constraintTop_toBottomOf="@id/tv_filter_region"
                 app:layout_constraintVertical_bias="0.0"
                 tools:itemCount="6"
                 tools:listitem="@layout/item_contact" />
-
-            <ImageView
-                android:id="@+id/toggleLayoutButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_grid_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintTop_toBottomOf="@id/hsv_friend" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

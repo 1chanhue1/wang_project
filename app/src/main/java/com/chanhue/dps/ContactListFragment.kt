@@ -2,6 +2,7 @@ package com.chanhue.dps
 
 import ContactAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.chanhue.dps.model.Owner
 import com.chanhue.dps.model.PetProfile
 import com.chanhue.dps.ui.AddContactDialogFragment
 import com.chanhue.dps.ui.ContactUpdateListener
+import com.chanhue.dps.ui.FilterChipBottomSheetFragment
 import com.chanhue.dps.viewmodel.ContactViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +37,10 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     private var isGridLayout = false // 기본은 리스트 레이아웃
 
     private lateinit var adapter: ContactAdapter
+
+    private val petAgeRangeList = listOf(
+        "1-5세", "6-10세", "11-15세", "16-20세", "21-25세"
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +72,8 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 //        }
 
         binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
+
+        initChip()
     }
 
     private fun initFloatingButton() {
@@ -129,5 +137,39 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     override fun onContactUpdated(contact: Contact) {
         contactViewModel.addContact(contact)
 
+    }
+
+    private fun initChip() {
+        with(binding) {
+            tvFilterRegion.setOnClickListener {
+                val bottomSheetDialogFragment = FilterChipBottomSheetFragment.newInstance(
+                    "Region",
+                    ContactManager.getRegionList()
+                ) { region ->
+                    tvFilterRegion.text = region
+                }
+                bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
+            }
+            tvFilterSpecies.setOnClickListener {
+                Log.d("ContactListFragment", "speciesList : ${ContactManager.getPetSpeciesList()}")
+                val bottomSheetDialogFragment = FilterChipBottomSheetFragment.newInstance(
+                    "Species",
+                    ContactManager.getPetSpeciesList()
+                ) { species ->
+                    tvFilterSpecies.text = species
+                }
+                bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
+            }
+            tvFilterAge.setOnClickListener {
+                Log.d("ContactListFragment", "petAgeRangeList : ${petAgeRangeList}")
+                val bottomSheetDialogFragment = FilterChipBottomSheetFragment.newInstance(
+                    "Age",
+                    petAgeRangeList
+                ) { ageRange ->
+                    tvFilterAge.text = ageRange
+                }
+                bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
+            }
+        }
     }
 }

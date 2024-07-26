@@ -190,7 +190,7 @@ class AddContactDialogFragment(
                 createContact().let {
                     Log.d("AddContactDialog", "contact: $it")
                     listener?.onContactUpdated(it)
-                    dismiss()
+                    dismissWithAnimation()
                 }
             } else {
                 Log.d("AddContactDialog", "입력값이 올바르지 않습니다.")
