@@ -1,6 +1,7 @@
 package com.chanhue.dps
 
 import ContactAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -56,8 +57,17 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         initFloatingButton()
         initLayoutToggleButton()
 
-        val adapter = ContactAdapter(emptyList()) { contact ->
+        adapter = ContactAdapter(emptyList()) { contact ->
             toggleFavorite(contact)
+        }
+
+
+        // 데이터 보내기
+        adapter.onItemClick = { contact ->
+            val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+                putExtra(Constants.ITEM_OBJECT, contact)
+            }
+            startActivity(intent)
         }
 
         binding.recyclerViewContacts.adapter = adapter
@@ -72,22 +82,6 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
             param = it.getParcelable(ARG_CONTACT)
             Log.d("ContactListFragment1", param.toString())
         }
-//        binding.recyclerViewContacts.adapter = adapter
-//        setLayoutManager()
-//
-//        // ViewModel - LiveData 관찰
-//        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-//            adapter.updateContactList(contacts)
-//        }
-//
-//        setLayoutManager()
-
-        // ViewModel - LiveData
-//        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-//            val adapter = ContactAdapter(contacts)
-//            binding.recyclerViewContacts.adapter = adapter
-//            setLayoutManager()
-//        }
 
         val favoriteAdapter = GridViewAdapter(mutableListOf())
         binding.hsvFriend.adapter = favoriteAdapter
@@ -151,19 +145,10 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
                     putParcelable(ARG_CONTACT, contact)
                 }
             }
-
-        /*fun newInstance(param1: String, param2: String) =
-            ContactListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }*/
     }
 
     override fun onContactUpdated(contact: Contact) {
         contactViewModel.addContact(contact)
-
     }
 
     private fun initChip() {
