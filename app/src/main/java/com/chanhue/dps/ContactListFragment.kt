@@ -36,6 +36,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     private val contactViewModel: ContactViewModel by activityViewModels()
     private var isGridLayout = false // 기본은 리스트 레이아웃
 
+    private var param: Contact? = null
     private lateinit var adapter: ContactAdapter
 
     private val petAgeRangeList = listOf(
@@ -55,14 +56,31 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         initFloatingButton()
         initLayoutToggleButton()
 
-        adapter = ContactAdapter(emptyList())
-        binding.recyclerViewContacts.adapter = adapter
+        val adapter = ContactAdapter(emptyList()) { contact ->
+            toggleFavorite(contact)
+        }
 
+        binding.recyclerViewContacts.adapter = adapter
+        setLayoutManager()
+
+        // ViewModel - LiveData 관찰
         contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
             adapter.updateContacts(contacts)
         }
 
-        setLayoutManager()
+        arguments?.let {
+            param = it.getParcelable(ARG_CONTACT)
+            Log.d("ContactListFragment1", param.toString())
+        }
+//        binding.recyclerViewContacts.adapter = adapter
+//        setLayoutManager()
+//
+//        // ViewModel - LiveData 관찰
+//        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
+//            adapter.updateContactList(contacts)
+//        }
+//
+//        setLayoutManager()
 
         // ViewModel - LiveData
 //        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
@@ -91,10 +109,15 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 
     private fun setLayoutManager() {
         binding.recyclerViewContacts.layoutManager = if (isGridLayout) {
-            GridLayoutManager(context, 2) // 2열로 세팅( 그리드 레이아웃)
+            GridLayoutManager(context, 2) // 2열로 설정 (그리드 레이아웃)
         } else {
-            LinearLayoutManager(context) // (리스트 레이아웃)
+            LinearLayoutManager(context) // 리스트 레이아웃
         }
+    }
+
+    private fun toggleFavorite(contact: Contact) {
+        contact.isFavorite = !contact.isFavorite
+        contactViewModel.updateContacts(contactViewModel.contacts.value?.sortedByDescending { it.isFavorite } ?: emptyList())
     }
 
     private fun showDialog() {
