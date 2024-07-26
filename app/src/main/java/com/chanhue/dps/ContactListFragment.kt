@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.chanhue.dps.databinding.FragmentContactListBinding
+import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.ui.AddContactDialogFragment
 
 // TODO: Rename parameter arguments, choose names that match
@@ -48,6 +49,9 @@ class ContactListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFloatingButton()
+
+        binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
+
     }
 
     private fun initFloatingButton() {

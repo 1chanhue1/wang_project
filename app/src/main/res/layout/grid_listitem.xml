@@ -28,23 +28,25 @@
         app:layout_constraintStart_toStartOf="@id/grid_iv_item"
         app:layout_constraintEnd_toEndOf="@id/grid_iv_item"/>
 
-    <ImageView
+    <androidx.cardview.widget.CardView
         android:id="@+id/grid_iv_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="50dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/grid_iv_item_in"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_addnum"/>
+        android:src="@drawable/ic_addnum"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:id="@+id/grid_iv_heart"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:clickable="true"
-        android:src="@drawable/ic_maingrid_heart_1"
-        app:layout_constraintEnd_toEndOf="@id/grid_iv_item"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-
-        />
 
 
 
