@@ -89,7 +89,11 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 //            setLayoutManager()
 //        }
 
-        binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
+        val favoriteAdapter = GridViewAdapter(mutableListOf())
+        binding.hsvFriend.adapter = favoriteAdapter
+        contactViewModel.favoriteContacts.observe(viewLifecycleOwner) { contacts ->
+            favoriteAdapter.updateContacts(contacts)
+        }
 
         initChip()
     }
