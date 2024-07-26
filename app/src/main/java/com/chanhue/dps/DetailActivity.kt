@@ -22,16 +22,21 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.chanhue.dps.databinding.ActivityDetailBinding
+import com.chanhue.dps.model.Contact
+import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.model.ContactManager.getContactById
 import com.chanhue.dps.ui.AddContactDialogFragment
+import com.chanhue.dps.ui.ContactUpdateListener
 import java.io.File
 import kotlin.random.Random
 
 class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentDataListener,
-    NotificationDialogFragment.ConfirmDialogInterface {
+    NotificationDialogFragment.ConfirmDialogInterface, ContactUpdateListener {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var adapter: PhotoRecyclerAdapter
@@ -123,14 +128,14 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                     when (it.itemId) {
                         R.id.detail_edit_btn -> {
                             val dataToSend = data
-                            val fragment = ContactListFragment.newInstance(dataToSend)
-
-                            supportFragmentManager
-                                .beginTransaction()
-                                .replace(R.id.detail_fragmenr_container, fragment)
-                                .commit()
-
-                            detailHeader.visibility = View.GONE
+                            val dialogFragment = AddContactDialogFragment.newInstance(dataToSend, this@DetailActivity)
+                            val fragmentManager = supportFragmentManager
+                            fragmentManager.commit {
+                                setReorderingAllowed(true)
+                                addToBackStack(null)
+                                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                add(R.id.detail_fragmenr_container, dialogFragment)
+                            }
 
                             return@setOnMenuItemClickListener true
                         }
@@ -279,6 +284,10 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
         Log.d("DetailActivity", "Received data: $data with delay: $delay seconds")
         param = data
         delayTime = delay
+    }
+
+    override fun onContactUpdated(contact: Contact) {
+        TODO("Not yet implemented")
     }
 
 }

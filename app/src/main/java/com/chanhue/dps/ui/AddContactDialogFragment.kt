@@ -33,7 +33,14 @@ import com.chanhue.dps.ui.extensions.isValidPersonality
 import com.chanhue.dps.ui.extensions.isValidPhoneNumber
 import com.google.android.material.chip.Chip
 
-class AddContactDialogFragment : DialogFragment(), AgeSelectListener, PersonalityListener {
+class AddContactDialogFragment(
+
+) : DialogFragment(), AgeSelectListener, PersonalityListener {
+
+    private var listener: ContactUpdateListener? = null
+    private var contact: Contact? = null
+
+
 
     private var _binding: FragmentAddContactDialogBinding? = null
     private val binding get() = _binding!!
@@ -76,12 +83,15 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
     companion object {
         private const val ARG_CONTACT = "contact"
 
-        fun newInstance(contact: Contact) =
-            AddContactDialogFragment().apply {
+        fun newInstance(contact: Contact, listener: ContactUpdateListener): AddContactDialogFragment {
+            return AddContactDialogFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_CONTACT, contact)
+                    Log.d("AddContactDialog", "contact: $contact")
                 }
+                this.listener = listener
             }
+        }
     }
 
     override fun onCreateView(
@@ -177,10 +187,13 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
         binding.toolbarDialogAddContact.tvToolbarAction.setOnClickListener {
             validateInputs()
             if (isAllInputValid()) {
-                createContact()?.let {
+                createContact().let {
                     Log.d("AddContactDialog", "contact: $it")
+                    listener?.onContactUpdated(it)
                     dismissWithAnimation()
                 }
+            } else {
+                Log.d("AddContactDialog", "입력값이 올바르지 않습니다.")
             }
         }
     }

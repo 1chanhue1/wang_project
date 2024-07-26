@@ -18,6 +18,8 @@ import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.model.Owner
 import com.chanhue.dps.model.PetProfile
 import com.chanhue.dps.ui.AddContactDialogFragment
+import com.chanhue.dps.ui.ContactUpdateListener
+import com.chanhue.dps.ui.FilterChipBottomSheetFragment
 import com.chanhue.dps.viewmodel.ContactViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,8 +28,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private const val ARG_CONTACT = "contact"
 
-
-class ContactListFragment : Fragment() {
+class ContactListFragment : Fragment(), ContactUpdateListener {
 
     private var _binding: FragmentContactListBinding? = null
     private val binding get() = _binding!!
@@ -36,10 +37,15 @@ class ContactListFragment : Fragment() {
     private var isGridLayout = false // 기본은 리스트 레이아웃
 
     private var param: Contact? = null
+    private lateinit var adapter: ContactAdapter
+
+    private val petAgeRangeList = listOf(
+        "1-5세", "6-10세", "11-15세", "16-20세", "21-25세"
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentContactListBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,6 +59,7 @@ class ContactListFragment : Fragment() {
         val adapter = ContactAdapter(emptyList()) { contact ->
             toggleFavorite(contact)
         }
+
         binding.recyclerViewContacts.adapter = adapter
         setLayoutManager()
 
@@ -65,18 +72,31 @@ class ContactListFragment : Fragment() {
             param = it.getParcelable(ARG_CONTACT)
             Log.d("ContactListFragment1", param.toString())
         }
+//        binding.recyclerViewContacts.adapter = adapter
+//        setLayoutManager()
+//
+//        // ViewModel - LiveData 관찰
+//        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
+//            adapter.updateContactList(contacts)
+//        }
+//
+//        setLayoutManager()
+
+        // ViewModel - LiveData
+//        contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
+//            val adapter = ContactAdapter(contacts)
+//            binding.recyclerViewContacts.adapter = adapter
+//            setLayoutManager()
+//        }
 
         binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
+
+        initChip()
     }
 
     private fun initFloatingButton() {
         binding.ivContact.setOnClickListener {
-            param.let {
-                Log.d("ContactListFragment2", "param: $it")
-                if (it != null) {
-                    showDialog(it)
-                }
-            }
+            showDialog()
         }
     }
 
@@ -100,10 +120,10 @@ class ContactListFragment : Fragment() {
         contactViewModel.updateContacts(contactViewModel.contacts.value?.sortedByDescending { it.isFavorite } ?: emptyList())
     }
 
-    private fun showDialog(data: Contact) {
+    private fun showDialog() {
         if (DialogStateManager.isShowing) return
 
-        val dialogFragment = AddContactDialogFragment.newInstance(data)
+        val dialogFragment = AddContactDialogFragment.newInstance(ContactManager.getDefaultContact(), this)
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.commit {
             setReorderingAllowed(true)
@@ -135,5 +155,44 @@ class ContactListFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }*/
+    }
+
+    override fun onContactUpdated(contact: Contact) {
+        contactViewModel.addContact(contact)
+
+    }
+
+    private fun initChip() {
+        with(binding) {
+            tvFilterRegion.setOnClickListener {
+                val bottomSheetDialogFragment = FilterChipBottomSheetFragment.newInstance(
+                    "Region",
+                    ContactManager.getRegionList()
+                ) { region ->
+                    tvFilterRegion.text = region
+                }
+                bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
+            }
+            tvFilterSpecies.setOnClickListener {
+                Log.d("ContactListFragment", "speciesList : ${ContactManager.getPetSpeciesList()}")
+                val bottomSheetDialogFragment = FilterChipBottomSheetFragment.newInstance(
+                    "Species",
+                    ContactManager.getPetSpeciesList()
+                ) { species ->
+                    tvFilterSpecies.text = species
+                }
+                bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
+            }
+            tvFilterAge.setOnClickListener {
+                Log.d("ContactListFragment", "petAgeRangeList : ${petAgeRangeList}")
+                val bottomSheetDialogFragment = FilterChipBottomSheetFragment.newInstance(
+                    "Age",
+                    petAgeRangeList
+                ) { ageRange ->
+                    tvFilterAge.text = ageRange
+                }
+                bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
+            }
+        }
     }
 }

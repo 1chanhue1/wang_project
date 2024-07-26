@@ -56,6 +56,11 @@
         <item name="android:theme">@style/ChipOverlayTheme</item>
     </style>
 
+    <style name="CustomChipStyleWithIcon.Filter">
+        <item name="closeIcon">@drawable/ic_drop_down</item>
+        <item name="closeIconEndPadding">5dp</item>
+    </style>
+
     <style name="AppToolbar" parent="Widget.Material3.Toolbar">
         <item name="titleTextAppearance">@style/AppTextTitle.S18</item>
     </style>

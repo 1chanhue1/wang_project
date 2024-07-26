@@ -868,4 +868,39 @@ object ContactManager {
     fun getContactListByPetAgeRange(range: Int): List<Contact> {
         return contactList.filter { it.petProfile.age in (range * 5 - 4)..(range * 5) }
     }
+
+    fun addContact(contact: Contact): List<Contact> {
+        // 첫번째 인덱스에 추가
+        contactList.add(0, contact)
+        return contactList
+    }
+
+    fun getDefaultContact(): Contact {
+        return Contact(
+            31,
+            PetProfile(
+                0,
+                "https://cdn.pixabay.com/photo/2021/08/18/09/34/dachshund-6555136_960_720.jpg",
+                "바비",
+                false,
+                1,
+                "닥스훈트",
+                mutableListOf(
+                    "https://cdn.pixabay.com/photo/2019/09/03/06/45/dachshund-4448740_1280.jpg",
+                    "https://cdn.pixabay.com/photo/2021/08/18/09/34/dachshund-6555136_960_720.jpg",
+                    "https://i.namu.wiki/i/ThxW_nrt2bcTGt4DlOncR_zbrdEYE0k21V2GN4u47Tis1yohdSRB50vHrRMUl_wYBHyEMT5ITrQI50IXSl0c0w.webp"
+                ),
+                "도도하고 산책하는 것을 싫어한다.",
+                "도도, 조용"
+            ),
+            Owner(
+                0,
+                "김민주",
+                true,
+                "010-7777-9999",
+                18,
+                "서울특별시 서초구"
+            )
+        )
+    }
 }
