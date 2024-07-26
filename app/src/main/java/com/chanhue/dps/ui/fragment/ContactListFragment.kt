@@ -1,34 +1,30 @@
-package com.chanhue.dps
+package com.chanhue.dps.ui.fragment
 
 import ContactAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chanhue.dps.Constants
+import com.chanhue.dps.DialogStateManager
 import com.chanhue.dps.databinding.FragmentContactListBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
-import com.chanhue.dps.model.Owner
-import com.chanhue.dps.model.PetProfile
-import com.chanhue.dps.ui.AddContactDialogFragment
-import com.chanhue.dps.ui.ContactUpdateListener
-import com.chanhue.dps.ui.FilterChipBottomSheetFragment
+import com.chanhue.dps.ui.activity.DetailActivity
+import com.chanhue.dps.ui.adapter.GridViewAdapter
+import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.viewmodel.ContactViewModel
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private const val ARG_CONTACT = "contact"
-
 class ContactListFragment : Fragment(), ContactUpdateListener {
 
     private var _binding: FragmentContactListBinding? = null
@@ -121,7 +117,8 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     private fun showDialog() {
         if (DialogStateManager.isShowing) return
 
-        val dialogFragment = AddContactDialogFragment.newInstance(ContactManager.getDefaultContact(), this)
+        val dialogFragment =
+            AddContactDialogFragment.newInstance(ContactManager.getDefaultContact(), this)
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.commit {
             setReorderingAllowed(true)

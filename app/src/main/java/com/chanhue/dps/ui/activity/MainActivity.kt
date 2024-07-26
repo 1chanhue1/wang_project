@@ -1,16 +1,16 @@
-package com.chanhue.dps
+package com.chanhue.dps.ui.activity
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import androidx.viewpager2.widget.ViewPager2
+import com.chanhue.dps.R
 import com.chanhue.dps.databinding.ActivityMainBinding
-import com.chanhue.dps.ui.SearchFragment
+import com.chanhue.dps.ui.fragment.SearchFragment
+import com.chanhue.dps.ui.adapter.ViewPagerAdapter
 
 
 class MainActivity : AppCompatActivity() {
