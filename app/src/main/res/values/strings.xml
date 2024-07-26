@@ -3,6 +3,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Common -->
+    <string name="description_toolbar_main_logo">툴바 메인 로고 이미지</string>
+    <string name="description_toolbar_main_search_icon">툴바에 위치한 검색 아이콘</string>
+
     <!--  Dialog -->
     <string name="description_add_pet_profile">추가할 반려동물의 프로필 이미지</string>
     <string name="description_close_dialog">다이얼로그 닫기 아이콘 이미지</string>
@@ -34,4 +38,8 @@
     <string name="btn_label_close">닫기</string>
     <string name="btn_label_confirm">확인</string>
     <string name="btn_label_add">추가</string>
+    <string name="description_back">뒤로 가긱 아이콘</string>
+    <string name="hint_search">전화번호, 이름 검색</string>
+    <string name="format_item_name">%1$s | %2$s</string>
+
 </resources>

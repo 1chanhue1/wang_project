@@ -30,6 +30,7 @@ object ContactManager {
                     "서정우",
                     false,
                     "010-1111-1111",
+                    25,
                     "서울특별시 강남구"
                 )
             ),
@@ -60,6 +61,7 @@ object ContactManager {
                     "김찬휘",
                     false,
                     "010-1111-2222",
+                    25,
                     "서울특별시 서초구"
                 )
             ),
@@ -87,6 +89,7 @@ object ContactManager {
                     "이정현",
                     false,
                     "010-1111-3333",
+                    25,
                     "서울특별시 종로구"
                 )
             ),
@@ -116,6 +119,7 @@ object ContactManager {
                     "박수진",
                     true,
                     "010-1111-4444",
+                    25,
                     "서울특별시 송파구"
                 )
             ),
@@ -147,6 +151,7 @@ object ContactManager {
                     "최민수",
                     false,
                     "010-1111-5555",
+                    28,
                     "서울특별시 마포구"
                 )
             ),
@@ -173,6 +178,7 @@ object ContactManager {
                     "김은정",
                     true,
                     "010-1111-6666",
+                    28,
                     "서울특별시 은평구"
                 )
             ),
@@ -200,6 +206,7 @@ object ContactManager {
                     "박경훈",
                     false,
                     "010-1111-7777",
+                    28,
                     "서울특별시 동작구"
                 )
             ),
@@ -228,6 +235,7 @@ object ContactManager {
                     "이수민",
                     true,
                     "010-1111-8888",
+                    28,
                     "서울특별시 강동구"
                 )
             ),
@@ -254,6 +262,7 @@ object ContactManager {
                     "정명훈",
                     false,
                     "010-1111-9999",
+                    21,
                     "서울특별시 중구"
                 )
             ),
@@ -281,6 +290,7 @@ object ContactManager {
                     "최지우",
                     true,
                     "010-2222-1111",
+                    21,
                     "서울특별시 동대문구"
                 )
             ),
@@ -306,6 +316,7 @@ object ContactManager {
                     "이성준",
                     false,
                     "010-2222-2222",
+                    21,
                     "서울특별시 노원구"
                 )
             ),
@@ -331,6 +342,7 @@ object ContactManager {
                     "김영희",
                     true,
                     "010-3333-3333",
+                    21,
                     "서울특별시 강서구"
                 )
             ),
@@ -356,6 +368,7 @@ object ContactManager {
                     "박지훈",
                     false,
                     "010-4444-4444",
+                    21,
                     "서울특별시 서대문구"
                 )
             ),
@@ -381,6 +394,7 @@ object ContactManager {
                     "이민호",
                     false,
                     "010-5555-5555",
+                    30,
                     "서울특별시 용산구"
                 )
             ),
@@ -406,6 +420,7 @@ object ContactManager {
                     "한지우",
                     true,
                     "010-6666-6666",
+                    30,
                     "서울특별시 금천구"
                 )
             ),
@@ -431,6 +446,7 @@ object ContactManager {
                     "박상현",
                     false,
                     "010-7777-7777",
+                    30,
                     "서울특별시 광진구"
                 )
             ),
@@ -456,6 +472,7 @@ object ContactManager {
                     "홍길동",
                     false,
                     "010-8888-8888",
+                    30,
                     "서울특별시 중랑구"
                 )
             ),
@@ -481,6 +498,7 @@ object ContactManager {
                     "유지현",
                     true,
                     "010-9999-9999",
+                    30,
                     "서울특별시 양천구"
                 )
             ),
@@ -506,6 +524,7 @@ object ContactManager {
                     "김수진",
                     true,
                     "010-0000-1111",
+                    30,
                     "서울특별시 성동구"
                 )
             ),
@@ -531,6 +550,7 @@ object ContactManager {
                     "정유진",
                     true,
                     "010-1111-0000",
+                    30,
                     "서울특별시 도봉구"
                 )
             ),
@@ -556,6 +576,7 @@ object ContactManager {
                     "김영수",
                     false,
                     "010-1234-5678",
+                    30,
                     "서울특별시 강북구"
                 )
             ),
@@ -581,6 +602,7 @@ object ContactManager {
                     "박준영",
                     false,
                     "010-8765-4321",
+                    30,
                     "서울특별시 영등포구"
                 )
             ),
@@ -606,6 +628,7 @@ object ContactManager {
                     "이현우",
                     false,
                     "010-5555-7777",
+                    18,
                     "서울특별시 양재동"
                 )
             ),
@@ -631,6 +654,7 @@ object ContactManager {
                     "최수정",
                     true,
                     "010-6666-8888",
+                    18,
                     "서울특별시 도곡동"
                 )
             ),
@@ -656,6 +680,7 @@ object ContactManager {
                     "김민주",
                     true,
                     "010-7777-9999",
+                    18,
                     "서울특별시 서초구"
                 )
             ),
@@ -681,6 +706,7 @@ object ContactManager {
                     "박수진",
                     true,
                     "010-8888-0000",
+                    18,
                     "서울특별시 송파구"
                 )
             ),
@@ -706,6 +732,7 @@ object ContactManager {
                     "이정민",
                     false,
                     "010-0000-2222",
+                    18,
                     "서울특별시 광진구"
                 )
             ),
@@ -731,6 +758,7 @@ object ContactManager {
                     "최현우",
                     false,
                     "010-3333-6666",
+                    34,
                     "서울특별시 강남구"
                 )
             ),
@@ -756,6 +784,7 @@ object ContactManager {
                     "김지민",
                     true,
                     "010-5555-4444",
+                    34,
                     "서울특별시 마포구"
                 )
             ),
@@ -781,6 +810,7 @@ object ContactManager {
                     "이은지",
                     true,
                     "010-6666-5555",
+                    34,
                     "서울특별시 은평구"
                 )
             )
@@ -805,5 +835,37 @@ object ContactManager {
     // 임시) 연락처 5개 리스트 가져오기
     fun getLikeContactList(): List<Contact> {
         return contactList.subList(0, 5)
+    }
+
+    fun getContactLastId(): Int {
+        return contactList.last().petProfile.id
+    }
+
+    fun getOwnerLastId(): Int {
+        return contactList.last().owner.id
+    }
+
+    fun getPetProfileLastId(): Int {
+        return contactList.last().petProfile.id
+    }
+
+    fun getRegionList(): List<String> {
+        return contactList.map { it.owner.region }.distinct()
+    }
+
+    fun getContactListByRegion(region: String): List<Contact> {
+        return contactList.filter { it.owner.region == region }
+    }
+
+    fun getPetSpeciesList(): List<String> {
+        return contactList.map { it.petProfile.species }.distinct()
+    }
+
+    fun getContactListByPetSpecies(species: String): List<Contact> {
+        return contactList.filter { it.petProfile.species == species }
+    }
+
+    fun getContactListByPetAgeRange(range: Int): List<Contact> {
+        return contactList.filter { it.petProfile.age in (range * 5 - 4)..(range * 5) }
     }
 }
