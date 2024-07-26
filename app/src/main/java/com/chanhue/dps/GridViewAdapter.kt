@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chanhue.dps.databinding.GridListitemBinding
-import com.chanhue.dps.databinding.ItemGridListBinding
 import com.chanhue.dps.model.Contact
 
 class GridViewAdapter(val items: MutableList<Contact>) : RecyclerView.Adapter<GridViewAdapter.Holder>()  {
