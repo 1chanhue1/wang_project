@@ -8,4 +8,5 @@ data class Contact(
     val id: Int,
     val petProfile: PetProfile,
     val owner: Owner,
+    var isFavorite: Boolean = false
 ) : Parcelable
