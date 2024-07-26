@@ -1,4 +1,4 @@
-package com.chanhue.dps
+package com.chanhue.dps.ui.activity
 
 import android.Manifest
 import android.app.NotificationChannel
@@ -15,7 +15,6 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -26,12 +25,14 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.chanhue.dps.R
 import com.chanhue.dps.databinding.ActivityDetailBinding
 import com.chanhue.dps.model.Contact
-import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.model.ContactManager.getContactById
-import com.chanhue.dps.ui.AddContactDialogFragment
-import com.chanhue.dps.ui.ContactUpdateListener
+import com.chanhue.dps.ui.fragment.AddContactDialogFragment
+import com.chanhue.dps.ui.adapter.PhotoRecyclerAdapter
+import com.chanhue.dps.ui.fragment.NotificationDialogFragment
+import com.chanhue.dps.ui.listener.ContactUpdateListener
 import java.io.File
 import kotlin.random.Random
 

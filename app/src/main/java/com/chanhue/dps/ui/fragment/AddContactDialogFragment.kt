@@ -1,4 +1,4 @@
-package com.chanhue.dps.ui
+package com.chanhue.dps.ui.fragment
 
 import android.app.Dialog
 import android.content.Intent
@@ -31,6 +31,9 @@ import com.chanhue.dps.ui.extensions.isValidInput
 import com.chanhue.dps.ui.extensions.isValidMemo
 import com.chanhue.dps.ui.extensions.isValidPersonality
 import com.chanhue.dps.ui.extensions.isValidPhoneNumber
+import com.chanhue.dps.ui.listener.AgeSelectListener
+import com.chanhue.dps.ui.listener.ContactUpdateListener
+import com.chanhue.dps.ui.listener.PersonalityListener
 import com.google.android.material.chip.Chip
 
 class AddContactDialogFragment(

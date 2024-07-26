@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailActivity">
+    tools:context=".ui.activity.DetailActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/detail_header"
