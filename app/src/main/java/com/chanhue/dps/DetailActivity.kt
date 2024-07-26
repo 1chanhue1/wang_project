@@ -26,7 +26,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.chanhue.dps.Constants.ITEM_INDEX
+import com.chanhue.dps.Constants.ITEM_OBJECT
 import com.chanhue.dps.databinding.ActivityDetailBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager.getContactById
@@ -54,8 +54,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
                 createNotificationChannel()
-            } else {
-                Toast.makeText(this, "Notification permission is required", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -90,7 +88,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        data = intent.getParcelableExtra<Contact>(ITEM_INDEX)
+        data = intent.getParcelableExtra<Contact>(ITEM_OBJECT)
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -104,12 +102,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                     Log.d("DetailActivity", "onLongClick position: $position")
                     if (position > 0) {
                         adapter.removeItem(position)
-                    } else {
-                        Toast.makeText(
-                            this@DetailActivity,
-                            "Cannot delete this item",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
 
@@ -208,8 +200,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                 detailCharacter.text = data!!.petProfile.personality
             }
         } else {
-            // 데이터가 null인 경우 적절한 처리를 합니다. 예를 들어, 에러 메시지를 보여주거나 액티비티를 종료합니다.
-            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -224,7 +214,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     private fun getRealPathFromUri(uri: Uri): String? {
         var filePath: String? = null
 
-        // Content URI
         if (uri.scheme.equals("content", ignoreCase = true)) {
             contentResolver.query(uri, null, null, null)?.use { cursor ->
                 if (cursor.moveToFirst()) {
@@ -236,7 +225,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
             }
         }
 
-        // File URI
         if (filePath == null && uri.scheme.equals("file", ignoreCase = true)) {
             filePath = uri.path
         }
@@ -276,12 +264,10 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
         if (!notificationScheduled) {
             notificationScheduled = true
             Handler(Looper.getMainLooper()).postDelayed({
-                Log.d("DetailActivity", "Triggering notification after delay")
                 showNotification(data)
                 notificationScheduled = false
             }, delay * 1000L)
         } else {
-            Log.d("DetailActivity", "Notification already scheduled.")
         }
     }
 
