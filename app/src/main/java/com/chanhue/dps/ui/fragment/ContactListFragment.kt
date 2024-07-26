@@ -20,6 +20,7 @@ import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.ui.activity.DetailActivity
 import com.chanhue.dps.ui.adapter.GridViewAdapter
+import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.viewmodel.ContactViewModel
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"

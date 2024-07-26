@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.ItemSearchBinding
 import com.chanhue.dps.model.Contact
-import com.chanhue.dps.ui.SearchDiffCallback
 
 class SearchListAdapter(
     private val onClick: (Contact) -> Unit,

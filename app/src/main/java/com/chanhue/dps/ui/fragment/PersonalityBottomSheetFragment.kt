@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.FragmentPersonalityBottomSheetBinding
+import com.chanhue.dps.ui.listener.PersonalityListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 

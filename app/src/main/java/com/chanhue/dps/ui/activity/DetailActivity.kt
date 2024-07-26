@@ -32,6 +32,7 @@ import com.chanhue.dps.model.ContactManager.getContactById
 import com.chanhue.dps.ui.fragment.AddContactDialogFragment
 import com.chanhue.dps.ui.adapter.PhotoRecyclerAdapter
 import com.chanhue.dps.ui.fragment.NotificationDialogFragment
+import com.chanhue.dps.ui.listener.ContactUpdateListener
 import java.io.File
 import kotlin.random.Random
 
