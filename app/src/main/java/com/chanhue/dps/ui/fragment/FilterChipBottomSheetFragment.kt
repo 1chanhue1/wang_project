@@ -1,17 +1,13 @@
-package com.chanhue.dps.ui
+package com.chanhue.dps.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import com.chanhue.dps.R
 import com.chanhue.dps.databinding.FragmentFilterChipBottomSheetBinding
-import com.chanhue.dps.model.ContactManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.chanhue.dps.ui.adapter.FilteredListByChipAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FilterChipBottomSheetFragment(

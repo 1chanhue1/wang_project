@@ -1,4 +1,4 @@
-package com.chanhue.dps
+package com.chanhue.dps.ui.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
