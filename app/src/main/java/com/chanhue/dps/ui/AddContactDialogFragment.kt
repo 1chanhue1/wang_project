@@ -199,7 +199,7 @@ class AddContactDialogFragment : DialogFragment(), AgeSelectListener, Personalit
                 isValidPetName && isValidPetSpecies && isValidPetAge && isValidPersonality && isValidMemo
     }
 
-    private fun createContact(): Contact? {
+    private fun createContact(): Contact {
         with(binding) {
             val selectedChipList = chipGroupDialogPersonality.checkedChipIds.map { chipId ->
                 chipGroupDialogPersonality.findViewById<Chip>(chipId).text.toString()

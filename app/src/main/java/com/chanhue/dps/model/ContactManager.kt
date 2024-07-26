@@ -848,4 +848,24 @@ object ContactManager {
     fun getPetProfileLastId(): Int {
         return contactList.last().petProfile.id
     }
+
+    fun getRegionList(): List<String> {
+        return contactList.map { it.owner.region }.distinct()
+    }
+
+    fun getContactListByRegion(region: String): List<Contact> {
+        return contactList.filter { it.owner.region == region }
+    }
+
+    fun getPetSpeciesList(): List<String> {
+        return contactList.map { it.petProfile.species }.distinct()
+    }
+
+    fun getContactListByPetSpecies(species: String): List<Contact> {
+        return contactList.filter { it.petProfile.species == species }
+    }
+
+    fun getContactListByPetAgeRange(range: Int): List<Contact> {
+        return contactList.filter { it.petProfile.age in (range * 5 - 4)..(range * 5) }
+    }
 }
