@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="warm_black">#222222</color>
+    <color name="warm_black">#2C1A0B</color>
     <color name="light_orange">#FFDDC9</color>
     <color name="light_yellow">#FFFCE1</color>
     <color name="gray">#BCBCBC</color>
@@ -10,8 +10,7 @@
     <color name="gray_700">#8E8E8E</color>
     <color name="gray_200">#B7B7B7</color>
     <color name="gray_100">#DDDDDD</color>
-    <color name="light_gray">#EFEFEF</color>
+    <color name="light_gray">#b9a193</color>
     <color name="orange">#FACAAD</color>
     <color name="red">#EA4335</color>
-
 </resources>

@@ -34,9 +34,9 @@
 
                     <ImageView
                         android:id="@+id/detail_profile_img"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="18dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/detail_shp_img_bg"
                         android:clipToOutline="true"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
                         android:id="@+id/detail_gender_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/light_gray"
                         android:textSize="@dimen/sizeBodyText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
                         android:id="@+id/detail_location_flow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:constraint_referenced_ids="detail_location_icon,detial_location"
+                        app:constraint_referenced_ids="detail_location_icon,detail_location"
                         app:flow_horizontalGap="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -85,13 +85,13 @@
                         android:layout_marginTop="4dp"
                         android:src="@drawable/ic_location"
                         app:layout_constraintTop_toTopOf="@id/detail_location_flow"
-                        app:tint="@color/gray" />
+                        app:tint="@color/light_gray" />
 
                     <TextView
-                        android:id="@+id/detial_location"
+                        android:id="@+id/detail_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/light_gray"
                         android:textSize="@dimen/sizeBodyText"
                         tools:text="서울특별시 종로구" />
 
@@ -148,7 +148,7 @@
                     android:id="@+id/detail_info_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/detail_info_title"
                     android:textColor="@color/warm_black"
@@ -180,8 +180,10 @@
                     android:backgroundTint="@color/light_orange"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textSize="@dimen/sizeBodyText"
                     tools:text="전화번호"
-                    android:textSize="@dimen/sizeBodyText"/>
+                    android:padding="10dp"
+                    android:textColor="@color/warm_black"/>
 
                 <TextView
                     android:id="@+id/detail_name"
@@ -191,8 +193,9 @@
                     android:backgroundTint="@color/light_yellow"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textSize="@dimen/sizeBodyText"
                     tools:text="이름"
-                    android:textSize="@dimen/sizeBodyText"/>
+                    android:textColor="@color/warm_black"/>
 
                 <TextView
                     android:id="@+id/detail_age"
@@ -202,8 +205,9 @@
                     android:backgroundTint="@color/light_orange"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textSize="@dimen/sizeBodyText"
                     tools:text="나이"
-                    android:textSize="@dimen/sizeBodyText"/>
+                    android:textColor="@color/warm_black"/>
 
                 <TextView
                     android:id="@+id/detail_species"
@@ -213,8 +217,9 @@
                     android:backgroundTint="@color/light_yellow"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textSize="@dimen/sizeBodyText"
                     tools:text="종"
-                    android:textSize="@dimen/sizeBodyText"/>
+                    android:textColor="@color/warm_black"/>
 
                 <TextView
                     android:id="@+id/detail_gender"
@@ -224,8 +229,9 @@
                     android:backgroundTint="@color/light_orange"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textSize="@dimen/sizeBodyText"
                     tools:text="성별"
-                    android:textSize="@dimen/sizeBodyText"/>
+                    android:textColor="@color/warm_black"/>
 
                 <TextView
                     android:id="@+id/detail_character"
@@ -235,14 +241,16 @@
                     android:backgroundTint="@color/light_yellow"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textSize="@dimen/sizeBodyText"
                     tools:text="성격"
-                    android:textSize="@dimen/sizeBodyText"/>
+                    android:padding="10dp"
+                    android:textColor="@color/warm_black"/>
 
                 <View
                     android:id="@+id/detail_divider"
                     android:layout_width="380dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="30dp"
                     android:background="@color/light_orange"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -252,7 +260,7 @@
                     android:id="@+id/detail_memory_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/detail_memory_title"
                     android:textColor="@color/warm_black"
@@ -265,12 +273,16 @@
                     android:id="@+id/detail_photo_RV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/detail_memory_title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="20dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginTop="4dp"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:padding="8dp"
+                    app:fastScrollEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_memory_title"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_photo" />
 

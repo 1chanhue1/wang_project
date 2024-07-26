@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_edit"
         android:title="@string/detail_edit_btn"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/detail_favorite_btn"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/detail_favorite_btn"
+        app:showAsAction="always" />
 </menu>

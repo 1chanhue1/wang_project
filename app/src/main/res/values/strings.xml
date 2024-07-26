@@ -39,4 +39,5 @@
     <string name="detail_info_title">정보</string>
     <string name="detail_edit_btn">edit</string>
     <string name="detail_memory_title">추억</string>
+    <string name="detail_favorite_btn">favorite</string>
 </resources>
