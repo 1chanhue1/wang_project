@@ -50,11 +50,15 @@ class ContactListFragment : Fragment() {
         initFloatingButton()
         initLayoutToggleButton()
 
-        // ViewModel - LiveData
+        val adapter = ContactAdapter(emptyList()) { contact ->
+            toggleFavorite(contact)
+        }
+        binding.recyclerViewContacts.adapter = adapter
+        setLayoutManager()
+
+        // ViewModel - LiveData 관찰
         contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
-            val adapter = ContactAdapter(contacts)
-            binding.recyclerViewContacts.adapter = adapter
-            setLayoutManager()
+            adapter.updateContacts(contacts)
         }
 
         arguments?.let {
@@ -63,7 +67,6 @@ class ContactListFragment : Fragment() {
         }
 
         binding.hsvFriend.adapter = GridViewAdapter(ContactManager.getContactListByDogName())
-
     }
 
     private fun initFloatingButton() {
@@ -86,10 +89,15 @@ class ContactListFragment : Fragment() {
 
     private fun setLayoutManager() {
         binding.recyclerViewContacts.layoutManager = if (isGridLayout) {
-            GridLayoutManager(context, 2) // 2열로 세팅( 그리드 레이아웃)
+            GridLayoutManager(context, 2) // 2열로 설정 (그리드 레이아웃)
         } else {
-            LinearLayoutManager(context) // (리스트 레이아웃)
+            LinearLayoutManager(context) // 리스트 레이아웃
         }
+    }
+
+    private fun toggleFavorite(contact: Contact) {
+        contact.isFavorite = !contact.isFavorite
+        contactViewModel.updateContacts(contactViewModel.contacts.value?.sortedByDescending { it.isFavorite } ?: emptyList())
     }
 
     private fun showDialog(data: Contact) {
