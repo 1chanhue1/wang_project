@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = "마이페이지"
             }
         }.attach()
+        // test
 
         binding.toolbarHome.ivToolbarHomeSearchIcon.setOnClickListener {
             Toast.makeText(this, "검색 버튼 클릭", Toast.LENGTH_SHORT).show()

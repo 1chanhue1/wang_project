@@ -818,8 +818,8 @@ object ContactManager {
     }
 
     // 강아지 이름순 정렬
-    fun getContactListByDogName(): List<Contact> {
-        return contactList.sortedBy { it.petProfile.name }
+    fun getContactListByDogName(): MutableList<Contact> {
+        return contactList.sortedBy { it.petProfile.name }.toMutableList()
     }
 
     // 연락처 하나 가져오기

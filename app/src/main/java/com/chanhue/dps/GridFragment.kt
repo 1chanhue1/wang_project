@@ -28,8 +28,6 @@ class GridFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-//        val gridViewAdapter = GridViewAdapter(this, img, txt)
-//        gridview.adapter = gridViewAdapter
     }
 
 
@@ -62,33 +60,4 @@ class GridFragment : Fragment() {
     }
 }
 
-//class GridViewAdapter(
-//    val context: context,
-//    val img_list: Array<Int>,
-//    val text_list: Array<String>
-//) : BaseAdapter() {
-//
-//    override fun getView(p0: Int, p1: View?, p2: ViewGroup?) View
-//    {
-//        val view: View = LayoutInflater.from(context).inflate(R.layout.gridview_item, null)
-//
-//        view.gridview_text.text = text_list[p0]
-//        view.gridview_img.setImageResource(img_list[p0])
-//
-//        return view
-//
-//    }
-//
-//    override fun getItem(p0: Int): Any {
-//        return 0
-//    }
-//
-//    override fun getItemId(p0: Int): Long {
-//        return 0
-//    }
-//
-//    override fun getCount(): Int {
-//        return img_list.size
-//    }
-//}
-//
+
