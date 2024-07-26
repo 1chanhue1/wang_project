@@ -49,4 +49,5 @@
     <string name="detail_memory_title">추억</string>
     <string name="detail_favorite_btn">favorite</string>
     <string name="detail_notification_btn">notification</string>
+    <string name="dialog_hint">내용을 적어주세요</string>
 </resources>

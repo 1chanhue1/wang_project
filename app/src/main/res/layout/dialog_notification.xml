@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/dialog_notification_et"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/dialog_hint"
+        style="@style/AppEditText"
+        android:padding="16dp"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/dialog_notification_cg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dialog_notification_et"
+        app:layout_constraintStart_toStartOf="@id/dialog_notification_et"
+        app:chipSpacingHorizontal="16dp"
+        android:layout_marginTop="14dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/in_5_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5분 뒤"
+            style="@style/CustomChipStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/in_10_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10분 뒤"
+            style="@style/CustomChipStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/in_1_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1시간 뒤"
+            style="@style/CustomChipStyle" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/dialog_notification_btn_flow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="dialog_notificaion_cancel_btn,dialog_notificaion_submit_btn"
+        app:layout_constraintTop_toBottomOf="@id/dialog_notification_cg"
+        app:layout_constraintStart_toStartOf="@id/dialog_notification_et"
+        app:layout_constraintEnd_toEndOf="@id/dialog_notification_et"
+        android:layout_marginTop="30dp"
+        app:flow_horizontalGap="36dp"/>
+
+    <Button
+        android:id="@+id/dialog_notificaion_cancel_btn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="취소"
+        android:textColor="@color/maroon"
+        android:background="@drawable/dialog_notification_btn_bg"/>
+
+    <Button
+        android:id="@+id/dialog_notificaion_submit_btn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:textColor="@color/maroon"
+        android:background="@drawable/dialog_notification_btn_bg"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
