@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.chanhue.dps.databinding.GridListitemBinding
 import com.chanhue.dps.model.Contact
 
-class GridViewAdapter(val items: MutableList<Contact>) : RecyclerView.Adapter<GridViewAdapter.Holder>()  {
+class GridViewAdapter(var items: MutableList<Contact>) : RecyclerView.Adapter<GridViewAdapter.Holder>()  {
     interface ItemClick {
         fun onClick(view: View, position: Int)
     }
@@ -48,5 +48,10 @@ class GridViewAdapter(val items: MutableList<Contact>) : RecyclerView.Adapter<Gr
         val productImg = binding.gridIvItemIn
         val productPname = binding.gridTvPName
         val productOname = binding.gridTvOName
+    }
+
+    fun updateContacts(newContacts: List<Contact>) {
+        items = newContacts.toMutableList()
+        notifyDataSetChanged()
     }
 }
