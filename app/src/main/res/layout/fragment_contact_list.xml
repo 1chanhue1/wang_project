@@ -38,9 +38,9 @@
 
             <TextView
                 android:id="@+id/tv_filter_region"
-                android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/shp_chip_add"
                 android:drawableRight="@drawable/ic_drop_down"
                 android:text="지역"
@@ -122,6 +122,7 @@
                 android:id="@+id/recyclerViewContacts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

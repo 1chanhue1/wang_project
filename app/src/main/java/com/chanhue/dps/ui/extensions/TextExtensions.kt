@@ -1,20 +1,5 @@
 package com.chanhue.dps.ui.extensions
 
-//private var isValidPetProfileImage = false // isValidInput
-//private var isValidOwnerName = false      // isValidInput
-//private var isValidOwnerGender = false        // isValidInput
-//private var isValidPhoneNumber = false         // isValidPhoneNumber
-//private var isValidOwnerAge = false // isValidInput, 차피 넘버피커에서 1~100 사이 값만 받음
-//private var isValidRegion = false // isValidInput
-//
-//private var isValidPetName = false // isValidInput
-//private var isValidPetGender = false // isValidInput
-//private var isValidPetSpecies = false // isValidInput
-//private var isValidPetAge = false // isValidInput, 차피 넘버피커에서 1~30 사이 값만 받음
-//private var isValidPersonality = false // 리스트의 길이가 0 초과 2이하 인지 확인
-//
-//private var isValidMemo = false // 50글자 이하인지 확인
-
 fun String.isValidInput(): Boolean {
     return isNotBlank()
 }
