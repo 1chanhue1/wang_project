@@ -1,10 +1,10 @@
-package com.chanhue.dps
+package com.chanhue.dps.util
 
 object DialogStateManager {
     var isShowing = false
         private set
 
     fun setIsShowing(isShowing: Boolean) {
-        this.isShowing = isShowing
+        DialogStateManager.isShowing = isShowing
     }
 }

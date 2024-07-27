@@ -14,9 +14,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chanhue.dps.Constants
+import com.chanhue.dps.util.Constants
 import com.chanhue.dps.ui.activity.DetailActivity
-import com.chanhue.dps.DialogStateManager
+import com.chanhue.dps.util.DialogStateManager
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.FragmentContactListBinding
 import com.chanhue.dps.model.Contact
@@ -89,7 +89,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         binding.hsvFriend.adapter = favoriteAdapter
         contactViewModel.favoriteContacts.observe(viewLifecycleOwner) { contacts ->
             favoriteAdapter.updateContacts(contacts)
-            binding.tvNoLikeList.visibility = if (contacts.isEmpty()) View.VISIBLE else View.INVISIBLE
+            binding.tvLabelNoLikeList.visibility = if (contacts.isEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
         binding.recyclerViewContacts.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
