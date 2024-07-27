@@ -21,9 +21,13 @@
 
             <TextView
                 android:id="@+id/tv_like_list"
-                android:layout_width="wrap_content"
+                style="@style/AppTextTitle.S18"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
                 android:text="즐겨찾기 목록"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,21 +36,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_like_list" />
+                app:layout_constraintTop_toBottomOf="@id/tv_like_list"
+                tools:listitem="@layout/grid_listitem" />
+
+            <TextView
+                android:id="@+id/tv_no_like_list"
+                style="@style/AppTextLabel.S20"
+                android:layout_width="0dp"
+                android:layout_height="141dp"
+                android:gravity="center"
+                android:text="즐겨찾기 목록이 없습니다"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_like_list"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/tv_filter_region"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/shp_filter_add"
                 android:drawableRight="@drawable/ic_drop_down"
                 android:text="지역"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hsv_friend" />
+                app:layout_constraintTop_toBottomOf="@id/tv_no_like_list" />
 
             <TextView
                 android:id="@+id/tv_filter_species"

@@ -89,6 +89,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         binding.hsvFriend.adapter = favoriteAdapter
         contactViewModel.favoriteContacts.observe(viewLifecycleOwner) { contacts ->
             favoriteAdapter.updateContacts(contacts)
+            binding.tvNoLikeList.visibility = if (contacts.isEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
         binding.recyclerViewContacts.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
