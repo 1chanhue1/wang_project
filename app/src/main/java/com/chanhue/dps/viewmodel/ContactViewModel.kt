@@ -16,20 +16,78 @@ class ContactViewModel : ViewModel() {
         contacts.filter { it.isFavorite }
     }
 
+    private var currentRegionFilter: String? = null
+    private var currentSpeciesFilter: String? = null
+    private var currentAgeRangeFilter: String? = null
 
     init {
-
         _contacts.value = ContactManager.getContactListByDogName()
     }
 
     fun updateContacts(newContacts: List<Contact>) {
         _contacts.value = newContacts
+        applyFilters()
     }
 
     fun addContact(contact: Contact) {
         val currentContacts = _contacts.value.orEmpty().toMutableList()
-        // currentContacts에서 contact를 추가하고 이름순으로 정렬된 리스트를 만들어서 _contacts에 저장
         currentContacts.add(contact)
         _contacts.value = currentContacts.sortedBy { it.petProfile.name }
+        applyFilters()
+    }
+
+    fun setRegionFilter(region: String?) {
+        currentRegionFilter = region
+        applyFilters()
+    }
+
+    fun setSpeciesFilter(species: String?) {
+        currentSpeciesFilter = species
+        applyFilters()
+    }
+
+    fun setAgeRangeFilter(ageRange: String?) {
+        currentAgeRangeFilter = ageRange
+        applyFilters()
+    }
+
+    // 모든 필터를 초기화 함
+    fun clearFilters() {
+        currentRegionFilter = null
+        currentSpeciesFilter = null
+        currentAgeRangeFilter = null
+        _contacts.value = ContactManager.getContactListByDogName()
+    }
+
+    // 나이 범위를 판단하기
+    private fun getAgeRange(age: Int): String {
+        return when (age) {
+            in 1..5 -> "1-5세"
+            in 6..10 -> "6-10세"
+            in 11..15 -> "11-15세"
+            in 16..20 -> "16-20세"
+            in 21..25 -> "21-25세"
+            else -> "기타"
+        }
+    }
+
+    // 필터 -> 연락처 목록 업데이트
+    private fun applyFilters() {
+        var filteredContacts = ContactManager.getContactListByDogName() // 원래 데이터로 초기화하기
+
+        currentRegionFilter?.let { region ->
+            filteredContacts = filteredContacts.filter { it.owner.region == region }.toMutableList()
+        }
+
+        currentSpeciesFilter?.let { species ->
+            filteredContacts = filteredContacts.filter { it.petProfile.species == species }.toMutableList()
+        }
+
+        currentAgeRangeFilter?.let { ageRange ->
+            filteredContacts =
+                filteredContacts.filter { getAgeRange(it.petProfile.age) == ageRange }.toMutableList()
+        }
+
+        _contacts.value = filteredContacts
     }
 }
