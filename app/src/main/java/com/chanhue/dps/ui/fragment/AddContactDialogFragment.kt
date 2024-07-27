@@ -297,7 +297,8 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
                     etInputPhoneNumber.text.toString(),
                     etInputOwnerAge.text.toString().toInt(),
                     etInputRegion.text.toString()
-                )
+                ),
+                contact.isFavorite
             )
         }
     }

@@ -882,6 +882,15 @@ object ContactManager {
         return true
     }
 
+    fun updateFavorite(contact: Contact): Boolean {
+        val index = contactList.indexOfFirst { it.id == contact.id }
+        if (index == -1) {
+            return false
+        }
+        contactList[index].isFavorite = contact.isFavorite
+        return true
+    }
+
     fun getDefaultContact(): Contact {
         return Contact(
             -1,

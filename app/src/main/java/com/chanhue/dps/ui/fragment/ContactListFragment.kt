@@ -156,7 +156,12 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 
     private fun toggleFavorite(contact: Contact) {
         contact.isFavorite = !contact.isFavorite
-        contactViewModel.updateContacts(contactViewModel.contacts.value?.sortedByDescending { it.isFavorite } ?: emptyList())
+
+        Log.d("ContactListFragment", "contact: $contact")
+
+        if (ContactManager.updateFavorite(contact)) {
+            contactViewModel.updateContacts(contactViewModel.contacts.value?.sortedByDescending { it.isFavorite } ?: emptyList())
+        }
     }
 
     private fun showDialog() {
