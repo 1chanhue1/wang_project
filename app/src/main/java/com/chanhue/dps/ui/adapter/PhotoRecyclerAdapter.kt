@@ -42,12 +42,10 @@ class PhotoRecyclerAdapter(val items: MutableList<String>) : RecyclerView.Adapte
             is ImageViewHolder -> holder.bind(items[position - 1])
         }
 
-        // Setting click listener
         holder.itemView.setOnClickListener {
             itemClick?.onClick(it, position)
         }
 
-        // Setting long click listener
         holder.itemView.setOnLongClickListener {
             itemClick?.onLongClick(it, position)
             true
