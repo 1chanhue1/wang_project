@@ -22,9 +22,11 @@ import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.ui.adapter.GridViewAdapter
 import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.viewmodel.ContactViewModel
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private const val ARG_CONTACT = "contact"
+
 class ContactListFragment : Fragment(), ContactUpdateListener {
 
     private var _binding: FragmentContactListBinding? = null
@@ -52,11 +54,11 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         super.onViewCreated(view, savedInstanceState)
         initFloatingButton()
         initLayoutToggleButton()
+        initChip()
 
         adapter = ContactAdapter(emptyList()) { contact ->
             toggleFavorite(contact)
         }
-
 
         // 데이터 보내기
         adapter.onItemClick = { contact ->
@@ -84,8 +86,6 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         contactViewModel.favoriteContacts.observe(viewLifecycleOwner) { contacts ->
             favoriteAdapter.updateContacts(contacts)
         }
-
-        initChip()
     }
 
     private fun initFloatingButton() {
@@ -156,6 +156,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
                     ContactManager.getRegionList()
                 ) { region ->
                     tvFilterRegion.text = region
+                    contactViewModel.setRegionFilter(region)
                 }
                 bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
             }
@@ -166,6 +167,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
                     ContactManager.getPetSpeciesList()
                 ) { species ->
                     tvFilterSpecies.text = species
+                    contactViewModel.setSpeciesFilter(species)
                 }
                 bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
             }
@@ -176,8 +178,16 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
                     petAgeRangeList
                 ) { ageRange ->
                     tvFilterAge.text = ageRange
+                    contactViewModel.setAgeRangeFilter(ageRange)
                 }
                 bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
+            }
+            // 초기화 버튼 클릭 시 필터 전부 초기화 하기
+            tvFilterAll.setOnClickListener {
+                tvFilterRegion.text = "지역"
+                tvFilterSpecies.text = "종"
+                tvFilterAge.text = "나이"
+                contactViewModel.clearFilters()
             }
         }
     }
