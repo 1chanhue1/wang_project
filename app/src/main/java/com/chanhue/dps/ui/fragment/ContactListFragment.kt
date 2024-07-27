@@ -21,6 +21,7 @@ import com.chanhue.dps.databinding.FragmentContactListBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.ui.adapter.GridViewAdapter
+import com.chanhue.dps.ui.extensions.dpToPx
 import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.viewmodel.ContactViewModel
 private const val ARG_PARAM1 = "param1"
@@ -119,10 +120,16 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     private fun setLayoutManager() {
         with(binding) {
             if (isGridLayout) {
-                recyclerViewContacts.layoutManager = GridLayoutManager(context, 2)
+                recyclerViewContacts.apply {
+                    layoutManager = GridLayoutManager(context, 2)
+                    setPadding(11.dpToPx(requireContext()), 0, 11.dpToPx(requireContext()), 0)
+                }
                 toggleLayoutButton.setImageResource(R.drawable.ic_list_view)
             } else {
-                recyclerViewContacts.layoutManager = LinearLayoutManager(context)
+                recyclerViewContacts.apply {
+                    layoutManager = LinearLayoutManager(context)
+                    setPadding(0, 0, 0, 0)
+                }
                 toggleLayoutButton.setImageResource(R.drawable.ic_grid_view)
             }
         }

@@ -49,9 +49,16 @@ class ContactAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(contact: Contact) {
-            binding.nameTextView.text = contact.owner.name
-            binding.speciesTextView.text = contact.petProfile.species
-            binding.ageTextView.text = contact.petProfile.age.toString()
+            binding.nameTextView.text = itemView.context.getString(
+                R.string.format_item_name,
+                contact.petProfile.name,
+                contact.owner.name
+            )
+            binding.speciesTextView.text = itemView.context.getString(
+                R.string.format_item_description,
+                contact.petProfile.species,
+                contact.petProfile.age.toString()
+            )
             // 썸네일 이미지와 즐겨찾기 아이콘 설정
             Glide.with(binding.thumbnailImageView.context)
                 .load(contact.petProfile.thumbnailImage)
@@ -80,8 +87,16 @@ class ContactAdapter(
                     .load(contact.petProfile.thumbnailImage)
                     .into(ivContactGridThumbnailImage)
 
-                tvContactGridName.text = contact.owner.name
-                tvContactGridDescription.text = contact.petProfile.species
+                tvContactGridName.text = itemView.context.getString(
+                    R.string.format_item_name,
+                    contact.petProfile.name,
+                    contact.owner.name
+                )
+                tvContactGridDescription.text = itemView.context.getString(
+                    R.string.format_item_description,
+                    contact.petProfile.species,
+                    contact.petProfile.age.toString()
+                )
 
                 ivFavorite.setImageResource(
                     if (contact.isFavorite) R.drawable.ic_favorite_full else R.drawable.ic_heart_empty
