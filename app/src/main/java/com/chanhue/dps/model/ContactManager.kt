@@ -869,10 +869,17 @@ object ContactManager {
         return contactList.filter { it.petProfile.age in (range * 5 - 4)..(range * 5) }
     }
 
-    fun addContact(contact: Contact): List<Contact> {
-        // 첫번째 인덱스에 추가
-        contactList.add(0, contact)
-        return contactList
+    fun addContact(contact: Contact): Boolean {
+        return contactList.add(contact)
+    }
+
+    fun updateContact(contact: Contact): Boolean {
+        val index = contactList.indexOfFirst { it.petProfile.id == contact.petProfile.id }
+        if (index == -1) {
+            return false
+        }
+        contactList[index] = contact
+        return true
     }
 
     fun getDefaultContact(): Contact {

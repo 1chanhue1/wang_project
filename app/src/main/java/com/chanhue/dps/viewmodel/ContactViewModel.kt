@@ -1,5 +1,6 @@
 package com.chanhue.dps.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -89,5 +90,18 @@ class ContactViewModel : ViewModel() {
         }
 
         _contacts.value = filteredContacts
+    }
+
+    // 연락처 정보 수정
+    fun updateContact(contact: Contact) {
+        val currentContacts = _contacts.value.orEmpty().toMutableList()
+        val index = currentContacts.indexOfFirst { it.id == contact.id }
+        if (index != -1) {
+            currentContacts[index] = contact
+            _contacts.value = currentContacts
+        }
+        Log.d("ContactViewModel", "contact: $contact")
+        Log.d("ContactViewModel", "_contacts.value: ${_contacts.value}")
+        Log.d("ContactViewModel", "currentContacts: ${currentContacts}")
     }
 }

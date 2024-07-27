@@ -236,4 +236,9 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        contactViewModel.updateContacts(ContactManager.getContactListByDogName())
+    }
 }

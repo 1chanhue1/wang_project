@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -217,14 +218,29 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
         binding.toolbarDialogAddContact.tvToolbarAction.setOnClickListener {
             validateInputs()
             if (isAllInputValid()) {
-                createContact().let {
-                    Log.d("AddContactDialog", "contact: $it")
-                    listener?.onContactUpdated(it)
-                    dismissWithAnimation()
-                }
+                addContact()
             } else {
                 Log.d("AddContactDialog", "입력값이 올바르지 않습니다.")
             }
+        }
+    }
+
+    private fun addContact() {
+        createContact().let {
+            val isSuccessful = if (contact.id == -1) {
+                ContactManager.addContact(it)
+            } else {
+                ContactManager.updateContact(it)
+            }
+            if (isSuccessful) {
+                listener?.onContactUpdated(it)
+                val message = if (contact.id == -1) "연락처가 추가되었습니다." else "연락처가 수정되었습니다."
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "연락처 추가에 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+            Log.d("ContactManager", "contact: ${ContactManager.getContactListByDogName()}")
+            dismissWithAnimation()
         }
     }
 
@@ -259,10 +275,12 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
                 chipGroupDialogPersonality.findViewById<Chip>(chipId).text.toString()
             }
 
+            Log.d("AddContactDialog", "contact: $contact")
+
             return Contact(
-                ContactManager.getContactLastId() + 1,
+                getContactId("contact"),
                 PetProfile(
-                    ContactManager.getPetProfileLastId() + 1,
+                    getContactId("pet"),
                     petProfileImageUri,
                     etInputPetName.text.toString(),
                     petGender,
@@ -273,7 +291,7 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
                     etInputMemo.text.toString()
                 ),
                 Owner(
-                    ContactManager.getOwnerLastId() + 1,
+                    getContactId("owner"),
                     etInputOwnerName.text.toString(),
                     ownerGender,
                     etInputPhoneNumber.text.toString(),
@@ -281,6 +299,35 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
                     etInputRegion.text.toString()
                 )
             )
+        }
+    }
+
+    private fun getContactId(type: String): Int {
+        when (type) {
+            "contact" -> {
+                return if (contact.id == -1) {
+                    ContactManager.getContactLastId() + 1
+                } else {
+                    contact.id
+                }
+            }
+            "owner" -> {
+                return if (contact.owner.id == -1) {
+                    ContactManager.getOwnerLastId() + 1
+                } else {
+                    contact.owner.id
+                }
+            }
+            "pet" -> {
+                return if (contact.petProfile.id == -1) {
+                    ContactManager.getPetProfileLastId() + 1
+                } else {
+                    contact.petProfile.id
+                }
+            }
+            else -> {
+                return -1
+            }
         }
     }
 
