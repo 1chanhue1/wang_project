@@ -20,8 +20,8 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
-import com.chanhue.dps.Constants
-import com.chanhue.dps.DialogStateManager
+import com.chanhue.dps.util.Constants
+import com.chanhue.dps.util.DialogStateManager
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.FragmentAddContactDialogBinding
 import com.chanhue.dps.model.Contact

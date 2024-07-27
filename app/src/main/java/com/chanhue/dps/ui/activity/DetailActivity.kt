@@ -26,7 +26,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.chanhue.dps.Constants.ITEM_OBJECT
+import com.chanhue.dps.util.Constants.ITEM_OBJECT
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.ActivityDetailBinding
 import com.chanhue.dps.model.Contact

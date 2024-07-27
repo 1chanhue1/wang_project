@@ -25,7 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="14dp"
                 android:text="즐겨찾기 목록"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
                 tools:listitem="@layout/grid_listitem" />
 
             <TextView
-                android:id="@+id/tv_no_like_list"
+                android:id="@+id/tv_label_no_like_list"
                 style="@style/AppTextLabel.S20"
                 android:layout_width="0dp"
                 android:layout_height="141dp"
@@ -57,16 +57,28 @@
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_label_walk_mate"
+                style="@style/AppTextTitle.S18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="14dp"
+                android:text="내 강아지의 산책메이트"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_no_like_list" />
+
+            <TextView
                 android:id="@+id/tv_filter_region"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/shp_filter_add"
                 android:drawableRight="@drawable/ic_drop_down"
                 android:text="지역"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_no_like_list" />
+                app:layout_constraintTop_toBottomOf="@id/tv_label_walk_mate" />
 
             <TextView
                 android:id="@+id/tv_filter_species"

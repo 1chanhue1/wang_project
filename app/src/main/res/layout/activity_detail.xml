@@ -39,6 +39,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/detail_shp_img_bg"
                         android:clipToOutline="true"
+                        android:scaleType="centerCrop"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -180,10 +181,10 @@
                     android:backgroundTint="@color/light_orange"
                     android:elevation="4dp"
                     android:gravity="center"
-                    android:textSize="@dimen/sizeCaptionText"
-                    tools:text="전화번호"
                     android:padding="10dp"
-                    android:textColor="@color/maroon"/>
+                    android:textColor="@color/maroon"
+                    android:textSize="@dimen/sizeCaptionText"
+                    tools:text="전화번호" />
 
                 <TextView
                     android:id="@+id/detail_name"
@@ -193,9 +194,9 @@
                     android:backgroundTint="@color/light_yellow"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textColor="@color/maroon"
                     android:textSize="@dimen/sizeBodyText"
-                    tools:text="이름"
-                    android:textColor="@color/maroon"/>
+                    tools:text="이름" />
 
                 <TextView
                     android:id="@+id/detail_age"
@@ -205,9 +206,9 @@
                     android:backgroundTint="@color/light_orange"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textColor="@color/maroon"
                     android:textSize="@dimen/sizeBodyText"
-                    tools:text="나이"
-                    android:textColor="@color/maroon"/>
+                    tools:text="나이" />
 
                 <TextView
                     android:id="@+id/detail_species"
@@ -217,9 +218,9 @@
                     android:backgroundTint="@color/light_yellow"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textColor="@color/maroon"
                     android:textSize="@dimen/sizeBodyText"
-                    tools:text="종"
-                    android:textColor="@color/maroon"/>
+                    tools:text="종" />
 
                 <TextView
                     android:id="@+id/detail_gender"
@@ -229,9 +230,9 @@
                     android:backgroundTint="@color/light_orange"
                     android:elevation="4dp"
                     android:gravity="center"
+                    android:textColor="@color/maroon"
                     android:textSize="@dimen/sizeBodyText"
-                    tools:text="성별"
-                    android:textColor="@color/maroon"/>
+                    tools:text="성별" />
 
                 <TextView
                     android:id="@+id/detail_character"
@@ -241,10 +242,10 @@
                     android:backgroundTint="@color/light_yellow"
                     android:elevation="4dp"
                     android:gravity="center"
-                    android:textSize="@dimen/sizeBodyText"
-                    tools:text="성격"
                     android:padding="10dp"
-                    android:textColor="@color/maroon"/>
+                    android:textColor="@color/maroon"
+                    android:textSize="@dimen/sizeBodyText"
+                    tools:text="성격" />
 
                 <View
                     android:id="@+id/detail_divider"
