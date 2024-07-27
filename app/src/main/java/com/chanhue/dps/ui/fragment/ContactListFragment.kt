@@ -14,11 +14,11 @@ import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chanhue.dps.Constants
+import com.chanhue.dps.ui.activity.DetailActivity
 import com.chanhue.dps.DialogStateManager
 import com.chanhue.dps.databinding.FragmentContactListBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
-import com.chanhue.dps.ui.activity.DetailActivity
 import com.chanhue.dps.ui.adapter.GridViewAdapter
 import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.viewmodel.ContactViewModel
