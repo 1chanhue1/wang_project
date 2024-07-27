@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
@@ -89,6 +90,24 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         contactViewModel.favoriteContacts.observe(viewLifecycleOwner) { contacts ->
             favoriteAdapter.updateContacts(contacts)
         }
+
+        binding.recyclerViewContacts.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                // 레이아웃이 계속 변하기 때문에 한 번만 실행되도록 리스너 제거
+                binding.recyclerViewContacts.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                // RecyclerView의 높이를 계산하여 설정
+                val params = binding.recyclerViewContacts.layoutParams
+                params.height = calculateRecyclerViewHeight()
+                binding.recyclerViewContacts.layoutParams = params
+            }
+        })
+    }
+
+    private fun calculateRecyclerViewHeight(): Int {
+        val itemHeight = resources.getDimensionPixelSize(R.dimen.item_contact_height)
+        val itemCount = binding.recyclerViewContacts.adapter?.itemCount ?: 0
+        return itemHeight * itemCount
     }
 
     private fun initFloatingButton() {
