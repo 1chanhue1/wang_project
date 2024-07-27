@@ -877,7 +877,7 @@ object ContactManager {
 
     fun getDefaultContact(): Contact {
         return Contact(
-            31,
+            -1,
             PetProfile(
                 0,
                 "https://cdn.pixabay.com/photo/2021/08/18/09/34/dachshund-6555136_960_720.jpg",

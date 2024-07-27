@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/shp_chip_add"
+                android:background="@drawable/shp_filter_add"
                 android:drawableRight="@drawable/ic_drop_down"
                 android:text="지역"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
 
-                android:background="@drawable/shp_chip_add"
+                android:background="@drawable/shp_filter_add"
                 android:drawableRight="@drawable/ic_drop_down"
                 android:text="종"
                 app:layout_constraintStart_toEndOf="@id/tv_filter_region"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
 
-                android:background="@drawable/shp_chip_add"
+                android:background="@drawable/shp_filter_add"
                 android:drawableRight="@drawable/ic_drop_down"
                 android:text="나이"
                 app:layout_constraintStart_toEndOf="@id/tv_filter_species"
@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_marginStart="4dp"
-                android:background="@drawable/shp_chip_add"
+                android:background="@drawable/shp_filter_add"
 
                 android:text="초기화"
                 android:textColor="@color/ocean"

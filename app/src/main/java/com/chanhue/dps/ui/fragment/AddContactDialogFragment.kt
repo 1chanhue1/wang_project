@@ -18,6 +18,7 @@ import androidx.core.view.setPadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.commit
+import com.bumptech.glide.Glide
 import com.chanhue.dps.Constants
 import com.chanhue.dps.DialogStateManager
 import com.chanhue.dps.R
@@ -36,14 +37,10 @@ import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.ui.listener.PersonalityListener
 import com.google.android.material.chip.Chip
 
-class AddContactDialogFragment(
-
-) : DialogFragment(), AgeSelectListener, PersonalityListener {
+class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, PersonalityListener {
 
     private var listener: ContactUpdateListener? = null
-    private var contact: Contact? = null
-
-
+    private var contact: Contact = ContactManager.getDefaultContact()
 
     private var _binding: FragmentAddContactDialogBinding? = null
     private val binding get() = _binding!!
@@ -82,20 +79,6 @@ class AddContactDialogFragment(
 
     private var ownerGender = false
     private var petGender = false
-
-    companion object {
-        private const val ARG_CONTACT = "contact"
-
-        fun newInstance(contact: Contact, listener: ContactUpdateListener): AddContactDialogFragment {
-            return AddContactDialogFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_CONTACT, contact)
-                    Log.d("AddContactDialog", "contact: $contact")
-                }
-                this.listener = listener
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -147,6 +130,9 @@ class AddContactDialogFragment(
     }
 
     private fun setLayout() {
+        if (contact.id != -1) {
+            setContactInfo(contact)
+        }
         initOwnerAgeEditText()
         initPetAgeEditText()
         initPhoneNumberEditText()
@@ -155,6 +141,47 @@ class AddContactDialogFragment(
         setPetProfileImage()
         setTextInput()
         initAddContactButton()
+    }
+
+    private fun setContactInfo(contact: Contact) {
+
+        Log.d("AddContactDialog", "contact: $contact")
+        with(binding) {
+            petProfileImageUri = contact.petProfile.thumbnailImage
+            ivDialogPetProfile.setPadding(0)
+            Glide.with(ivDialogPetProfile)
+                .load(contact.petProfile.thumbnailImage)
+                .into(ivDialogPetProfile)
+            etInputOwnerName.setText(contact.owner.name)
+            ownerGender = contact.owner.gender
+            if (ownerGender) {
+                radioBtnOwnerGenderFemale.isChecked = true
+            } else {
+                radioBtnOwnerGenderMale.isChecked = true
+            }
+            etInputPhoneNumber.setText(contact.owner.phoneNumber)
+            etInputOwnerAge.setText(contact.owner.age.toString())
+            etInputRegion.setText(contact.owner.region)
+
+            etInputPetName.setText(contact.petProfile.name)
+            petGender = contact.petProfile.gender
+            if (petGender) {
+                radioBtnPetGenderFemale.isChecked = true
+            } else {
+                radioBtnPetGenderMale.isChecked = true
+            }
+            etInputPetSpecies.setText(contact.petProfile.species)
+            etInputPetAge.setText(contact.petProfile.age.toString())
+            etInputMemo.setText(contact.petProfile.memo)
+
+            val personalityList = contact.petProfile.personality.split(", ")
+            // personalityList 거꾸로 돌면서 chip 추가
+            for (i in personalityList.size - 1 downTo 0) {
+                val chip = createNewChip(personalityList[i])
+                chip.isChecked = true
+                chipGroupDialogPersonality.addView(chip, 0)
+            }
+        }
     }
 
     private fun initOwnerAgeEditText() {
@@ -346,5 +373,20 @@ class AddContactDialogFragment(
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val ARG_CONTACT = "contact"
+
+        fun newInstance(contact: Contact, listener: ContactUpdateListener): AddContactDialogFragment {
+            return AddContactDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_CONTACT, contact)
+                    Log.d("AddContactDialog", "contact: $contact")
+                }
+                this.listener = listener
+                this.contact = contact
+            }
+        }
     }
 }
