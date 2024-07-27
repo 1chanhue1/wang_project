@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chanhue.dps.Constants
 import com.chanhue.dps.ui.activity.DetailActivity
 import com.chanhue.dps.DialogStateManager
+import com.chanhue.dps.R
 import com.chanhue.dps.databinding.FragmentContactListBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
@@ -35,6 +36,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 
     private var param: Contact? = null
     private lateinit var adapter: ContactAdapter
+    private lateinit var favoriteAdapter: GridViewAdapter
 
     private val petAgeRangeList = listOf(
         "1-5세", "6-10세", "11-15세", "16-20세", "21-25세"
@@ -53,7 +55,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         initFloatingButton()
         initLayoutToggleButton()
 
-        adapter = ContactAdapter(emptyList()) { contact ->
+        adapter = ContactAdapter(emptyList(), isGridLayout) { contact ->
             toggleFavorite(contact)
         }
 
@@ -79,7 +81,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
             Log.d("ContactListFragment1", param.toString())
         }
 
-        val favoriteAdapter = GridViewAdapter(mutableListOf())
+        favoriteAdapter = GridViewAdapter(mutableListOf())
         binding.hsvFriend.adapter = favoriteAdapter
         contactViewModel.favoriteContacts.observe(viewLifecycleOwner) { contacts ->
             favoriteAdapter.updateContacts(contacts)
@@ -98,14 +100,31 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         binding.toggleLayoutButton.setOnClickListener {
             isGridLayout = !isGridLayout
             setLayoutManager()
+            adapter = ContactAdapter(emptyList(), isGridLayout) { contact ->
+                toggleFavorite(contact)
+            }
+            adapter.onItemClick = { contact ->
+                val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+                    putExtra(Constants.ITEM_OBJECT, contact)
+                }
+                startActivity(intent)
+            }
+            binding.recyclerViewContacts.adapter = adapter
+            contactViewModel.contacts.value?.let { contacts ->
+                adapter.updateContacts(contacts) // 업데이트된 데이터 설정
+            }
         }
     }
 
     private fun setLayoutManager() {
-        binding.recyclerViewContacts.layoutManager = if (isGridLayout) {
-            GridLayoutManager(context, 2) // 2열로 설정 (그리드 레이아웃)
-        } else {
-            LinearLayoutManager(context) // 리스트 레이아웃
+        with(binding) {
+            if (isGridLayout) {
+                recyclerViewContacts.layoutManager = GridLayoutManager(context, 2)
+                toggleLayoutButton.setImageResource(R.drawable.ic_list_view)
+            } else {
+                recyclerViewContacts.layoutManager = LinearLayoutManager(context)
+                toggleLayoutButton.setImageResource(R.drawable.ic_grid_view)
+            }
         }
     }
 

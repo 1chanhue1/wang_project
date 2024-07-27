@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chanhue.dps.databinding.GridListitemBinding
@@ -50,8 +51,38 @@ class GridViewAdapter(var items: MutableList<Contact>) : RecyclerView.Adapter<Gr
         val productOname = binding.gridTvOName
     }
 
+//    fun updateContacts(newContacts: List<Contact>) {
+//        items = newContacts.toMutableList()
+//        notifyDataSetChanged()
+//    }
+
     fun updateContacts(newContacts: List<Contact>) {
+        val diffCallback = FavoriteDiffCallback(items, newContacts)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         items = newContacts.toMutableList()
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
+    }
+}
+
+class FavoriteDiffCallback(
+    private val oldList: List<Contact>,
+    private val newList: List<Contact>
+) : DiffUtil.Callback() {
+
+    override fun getOldListSize(): Int {
+        return oldList.size
+    }
+
+    override fun getNewListSize(): Int {
+        return newList.size
+    }
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition].id == newList[newItemPosition].id
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 }
