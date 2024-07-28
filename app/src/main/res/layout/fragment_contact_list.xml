@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:paddingBottom="30dp"
+        android:paddingBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/tv_like_list"
-                style="@style/AppTextTitle.S18"
+                style="@style/AppTextTitle.S16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -45,7 +45,7 @@
 
             <TextView
                 android:id="@+id/tv_label_no_like_list"
-                style="@style/AppTextLabel.S20"
+                style="@style/AppTextLabel.S16"
                 android:layout_width="0dp"
                 android:layout_height="141dp"
                 android:gravity="center"
@@ -58,12 +58,12 @@
 
             <TextView
                 android:id="@+id/tv_label_walk_mate"
-                style="@style/AppTextTitle.S18"
+                style="@style/AppTextTitle.S16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="14dp"
-                android:text="내 강아지의 산책메이트"
+                android:text="우리만의 산책메이트"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_no_like_list" />

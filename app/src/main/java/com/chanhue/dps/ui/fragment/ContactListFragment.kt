@@ -92,24 +92,24 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
             binding.tvLabelNoLikeList.visibility = if (contacts.isEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
-        binding.recyclerViewContacts.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                // 레이아웃이 계속 변하기 때문에 한 번만 실행되도록 리스너 제거
-                binding.recyclerViewContacts.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                // RecyclerView의 높이를 계산하여 설정
-                val params = binding.recyclerViewContacts.layoutParams
-                params.height = calculateRecyclerViewHeight()
-                binding.recyclerViewContacts.layoutParams = params
-            }
-        })
+//        binding.recyclerViewContacts.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+//            override fun onGlobalLayout() {
+//                // 레이아웃이 계속 변하기 때문에 한 번만 실행되도록 리스너 제거
+//                binding.recyclerViewContacts.viewTreeObserver.removeOnGlobalLayoutListener(this)
+//
+//                // RecyclerView의 높이를 계산하여 설정
+//                val params = binding.recyclerViewContacts.layoutParams
+//                params.height = calculateRecyclerViewHeight()
+//                binding.recyclerViewContacts.layoutParams = params
+//            }
+//        })
     }
 
-    private fun calculateRecyclerViewHeight(): Int {
-        val itemHeight = resources.getDimensionPixelSize(R.dimen.item_contact_height)
-        val itemCount = binding.recyclerViewContacts.adapter?.itemCount ?: 0
-        return itemHeight * itemCount
-    }
+//    private fun calculateRecyclerViewHeight(): Int {
+//        val itemHeight = resources.getDimensionPixelSize(R.dimen.item_contact_height)
+//        val itemCount = binding.recyclerViewContacts.adapter?.itemCount ?: 0
+//        return itemHeight * itemCount
+//    }
 
     private fun initFloatingButton() {
         binding.ivContact.setOnClickListener {
@@ -206,7 +206,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
                     "Region",
                     ContactManager.getRegionList()
                 ) { region ->
-                    tvFilterRegion.text = region
+                    setFilterText("Region", region)
                     contactViewModel.setRegionFilter(region)
                 }
                 bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
@@ -217,7 +217,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
                     "Species",
                     ContactManager.getPetSpeciesList()
                 ) { species ->
-                    tvFilterSpecies.text = species
+                    setFilterText("Species", species)
                     contactViewModel.setSpeciesFilter(species)
                 }
                 bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
@@ -228,7 +228,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
                     "Age",
                     petAgeRangeList
                 ) { ageRange ->
-                    tvFilterAge.text = ageRange
+                    setFilterText("Age", ageRange)
                     contactViewModel.setAgeRangeFilter(ageRange)
                 }
                 bottomSheetDialogFragment.show(childFragmentManager, bottomSheetDialogFragment.tag)
@@ -239,6 +239,30 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
                 tvFilterSpecies.text = "종"
                 tvFilterAge.text = "나이"
                 contactViewModel.clearFilters()
+            }
+        }
+    }
+
+    private fun setFilterText(filterType: String, filterText: String) {
+        with(binding) {
+            if (filterText == "전체") {
+                val defaultText = when (filterType) {
+                    "Region" -> "지역"
+                    "Species" -> "종"
+                    "Age" -> "나이"
+                    else -> ""
+                }
+                when (filterType) {
+                    "Region" -> tvFilterRegion.text = defaultText
+                    "Species" -> tvFilterSpecies.text = defaultText
+                    "Age" -> tvFilterAge.text = defaultText
+                }
+            } else {
+                when (filterType) {
+                    "Region" -> tvFilterRegion.text = filterText
+                    "Species" -> tvFilterSpecies.text = filterText
+                    "Age" -> tvFilterAge.text = filterText
+                }
             }
         }
     }
