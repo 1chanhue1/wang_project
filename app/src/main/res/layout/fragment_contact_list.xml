@@ -75,8 +75,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shp_filter_add"
-                android:drawableRight="@drawable/ic_drop_down"
+                android:drawableRight="@drawable/ic_arrow_down"
+                android:drawablePadding="4dp"
                 android:text="지역"
+                android:textColor="@color/warm_black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_walk_mate" />
 
@@ -85,10 +87,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-
                 android:background="@drawable/shp_filter_add"
-                android:drawableRight="@drawable/ic_drop_down"
+                android:drawableRight="@drawable/ic_arrow_down"
+                android:drawablePadding="4dp"
                 android:text="종"
+                android:textColor="@color/warm_black"
                 app:layout_constraintStart_toEndOf="@id/tv_filter_region"
                 app:layout_constraintTop_toTopOf="@id/tv_filter_region" />
 
@@ -97,22 +100,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-
                 android:background="@drawable/shp_filter_add"
-                android:drawableRight="@drawable/ic_drop_down"
+                android:drawableRight="@drawable/ic_arrow_down"
+                android:drawablePadding="4dp"
                 android:text="나이"
+                android:textColor="@color/warm_black"
                 app:layout_constraintStart_toEndOf="@id/tv_filter_species"
                 app:layout_constraintTop_toTopOf="@id/tv_filter_species" />
 
             <TextView
                 android:id="@+id/tv_filter_all"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:background="@drawable/shp_filter_add"
-
                 android:text="초기화"
-                android:textColor="@color/ocean"
+                android:textColor="@color/warm_black"
                 app:layout_constraintStart_toEndOf="@id/tv_filter_age"
                 app:layout_constraintTop_toTopOf="@id/tv_filter_age" />
 

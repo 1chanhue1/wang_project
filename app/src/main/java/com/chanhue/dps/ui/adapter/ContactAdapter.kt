@@ -77,6 +77,7 @@ class ContactAdapter(
 
             binding.ivFavorite.setOnClickListener {
                 toggleFavoriteCallback(contact)
+                notifyItemChanged(bindingAdapterPosition)
             }
 
             itemView.setOnClickListener {
@@ -128,6 +129,7 @@ class ContactAdapter(
 
                 ivFavorite.setOnClickListener {
                     toggleFavoriteCallback(contact)
+                    notifyItemChanged(bindingAdapterPosition)
                 }
 
                 itemView.setOnClickListener {
