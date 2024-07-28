@@ -1,4 +1,5 @@
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +12,13 @@ import com.chanhue.dps.model.Contact
 class ContactAdapter(
     private var contactList: List<Contact>,
     private val isGridLayout: Boolean,
+    private val contactInteractionListener: OnContactInteractionListener,
     private val toggleFavoriteCallback: (Contact) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    interface OnContactInteractionListener {
+        fun onCallContact(phoneNumber: String)
+    }
 
     var onItemClick: ((Contact) -> Unit)? = null
 
@@ -75,6 +81,18 @@ class ContactAdapter(
             itemView.setOnClickListener {
                 onItemClick?.invoke(contact)
             }
+
+            binding.ivCall.setOnClickListener {
+                contactInteractionListener.onCallContact(contact.owner.phoneNumber)
+            }
+        }
+
+        fun showCallIcon() {
+            binding.ivCall.visibility = View.VISIBLE
+        }
+
+        fun hideCallIcon() {
+            binding.ivCall.visibility = View.GONE
         }
     }
 
@@ -125,6 +143,10 @@ class ContactAdapter(
 //        contactList = newContacts
 //        diffResult.dispatchUpdatesTo(this)
 //    }
+
+    fun getContactAtPosition(position: Int): Contact {
+        return contactList[position]
+    }
 }
 
 class ContactDiffCallback(
