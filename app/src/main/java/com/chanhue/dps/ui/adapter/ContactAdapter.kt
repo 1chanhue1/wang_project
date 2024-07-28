@@ -13,7 +13,8 @@ class ContactAdapter(
     private var contactList: List<Contact>,
     private val isGridLayout: Boolean,
     private val contactInteractionListener: OnContactInteractionListener,
-    private val toggleFavoriteCallback: (Contact) -> Unit
+    private val toggleFavoriteCallback: (Contact) -> Unit,
+    private val onItemLongClick: (Contact) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnContactInteractionListener {
@@ -82,6 +83,11 @@ class ContactAdapter(
                 onItemClick?.invoke(contact)
             }
 
+            itemView.setOnLongClickListener {
+                onItemLongClick(contact)
+                true
+            }
+
             binding.ivCall.setOnClickListener {
                 contactInteractionListener.onCallContact(contact.owner.phoneNumber)
             }
@@ -127,22 +133,27 @@ class ContactAdapter(
                 itemView.setOnClickListener {
                     onItemClick?.invoke(contact)
                 }
+
+                itemView.setOnLongClickListener {
+                    onItemLongClick(contact)
+                    true
+                }
             }
         }
     }
 
-    fun updateContacts(newContacts: List<Contact>) {
-        contactList = newContacts
-        notifyDataSetChanged()
-    }
-
 //    fun updateContacts(newContacts: List<Contact>) {
-//        val diffCallback = ContactDiffCallback(contactList, newContacts)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//
 //        contactList = newContacts
-//        diffResult.dispatchUpdatesTo(this)
+//        notifyDataSetChanged()
 //    }
+
+    fun updateContacts(newContacts: List<Contact>) {
+        val diffCallback = ContactDiffCallback(contactList, newContacts)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        contactList = newContacts
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     fun getContactAtPosition(position: Int): Contact {
         return contactList[position]

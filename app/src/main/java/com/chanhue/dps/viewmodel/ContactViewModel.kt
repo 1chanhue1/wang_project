@@ -104,4 +104,10 @@ class ContactViewModel : ViewModel() {
         Log.d("ContactViewModel", "_contacts.value: ${_contacts.value}")
         Log.d("ContactViewModel", "currentContacts: ${currentContacts}")
     }
+
+    fun removeContact(contact: Contact) {
+        val currentContacts = _contacts.value.orEmpty().toMutableList()
+        currentContacts.remove(contact)
+        _contacts.value = currentContacts
+    }
 }

@@ -33,6 +33,7 @@ import com.chanhue.dps.ui.adapter.GridViewAdapter
 import com.chanhue.dps.ui.extensions.dpToPx
 import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.viewmodel.ContactViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.jar.Manifest
 
 private const val ARG_PARAM1 = "param1"
@@ -69,9 +70,14 @@ class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.On
         initLayoutToggleButton()
         initChip()
 
-        adapter = ContactAdapter(emptyList(), isGridLayout, this) { contact ->
+//        adapter = ContactAdapter(emptyList(), isGridLayout, this) { contact ->
+//            toggleFavorite(contact)
+//        }
+        adapter = ContactAdapter(emptyList(), isGridLayout, this, { contact ->
             toggleFavorite(contact)
-        }
+        }, { contact ->
+            showDeleteContactDialog(contact)
+        })
 
         // 데이터 보내기
         adapter.onItemClick = { contact ->
@@ -95,7 +101,19 @@ class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.On
             Log.d("ContactListFragment1", param.toString())
         }
 
-        favoriteAdapter = GridViewAdapter(mutableListOf())
+        // favoriteAdapter emptyList()로 초기화, 람다 함수 2개
+        favoriteAdapter = GridViewAdapter(
+            mutableListOf(),
+            { contact ->
+                val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+                    putExtra(Constants.ITEM_OBJECT, contact)
+                }
+                startActivity(intent)
+            },
+            { contact ->
+                showDeleteFavoriteDialog(contact)
+            }
+        )
         binding.hsvFriend.adapter = favoriteAdapter
         contactViewModel.favoriteContacts.observe(viewLifecycleOwner) { contacts ->
             favoriteAdapter.updateContacts(contacts)
@@ -113,9 +131,11 @@ class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.On
         binding.toggleLayoutButton.setOnClickListener {
             isGridLayout = !isGridLayout
             setLayoutManager()
-            adapter = ContactAdapter(emptyList(), isGridLayout, this) { contact ->
+            adapter = ContactAdapter(emptyList(), isGridLayout, this, { contact ->
                 toggleFavorite(contact)
-            }
+            }, { contact ->
+                showDeleteContactDialog(contact)
+            })
             adapter.onItemClick = { contact ->
                 val intent = Intent(requireContext(), DetailActivity::class.java).apply {
                     putExtra(Constants.ITEM_OBJECT, contact)
@@ -147,6 +167,37 @@ class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.On
         }
     }
 
+    private fun showDeleteContactDialog(contact: Contact) {
+        createDialog(
+            "연락처 삭제",
+            "연락처를 삭제하시겠습니까?"
+        ) {
+            deleteContact(contact)
+        }
+    }
+
+    private fun showDeleteFavoriteDialog(contact: Contact) {
+        createDialog(
+            "즐겨찾기 삭제",
+            "즐겨찾기를 삭제하시겠습니까?"
+        ) {
+            toggleFavorite(contact)
+        }
+    }
+
+    private fun createDialog(
+        title: String,
+        message: String,
+        positiveAction: () -> Unit
+    ) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("삭제") { dialog, which -> positiveAction() }
+            .setNegativeButton("취소") { dialog, which -> dialog.dismiss() }
+            .show()
+    }
+
     private fun toggleFavorite(contact: Contact) {
         contact.isFavorite = !contact.isFavorite
 
@@ -154,6 +205,12 @@ class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.On
 
         if (ContactManager.updateFavorite(contact)) {
             contactViewModel.updateContacts(contactViewModel.contacts.value?.sortedByDescending { it.isFavorite } ?: emptyList())
+        }
+    }
+
+    private fun deleteContact(contact: Contact) {
+        if (ContactManager.deleteContact(contact.id)) {
+            contactViewModel.removeContact(contact)
         }
     }
 

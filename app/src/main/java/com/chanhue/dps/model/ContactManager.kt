@@ -891,6 +891,15 @@ object ContactManager {
         return true
     }
 
+    fun deleteContact(id: Int): Boolean {
+        val index = contactList.indexOfFirst { it.id == id }
+        if (index == -1) {
+            return false
+        }
+        contactList.removeAt(index)
+        return true
+    }
+
     fun getDefaultContact(): Contact {
         return Contact(
             -1,
