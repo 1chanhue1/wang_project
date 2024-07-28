@@ -56,6 +56,7 @@ class PersonalityBottomSheetFragment(
     private fun createNewChip(text: String): Chip {
         val chip = layoutInflater.inflate(R.layout.item_chip_with_icon, binding.chipGroupPersonality, false) as Chip
         chip.text = text
+        chip.isCheckable = false
         //chip.isCloseIconVisible = false
         chip.setOnCloseIconClickListener {
             // 닫기 아이콘 클릭 시 Chip 제거
