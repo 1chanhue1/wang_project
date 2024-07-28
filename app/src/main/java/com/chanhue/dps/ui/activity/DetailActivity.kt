@@ -128,6 +128,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                     setOnMenuItemClickListener {
                         when (it.itemId) {
                             R.id.detail_edit_btn -> {
+                                detailFragmenrContainer.visibility = View.VISIBLE
                                 val dataToSend = originData
                                 val dialogFragment = dataToSend?.let { it1 ->
                                     AddContactDialogFragment.newInstance(
@@ -299,6 +300,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     }
 
     override fun onContactUpdated(contact: Contact) {
+        binding.detailFragmenrContainer.visibility = View.GONE
         if (contact.id == originData?.id) {
             Toast.makeText(this, "수정.", Toast.LENGTH_SHORT).show()
             originData = contact
@@ -339,5 +341,10 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
             detailGender.text = if (contact.petProfile.gender) "여" else "남"
             detailCharacter.text = contact.petProfile.personality
         }
+    }
+
+    fun onDialogDismissed() {
+        Log.d("DetailActivity", "Dialog dismissed.")
+        binding.detailFragmenrContainer.visibility = View.GONE
     }
 }

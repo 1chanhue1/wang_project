@@ -4,6 +4,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".ui.activity.DetailActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -296,6 +298,9 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/detail_fragmenr_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
