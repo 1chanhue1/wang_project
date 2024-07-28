@@ -135,6 +135,9 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
     private fun setLayout() {
         if (contact.id != -1) {
             setContactInfo(contact)
+            initToolbar()
+        } else {
+            setPersonalityChips()
         }
         initOwnerAgeEditText()
         initPetAgeEditText()
@@ -142,10 +145,16 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
         initRegionEditText()
         initSpeciesEditText()
         initAddPersonalityImageView()
-        setPersonalityChips()
         setPetProfileImage()
         setTextInput()
         initAddContactButton()
+    }
+
+    private fun initToolbar() {
+        with(binding.toolbarDialogAddContact) {
+            tvToolbarTitleDialog.text = "연락처 수정"
+            tvToolbarAction.text = "수정"
+        }
     }
 
     private fun setContactInfo(contact: Contact) {
@@ -338,8 +347,8 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
                     etInputPetAge.text.toString().toInt(),
                     etInputPetSpecies.text.toString(),
                     mutableListOf(),
-                    selectedChipList.joinToString(", "),
-                    etInputMemo.text.toString()
+                    etInputMemo.text.toString(),
+                    selectedChipList.joinToString(", ")
                 ),
                 Owner(
                     getContactId("owner"),
