@@ -26,6 +26,7 @@ import com.chanhue.dps.util.Constants
 import com.chanhue.dps.ui.activity.DetailActivity
 import com.chanhue.dps.util.DialogStateManager
 import com.chanhue.dps.R
+import com.chanhue.dps.databinding.DialogExitBinding
 import com.chanhue.dps.databinding.FragmentContactListBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
@@ -190,12 +191,28 @@ class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.On
         message: String,
         positiveAction: () -> Unit
     ) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton("삭제") { dialog, which -> positiveAction() }
-            .setNegativeButton("취소") { dialog, which -> dialog.dismiss() }
+        val binding = DialogExitBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AppExitDialog)
+            .setView(binding.root)
             .show()
+
+        with(binding) {
+            tvLabelExitDialogTitle.text = title
+            tvLabelExitDialogMessage.text = message
+            btnLabelExitDialogClose.apply {
+                text = "취소"
+                setOnClickListener {
+                    dialog.dismiss()
+                }
+            }
+            btnLabelExitDialogConfirm.apply {
+                text = "삭제"
+                setOnClickListener {
+                    positiveAction()
+                    dialog.dismiss()
+                }
+            }
+        }
     }
 
     private fun toggleFavorite(contact: Contact) {
