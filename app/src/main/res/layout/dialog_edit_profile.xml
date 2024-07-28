@@ -3,38 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="프로필 수정"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="16dp"/>
 
     <EditText
         android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="12dp"
         android:hint="이름" />
 
     <EditText
         android:id="@+id/editPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="전화번호" />
+        android:padding="12dp"
+        android:hint="전화번호"
+        android:layout_marginTop="12dp"/>
 
     <EditText
         android:id="@+id/editRegion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="사는곳" />
+        android:padding="12dp"
+        android:hint="사는곳"
+        android:layout_marginTop="12dp"/>
 
     <EditText
         android:id="@+id/editEmergencyNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="긴급연락망" />
+        android:padding="12dp"
+        android:hint="긴급연락망"
+        android:layout_marginTop="12dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:layout_marginTop="24dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancel_button"
@@ -45,6 +62,7 @@
             android:gravity="center"
             android:padding="12dp"
             android:text="취소"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <Space
@@ -59,8 +77,10 @@
             android:layout_weight="4.5"
             android:background="@drawable/button_bg_round"
             android:gravity="center"
+
             android:padding="12dp"
             android:text="저장"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
     </LinearLayout>

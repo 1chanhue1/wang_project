@@ -110,4 +110,15 @@ class ContactViewModel : ViewModel() {
         currentContacts.remove(contact)
         _contacts.value = currentContacts
     }
+
+    fun toggleFavorite(contactId: Int) {
+        val currentContacts = _contacts.value.orEmpty().toMutableList()
+        val index = currentContacts.indexOfFirst { it.id == contactId }
+        if (index != -1) {
+            val contact = currentContacts[index]
+            contact.isFavorite = !contact.isFavorite
+            currentContacts[index] = contact
+            _contacts.value = currentContacts
+        }
+    }
 }

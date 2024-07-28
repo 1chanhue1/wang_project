@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         // test
 
         binding.toolbarHome.ivToolbarHomeSearchIcon.setOnClickListener {
+            Toast.makeText(this, "검색 버튼 클릭", Toast.LENGTH_SHORT).show()
             showSearchFragment()
         }
 

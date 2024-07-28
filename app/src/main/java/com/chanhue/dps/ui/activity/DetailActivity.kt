@@ -14,6 +14,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -125,8 +126,8 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
 
             with(binding) {
                 with(detailToolbar) {
-                    setOnMenuItemClickListener {
-                        when (it.itemId) {
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
                             R.id.detail_edit_btn -> {
                                 detailFragmenrContainer.visibility = View.VISIBLE
                                 val dataToSend = originData
@@ -143,31 +144,31 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                                         add(R.id.detail_fragmenr_container, dialogFragment)
                                     }
                                 }
-
-                                return@setOnMenuItemClickListener true
+                                true
                             }
                             R.id.detail_favorite_btn -> {
-                                if (isClicked) {
-                                    it.setIcon(R.drawable.ic_favorite_full)
-                                    isClicked = false
-                                    return@setOnMenuItemClickListener true
-                                } else {
-                                    it.setIcon(R.drawable.ic_favorite)
-                                    isClicked = true
-                                    return@setOnMenuItemClickListener true
+                                originData?.let { contact ->
+                                    contactViewModel.toggleFavorite(contact.id)
+                                    updateFavoriteIcon(menuItem, !contact.isFavorite)
                                 }
+                                true
                             }
                             else -> {
-                                val text = "${originData!!.petProfile.name} | ${originData!!.owner.name} 님과 곧 산책할 시간이에요!"
-                                val dialog = NotificationDialogFragment(this@DetailActivity, text, 1)
+                                val dialog = NotificationDialogFragment(this@DetailActivity, "알람", 1)
                                 dialog.isCancelable = false
                                 dialog.show(this@DetailActivity.supportFragmentManager, "ConfirmDialog")
-
-                                return@setOnMenuItemClickListener true
+                                true
                             }
                         }
                     }
                     setBackgroundResource(colors[randomNumber])
+
+                    // Set the correct favorite icon on creation
+                    menu.findItem(R.id.detail_favorite_btn)?.let { menuItem ->
+                        originData?.let { contact ->
+                            updateFavoriteIcon(menuItem, contact.isFavorite)
+                        }
+                    }
                 }
 
                 detailPhotoRV.layoutManager =
@@ -203,7 +204,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                     }
                 }
                 detailName.text = originData!!.petProfile.name
-                detailAge.text = originData!!.petProfile.age.toString()
+                detailAge.text = "${originData!!.petProfile.age}세"
                 detailSpecies.text = originData!!.petProfile.species
                 detailGender.text = if (originData!!.petProfile.gender) "여" else "남"
                 detailCharacter.text = originData!!.petProfile.personality
@@ -217,6 +218,14 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
             notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         } else {
             createNotificationChannel()
+        }
+    }
+
+    private fun updateFavoriteIcon(menuItem: MenuItem, isFavorite: Boolean) {
+        if (isFavorite) {
+            menuItem.setIcon(R.drawable.ic_favorite_full)
+        } else {
+            menuItem.setIcon(R.drawable.ic_favorite)
         }
     }
 
@@ -300,7 +309,6 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     }
 
     override fun onContactUpdated(contact: Contact) {
-        binding.detailFragmenrContainer.visibility = View.GONE
         if (contact.id == originData?.id) {
             Toast.makeText(this, "수정.", Toast.LENGTH_SHORT).show()
             originData = contact
