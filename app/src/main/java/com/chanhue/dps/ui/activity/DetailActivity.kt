@@ -13,6 +13,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -123,13 +124,12 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
 
             with(binding) {
                 with(detailToolbar) {
-                    setOnMenuItemClickListener {
-                        when (it.itemId) {
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
                             R.id.detail_edit_btn -> {
                                 val dataToSend = data
-                                val dialogFragment = dataToSend?.let { it1 ->
-                                    AddContactDialogFragment.newInstance(
-                                        it1, this@DetailActivity)
+                                val dialogFragment = dataToSend?.let {
+                                    AddContactDialogFragment.newInstance(it, this@DetailActivity)
                                 }
                                 val fragmentManager = supportFragmentManager
                                 fragmentManager.commit {
@@ -140,30 +140,31 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                                         add(R.id.detail_fragmenr_container, dialogFragment)
                                     }
                                 }
-
-                                return@setOnMenuItemClickListener true
+                                true
                             }
                             R.id.detail_favorite_btn -> {
-                                if (isClicked) {
-                                    it.setIcon(R.drawable.ic_favorite_full)
-                                    isClicked = false
-                                    return@setOnMenuItemClickListener true
-                                } else {
-                                    it.setIcon(R.drawable.ic_favorite)
-                                    isClicked = true
-                                    return@setOnMenuItemClickListener true
+                                data?.let { contact ->
+                                    contactViewModel.toggleFavorite(contact.id)
+                                    updateFavoriteIcon(menuItem, !contact.isFavorite)
                                 }
+                                true
                             }
                             else -> {
                                 val dialog = NotificationDialogFragment(this@DetailActivity, "알람", 1)
                                 dialog.isCancelable = false
                                 dialog.show(this@DetailActivity.supportFragmentManager, "ConfirmDialog")
-
-                                return@setOnMenuItemClickListener true
+                                true
                             }
                         }
                     }
                     setBackgroundResource(colors[randomNumber])
+
+                    // Set the correct favorite icon on creation
+                    menu.findItem(R.id.detail_favorite_btn)?.let { menuItem ->
+                        data?.let { contact ->
+                            updateFavoriteIcon(menuItem, contact.isFavorite)
+                        }
+                    }
                 }
 
                 detailPhotoRV.layoutManager =
@@ -199,7 +200,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                     }
                 }
                 detailName.text = data!!.petProfile.name
-                detailAge.text = data!!.petProfile.age.toString()
+                detailAge.text = "${data!!.petProfile.age}세"
                 detailSpecies.text = data!!.petProfile.species
                 detailGender.text = if (data!!.petProfile.gender) "여" else "남"
                 detailCharacter.text = data!!.petProfile.personality
@@ -213,6 +214,14 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
             notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         } else {
             createNotificationChannel()
+        }
+    }
+
+    private fun updateFavoriteIcon(menuItem: MenuItem, isFavorite: Boolean) {
+        if (isFavorite) {
+            menuItem.setIcon(R.drawable.ic_favorite_full)
+        } else {
+            menuItem.setIcon(R.drawable.ic_favorite)
         }
     }
 
@@ -322,7 +331,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                 }
             }
             detailName.text = contact.petProfile.name
-            detailAge.text = contact.petProfile.age.toString()
+            detailAge.text = "${contact.petProfile.age}세"
             detailSpecies.text = contact.petProfile.species
             detailGender.text = if (contact.petProfile.gender) "여" else "남"
             detailCharacter.text = contact.petProfile.personality
