@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="AppExitDialog">
+
+    </style>
+
     <style name="AppBasicDialog">
         <item name="colorAccent">@color/light_orange</item>
         <item name="android:textColorPrimary">@color/warm_black</item>
@@ -121,6 +125,10 @@
 
     <style name="AppTextTitle.S16">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTextTitle.S16.LineHeight">
+        <item name="android:lineHeight">20sp</item>
     </style>
 
     <style name="AppTextTitle.S14">

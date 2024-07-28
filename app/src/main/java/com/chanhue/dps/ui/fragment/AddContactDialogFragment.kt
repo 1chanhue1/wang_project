@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide
 import com.chanhue.dps.util.Constants
 import com.chanhue.dps.util.DialogStateManager
 import com.chanhue.dps.R
+import com.chanhue.dps.databinding.DialogExitBinding
 import com.chanhue.dps.databinding.FragmentAddContactDialogBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
@@ -139,6 +140,7 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
         } else {
             setPersonalityChips()
         }
+        initExitButton()
         initOwnerAgeEditText()
         initPetAgeEditText()
         initPhoneNumberEditText()
@@ -154,6 +156,23 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
         with(binding.toolbarDialogAddContact) {
             tvToolbarTitleDialog.text = "연락처 수정"
             tvToolbarAction.text = "수정"
+        }
+    }
+
+    private fun initExitButton() {
+        binding.toolbarDialogAddContact.ivToolbarCloseDialog.setOnClickListener {
+            val binding = DialogExitBinding.inflate(LayoutInflater.from(requireContext()))
+            val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AppExitDialog)
+                .setView(binding.root)
+                .show()
+
+            binding.btnLabelExitDialogConfirm.setOnClickListener {
+                dialog.dismiss()
+                dismissWithAnimation()
+            }
+            binding.btnLabelExitDialogClose.setOnClickListener {
+                dialog.dismiss()
+            }
         }
     }
 

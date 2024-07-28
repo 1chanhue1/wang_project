@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_label_exit_dialog_title"
+        style="@style/AppTextTitle.S16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="지금까지 기록했던 정보가\n모두 사라집니다.\n정말로 종료하시겠습니까?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_label_exit_dialog_close"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shp_button_left_bottom_radius"
+        android:text="@string/btn_label_close"
+        app:layout_constraintEnd_toStartOf="@id/btn_label_exit_dialog_confirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_label_exit_dialog_title" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_label_exit_dialog_confirm"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@drawable/shp_button_right_bottom_radius"
+        android:text="@string/btn_label_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_label_exit_dialog_close"
+        app:layout_constraintTop_toTopOf="@id/btn_label_exit_dialog_close" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
