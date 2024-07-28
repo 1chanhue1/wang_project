@@ -154,7 +154,8 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                                 true
                             }
                             else -> {
-                                val dialog = NotificationDialogFragment(this@DetailActivity, "알람", 1)
+                                val text = "${originData!!.petProfile.name} | ${originData!!.owner.name} 님과 곧 산책할 시간이에요!"
+                                val dialog = NotificationDialogFragment(this@DetailActivity, text, 1)
                                 dialog.isCancelable = false
                                 dialog.show(this@DetailActivity.supportFragmentManager, "ConfirmDialog")
                                 true
