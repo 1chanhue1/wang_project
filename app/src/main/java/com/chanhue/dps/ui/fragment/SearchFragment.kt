@@ -46,6 +46,9 @@ class SearchFragment : Fragment() {
                 return true
             }
         })
+        binding.ivSearchArrowBack.setOnClickListener {
+            (activity as? MainActivity)?.hideSearchFragment()
+        }
     }
 
     private fun initRecyclerView() {
@@ -58,7 +61,7 @@ class SearchFragment : Fragment() {
     private fun setOnBackPressedHandler() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                (activity as? MainActivity)?.hideDetailFragment()
+                (activity as? MainActivity)?.hideSearchFragment()
             }
         })
     }

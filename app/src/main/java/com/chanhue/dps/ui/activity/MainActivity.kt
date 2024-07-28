@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import androidx.viewpager2.widget.ViewPager2
@@ -38,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         // test
 
         binding.toolbarHome.ivToolbarHomeSearchIcon.setOnClickListener {
-            Toast.makeText(this, "검색 버튼 클릭", Toast.LENGTH_SHORT).show()
             showSearchFragment()
         }
     }
@@ -61,11 +62,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun hideDetailFragment() {
-        supportFragmentManager.popBackStack()
-        with(binding) {
-            viewPager.visibility = View.VISIBLE
-            fragmentContainerSearch.visibility = View.GONE
-        }
+    fun hideSearchFragment() {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right,
+                android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right
+            )
+            .remove(supportFragmentManager.findFragmentById(R.id.fragment_container_search)!!)
+            .commit()
+
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
+                if (f is SearchFragment) {
+                    with(binding) {
+                        viewPager.visibility = View.VISIBLE
+                        fragmentContainerSearch.visibility = View.GONE
+                    }
+                    supportFragmentManager.unregisterFragmentLifecycleCallbacks(this)
+                }
+            }
+        }, false)
     }
 }
