@@ -65,6 +65,11 @@
         <item name="titleTextAppearance">@style/AppTextTitle.S18</item>
     </style>
 
+    <style name="AppRoundedImage">
+        <item name="cornerSize">12dp</item>
+    </style>
+
+
     <style name="AppEditText">
         <item name="android:textColor">@color/warm_black</item>
         <item name="android:textColorHint">@color/gray</item>
@@ -115,6 +120,14 @@
     <style name="AppTextLabel">
         <item name="android:textColor">@color/gray_700</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="AppTextLabel.S18">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTextLabel.S16">
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

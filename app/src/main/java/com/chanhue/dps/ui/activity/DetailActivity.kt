@@ -14,7 +14,9 @@ import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -24,7 +26,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.chanhue.dps.Constants.ITEM_OBJECT
+import com.chanhue.dps.util.Constants.ITEM_OBJECT
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.ActivityDetailBinding
 import com.chanhue.dps.model.Contact
@@ -32,6 +34,7 @@ import com.chanhue.dps.ui.adapter.PhotoRecyclerAdapter
 import com.chanhue.dps.ui.fragment.AddContactDialogFragment
 import com.chanhue.dps.ui.fragment.NotificationDialogFragment
 import com.chanhue.dps.ui.listener.ContactUpdateListener
+import com.chanhue.dps.viewmodel.ContactViewModel
 import java.io.File
 import kotlin.random.Random
 
@@ -49,6 +52,8 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     private val colors = arrayListOf(R.color.light_orange, R.color.light_yellow)
     private var isClicked = false
     private var notificationScheduled = false
+
+    private val contactViewModel: ContactViewModel by viewModels()
 
     private val notificationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -282,6 +287,45 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     }
 
     override fun onContactUpdated(contact: Contact) {
-        // TODO: Not yet implemented
+        if (contact.id == data?.id) {
+            Toast.makeText(this, "수정.", Toast.LENGTH_SHORT).show()
+            data = contact
+            updateContact(contact)
+            // 뷰모델에 변경된 연락처 정보를 전달
+            contactViewModel.updateContact(contact)
+        } else {
+            Toast.makeText(this, "수정 실패.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun updateContact(contact: Contact) {
+        with(binding) {
+            Glide.with(detailProfileImg)
+                .load(contact.petProfile.thumbnailImage)
+                .into(detailProfileImg)
+
+            detailNickname.text = contact.owner.name
+            detailGenderAge.text = if (contact.owner.gender) "여" else "남"
+            detailLocation.text = contact.owner.region
+            detailCharacteristic.text = contact.petProfile.memo
+
+            detailPhoneNumber.apply {
+                text = contact.owner.phoneNumber
+                setOnClickListener {
+                    if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this@DetailActivity, arrayOf(Manifest.permission.CALL_PHONE), PERMISSIONS_CALL_PHONE)
+                    } else {
+                        val callIntent = Intent(Intent.ACTION_CALL)
+                        callIntent.data = Uri.parse("tel:${contact.owner.phoneNumber}")
+                        startActivity(callIntent)
+                    }
+                }
+            }
+            detailName.text = contact.petProfile.name
+            detailAge.text = contact.petProfile.age.toString()
+            detailSpecies.text = contact.petProfile.species
+            detailGender.text = if (contact.petProfile.gender) "여" else "남"
+            detailCharacter.text = contact.petProfile.personality
+        }
     }
 }

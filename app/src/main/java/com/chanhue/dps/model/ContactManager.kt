@@ -869,15 +869,31 @@ object ContactManager {
         return contactList.filter { it.petProfile.age in (range * 5 - 4)..(range * 5) }
     }
 
-    fun addContact(contact: Contact): List<Contact> {
-        // 첫번째 인덱스에 추가
-        contactList.add(0, contact)
-        return contactList
+    fun addContact(contact: Contact): Boolean {
+        return contactList.add(contact)
+    }
+
+    fun updateContact(contact: Contact): Boolean {
+        val index = contactList.indexOfFirst { it.petProfile.id == contact.petProfile.id }
+        if (index == -1) {
+            return false
+        }
+        contactList[index] = contact
+        return true
+    }
+
+    fun updateFavorite(contact: Contact): Boolean {
+        val index = contactList.indexOfFirst { it.id == contact.id }
+        if (index == -1) {
+            return false
+        }
+        contactList[index].isFavorite = contact.isFavorite
+        return true
     }
 
     fun getDefaultContact(): Contact {
         return Contact(
-            31,
+            -1,
             PetProfile(
                 0,
                 "https://cdn.pixabay.com/photo/2021/08/18/09/34/dachshund-6555136_960_720.jpg",

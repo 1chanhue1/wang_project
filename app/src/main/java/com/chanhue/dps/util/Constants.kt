@@ -1,4 +1,4 @@
-package com.chanhue.dps
+package com.chanhue.dps.util
 
 object Constants{
 
