@@ -850,7 +850,7 @@ object ContactManager {
     }
 
     fun getRegionList(): List<String> {
-        return contactList.map { it.owner.region }.distinct()
+        return contactList.map { it.owner.region }.distinct().sorted()
     }
 
     fun getContactListByRegion(region: String): List<Contact> {
@@ -858,7 +858,7 @@ object ContactManager {
     }
 
     fun getPetSpeciesList(): List<String> {
-        return contactList.map { it.petProfile.species }.distinct()
+        return contactList.map { it.petProfile.species }.distinct().sorted()
     }
 
     fun getContactListByPetSpecies(species: String): List<Contact> {
@@ -888,6 +888,15 @@ object ContactManager {
             return false
         }
         contactList[index].isFavorite = contact.isFavorite
+        return true
+    }
+
+    fun deleteContact(id: Int): Boolean {
+        val index = contactList.indexOfFirst { it.id == id }
+        if (index == -1) {
+            return false
+        }
+        contactList.removeAt(index)
         return true
     }
 

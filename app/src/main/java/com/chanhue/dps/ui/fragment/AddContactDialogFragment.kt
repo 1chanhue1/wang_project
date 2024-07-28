@@ -1,6 +1,7 @@
 package com.chanhue.dps.ui.fragment
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
@@ -23,11 +24,15 @@ import com.bumptech.glide.Glide
 import com.chanhue.dps.util.Constants
 import com.chanhue.dps.util.DialogStateManager
 import com.chanhue.dps.R
+import com.chanhue.dps.databinding.DialogExitBinding
 import com.chanhue.dps.databinding.FragmentAddContactDialogBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.model.Owner
 import com.chanhue.dps.model.PetProfile
+import com.chanhue.dps.model.AddContactManager
+import com.chanhue.dps.ui.activity.DetailActivity
+import com.chanhue.dps.ui.activity.MainActivity
 import com.chanhue.dps.ui.dialog.AgeNumPickerDialog
 import com.chanhue.dps.ui.extensions.isValidInput
 import com.chanhue.dps.ui.extensions.isValidMemo
@@ -37,6 +42,7 @@ import com.chanhue.dps.ui.listener.AgeSelectListener
 import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.ui.listener.PersonalityListener
 import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, PersonalityListener {
 
@@ -133,20 +139,52 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
     private fun setLayout() {
         if (contact.id != -1) {
             setContactInfo(contact)
+            initToolbar()
+        } else {
+            setPersonalityChips()
         }
+        initExitButton()
         initOwnerAgeEditText()
         initPetAgeEditText()
         initPhoneNumberEditText()
+        initRegionEditText()
+        initSpeciesEditText()
         initAddPersonalityImageView()
-        setPersonalityChips()
         setPetProfileImage()
         setTextInput()
         initAddContactButton()
     }
 
+    private fun initToolbar() {
+        with(binding.toolbarDialogAddContact) {
+            tvToolbarTitleDialog.text = "연락처 수정"
+            tvToolbarAction.text = "수정"
+        }
+    }
+
+    private fun initExitButton() {
+        binding.toolbarDialogAddContact.ivToolbarCloseDialog.setOnClickListener {
+            val binding = DialogExitBinding.inflate(LayoutInflater.from(requireContext()))
+            val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AppExitDialog)
+                .setView(binding.root)
+                .show()
+
+            binding.btnLabelExitDialogConfirm.setOnClickListener {
+                dialog.dismiss()
+                dismissWithAnimation()
+            }
+            binding.btnLabelExitDialogClose.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+    }
+
     private fun setContactInfo(contact: Contact) {
 
         Log.d("AddContactDialog", "contact: $contact")
+        val city = contact.owner.region.split(" ")[0]
+        val district = contact.owner.region.split(" ")[1]
+
         with(binding) {
             petProfileImageUri = contact.petProfile.thumbnailImage
             ivDialogPetProfile.setPadding(0)
@@ -162,7 +200,8 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
             }
             etInputPhoneNumber.setText(contact.owner.phoneNumber)
             etInputOwnerAge.setText(contact.owner.age.toString())
-            etInputRegion.setText(contact.owner.region)
+            etInputRegionCity.setText(city)
+            etInputRegionDistrict.setText(district)
 
             etInputPetName.setText(contact.petProfile.name)
             petGender = contact.petProfile.gender
@@ -190,6 +229,41 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
             setOnClickListener {
                 showAgeNumPickerDialog(text.toString().toIntOrNull(), true)
             }
+        }
+    }
+
+    private fun initRegionEditText() {
+        with(binding) {
+            etInputRegionCity.setOnClickListener {
+                showRegionListDialog(true, etInputRegionCity)
+            }
+            etInputRegionDistrict.setOnClickListener {
+                if (etInputRegionCity.text.toString().isNotEmpty()) {
+                    showRegionListDialog(false, etInputRegionDistrict)
+                } else {
+                    Toast.makeText(requireContext(), "시를 먼저 선택해주세요.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun initSpeciesEditText() {
+        binding.etInputPetSpecies.setOnClickListener {
+            val speciesList = AddContactManager.getSpeciesList()
+            var checkedItem = 0
+
+            MaterialAlertDialogBuilder(requireContext(), R.style.AppBasicDialog)
+                .setTitle("종 선택")
+                .setNeutralButton("닫기") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton("확인") { dialog, which ->
+                    binding.etInputPetSpecies.setText(speciesList[checkedItem])
+                }
+                .setSingleChoiceItems(speciesList, checkedItem) { dialog, which ->
+                    checkedItem = which
+                }
+                .show()
         }
     }
 
@@ -251,7 +325,7 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
             ownerGender = radioBtnOwnerGenderFemale.isChecked
             isValidPhoneNumber = etInputPhoneNumber.text.toString().isValidPhoneNumber()
             isValidOwnerAge = etInputOwnerAge.text.toString().isValidInput()
-            isValidRegion = etInputRegion.text.toString().isValidInput()
+            isValidRegion = etInputRegionDistrict.text.toString().isValidInput()
             isValidPetName = etInputPetName.text.toString().isValidInput()
             petGender = radioBtnPetGenderFemale.isChecked
             isValidPetSpecies = etInputPetSpecies.text.toString().isValidInput()
@@ -277,6 +351,14 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
 
             Log.d("AddContactDialog", "contact: $contact")
 
+            val city = etInputRegionCity.text.toString()
+            val district = etInputRegionDistrict.text.toString()
+            val region = if (district.isNotEmpty()) {
+                "$city $district"
+            } else {
+                city
+            }
+
             return Contact(
                 getContactId("contact"),
                 PetProfile(
@@ -287,8 +369,8 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
                     etInputPetAge.text.toString().toInt(),
                     etInputPetSpecies.text.toString(),
                     mutableListOf(),
-                    selectedChipList.joinToString(", "),
-                    etInputMemo.text.toString()
+                    etInputMemo.text.toString(),
+                    selectedChipList.joinToString(", ")
                 ),
                 Owner(
                     getContactId("owner"),
@@ -296,7 +378,7 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
                     ownerGender,
                     etInputPhoneNumber.text.toString(),
                     etInputOwnerAge.text.toString().toInt(),
-                    etInputRegion.text.toString()
+                    region
                 ),
                 contact.isFavorite
             )
@@ -364,6 +446,29 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
         }
     }
 
+    private fun showRegionListDialog(isCity: Boolean, editText: EditText) {
+        val items = if (isCity) {
+            AddContactManager.getCityList()
+        } else {
+            AddContactManager.getDistrictList(binding.etInputRegionCity.text.toString())
+        }
+        var checkedItem = 0
+
+        MaterialAlertDialogBuilder(requireContext(), R.style.AppBasicDialog)
+            .setTitle("지역 선택")
+            //.setMessage("DO NOT SET MESSAGE WHEN YOU USE LIST")
+            .setNeutralButton("닫기") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("확인") { dialog, which ->
+                editText.setText(items[checkedItem])
+            }
+            .setSingleChoiceItems(items, checkedItem) { dialog, which ->
+                checkedItem = which
+            }
+            .show()
+    }
+
     private fun showAgeNumPickerDialog(num : Int?, isOwner: Boolean) {
         val ageNumPickerDialog = AgeNumPickerDialog(requireContext(), isOwner, num, this)
         ageNumPickerDialog.show()
@@ -414,6 +519,11 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
         parentFragmentManager.commit {
             setCustomAnimations(0, R.anim.dialog_slide_down)
             remove(this@AddContactDialogFragment)
+            if (contact.id == -1) {
+                (parentFragment as? ContactListFragment)?.onDialogDismissed()
+            } else {
+                (activity as? DetailActivity)?.onDialogDismissed()
+            }
         }
         DialogStateManager.setIsShowing(false)
     }

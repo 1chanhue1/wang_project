@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="AppExitDialog">
+
+    </style>
+
+    <style name="AppBasicDialog">
+        <item name="colorAccent">@color/light_orange</item>
+        <item name="android:textColorPrimary">@color/warm_black</item>
+        <item name="android:background">@color/white</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AppDialogButton</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AppDialogButton</item>
+    </style>
+
+    <style name="AppDialogButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/orange_800</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="AppFullScreenDialog" parent="Theme.AppCompat.Light.DialogWhenLarge">
         <item name="android:statusBarColor">#AFD517</item>
         <item name="windowNoTitle">true</item>
@@ -107,6 +125,10 @@
 
     <style name="AppTextTitle.S16">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTextTitle.S16.LineHeight">
+        <item name="android:lineHeight">20sp</item>
     </style>
 
     <style name="AppTextTitle.S14">

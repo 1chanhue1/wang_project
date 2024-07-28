@@ -10,7 +10,11 @@ import com.bumptech.glide.Glide
 import com.chanhue.dps.databinding.GridListitemBinding
 import com.chanhue.dps.model.Contact
 
-class GridViewAdapter(var items: MutableList<Contact>) : RecyclerView.Adapter<GridViewAdapter.Holder>()  {
+class GridViewAdapter(
+    var items: MutableList<Contact>,
+    var onItemClick: (Contact) -> Unit,
+    var onItemLongClick: (Contact) -> Unit
+) : RecyclerView.Adapter<GridViewAdapter.Holder>()  {
     interface ItemClick {
         fun onClick(view: View, position: Int)
     }
@@ -24,7 +28,12 @@ class GridViewAdapter(var items: MutableList<Contact>) : RecyclerView.Adapter<Gr
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.itemView.setOnClickListener {
-            itemClick?.onClick(it, position)
+            onItemClick(items[position])
+        }
+
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick(items[position])
+            true
         }
 
         Glide.with(holder.productImg)

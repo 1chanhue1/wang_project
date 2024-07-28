@@ -2,22 +2,31 @@ package com.chanhue.dps.ui.fragment
 
 import ContactAdapter
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chanhue.dps.util.Constants
 import com.chanhue.dps.ui.activity.DetailActivity
 import com.chanhue.dps.util.DialogStateManager
 import com.chanhue.dps.R
+import com.chanhue.dps.databinding.DialogExitBinding
 import com.chanhue.dps.databinding.FragmentContactListBinding
 import com.chanhue.dps.model.Contact
 import com.chanhue.dps.model.ContactManager
@@ -25,12 +34,14 @@ import com.chanhue.dps.ui.adapter.GridViewAdapter
 import com.chanhue.dps.ui.extensions.dpToPx
 import com.chanhue.dps.ui.listener.ContactUpdateListener
 import com.chanhue.dps.viewmodel.ContactViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.util.jar.Manifest
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private const val ARG_CONTACT = "contact"
 
-class ContactListFragment : Fragment(), ContactUpdateListener {
+class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.OnContactInteractionListener {
 
     private var _binding: FragmentContactListBinding? = null
     private val binding get() = _binding!!
@@ -60,9 +71,14 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         initLayoutToggleButton()
         initChip()
 
-        adapter = ContactAdapter(emptyList(), isGridLayout) { contact ->
+//        adapter = ContactAdapter(emptyList(), isGridLayout, this) { contact ->
+//            toggleFavorite(contact)
+//        }
+        adapter = ContactAdapter(emptyList(), isGridLayout, this, { contact ->
             toggleFavorite(contact)
-        }
+        }, { contact ->
+            showDeleteContactDialog(contact)
+        })
 
         // 데이터 보내기
         adapter.onItemClick = { contact ->
@@ -74,6 +90,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 
         binding.recyclerViewContacts.adapter = adapter
         setLayoutManager()
+        setItemTouchHelper()
 
         // ViewModel - LiveData 관찰
         contactViewModel.contacts.observe(viewLifecycleOwner) { contacts ->
@@ -85,31 +102,25 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
             Log.d("ContactListFragment1", param.toString())
         }
 
-        favoriteAdapter = GridViewAdapter(mutableListOf())
+        // favoriteAdapter emptyList()로 초기화, 람다 함수 2개
+        favoriteAdapter = GridViewAdapter(
+            mutableListOf(),
+            { contact ->
+                val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+                    putExtra(Constants.ITEM_OBJECT, contact)
+                }
+                startActivity(intent)
+            },
+            { contact ->
+                showDeleteFavoriteDialog(contact)
+            }
+        )
         binding.hsvFriend.adapter = favoriteAdapter
         contactViewModel.favoriteContacts.observe(viewLifecycleOwner) { contacts ->
             favoriteAdapter.updateContacts(contacts)
             binding.tvLabelNoLikeList.visibility = if (contacts.isEmpty()) View.VISIBLE else View.INVISIBLE
         }
-
-//        binding.recyclerViewContacts.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-//            override fun onGlobalLayout() {
-//                // 레이아웃이 계속 변하기 때문에 한 번만 실행되도록 리스너 제거
-//                binding.recyclerViewContacts.viewTreeObserver.removeOnGlobalLayoutListener(this)
-//
-//                // RecyclerView의 높이를 계산하여 설정
-//                val params = binding.recyclerViewContacts.layoutParams
-//                params.height = calculateRecyclerViewHeight()
-//                binding.recyclerViewContacts.layoutParams = params
-//            }
-//        })
     }
-
-//    private fun calculateRecyclerViewHeight(): Int {
-//        val itemHeight = resources.getDimensionPixelSize(R.dimen.item_contact_height)
-//        val itemCount = binding.recyclerViewContacts.adapter?.itemCount ?: 0
-//        return itemHeight * itemCount
-//    }
 
     private fun initFloatingButton() {
         binding.ivContact.setOnClickListener {
@@ -121,9 +132,11 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         binding.toggleLayoutButton.setOnClickListener {
             isGridLayout = !isGridLayout
             setLayoutManager()
-            adapter = ContactAdapter(emptyList(), isGridLayout) { contact ->
+            adapter = ContactAdapter(emptyList(), isGridLayout, this, { contact ->
                 toggleFavorite(contact)
-            }
+            }, { contact ->
+                showDeleteContactDialog(contact)
+            })
             adapter.onItemClick = { contact ->
                 val intent = Intent(requireContext(), DetailActivity::class.java).apply {
                     putExtra(Constants.ITEM_OBJECT, contact)
@@ -155,6 +168,53 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         }
     }
 
+    private fun showDeleteContactDialog(contact: Contact) {
+        createDialog(
+            "연락처 삭제",
+            "연락처를 삭제하시겠습니까?"
+        ) {
+            deleteContact(contact)
+        }
+    }
+
+    private fun showDeleteFavoriteDialog(contact: Contact) {
+        createDialog(
+            "즐겨찾기 삭제",
+            "즐겨찾기를 삭제하시겠습니까?"
+        ) {
+            toggleFavorite(contact)
+        }
+    }
+
+    private fun createDialog(
+        title: String,
+        message: String,
+        positiveAction: () -> Unit
+    ) {
+        val binding = DialogExitBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AppExitDialog)
+            .setView(binding.root)
+            .show()
+
+        with(binding) {
+            tvLabelExitDialogTitle.text = title
+            tvLabelExitDialogMessage.text = message
+            btnLabelExitDialogClose.apply {
+                text = "취소"
+                setOnClickListener {
+                    dialog.dismiss()
+                }
+            }
+            btnLabelExitDialogConfirm.apply {
+                text = "삭제"
+                setOnClickListener {
+                    positiveAction()
+                    dialog.dismiss()
+                }
+            }
+        }
+    }
+
     private fun toggleFavorite(contact: Contact) {
         contact.isFavorite = !contact.isFavorite
 
@@ -162,6 +222,91 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
 
         if (ContactManager.updateFavorite(contact)) {
             contactViewModel.updateContacts(contactViewModel.contacts.value?.sortedByDescending { it.isFavorite } ?: emptyList())
+        }
+    }
+
+    private fun deleteContact(contact: Contact) {
+        if (ContactManager.deleteContact(contact.id)) {
+            contactViewModel.removeContact(contact)
+        }
+    }
+
+    private fun setItemTouchHelper() {
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val contact = adapter.getContactAtPosition(position)
+                makeCall(contact.owner.phoneNumber)
+                adapter.notifyItemChanged(position)
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    val itemView = viewHolder.itemView
+                    val paint = Paint()
+                    paint.color = ContextCompat.getColor(requireContext(), R.color.light_orange) // 원하는 배경색
+
+                    // 배경색을 먼저 그림
+                    if (dX > 0) {
+                        c.drawRect(
+                            itemView.left.toFloat(),
+                            itemView.top.toFloat(),
+                            itemView.left + dX,
+                            itemView.bottom.toFloat(),
+                            paint
+                        )
+                    }
+
+                    // 그 다음에 전화 아이콘을 그림 -> 그래야 안 묻힘
+                    val icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_call)
+                    val iconMargin = (itemView.height - icon!!.intrinsicHeight) / 2 // 중앙에 위치
+                    val iconTop = itemView.top + (itemView.height - icon.intrinsicHeight) / 2
+                    val iconBottom = iconTop + icon.intrinsicHeight // 높이
+
+                    if (dX > 0) {
+                        val iconLeft = itemView.left + iconMargin
+                        val iconRight = itemView.left + iconMargin + icon.intrinsicWidth
+                        icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                        icon.draw(c)
+                    }
+
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                }
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerViewContacts)
+    }
+
+    private fun makeCall(phoneNumber: String) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.CALL_PHONE),
+                PERMISSIONS_CALL_PHONE
+            )
+        } else {
+            val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber"))
+            startActivity(intent)
         }
     }
 
@@ -186,6 +331,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
     }
 
     companion object {
+        const val PERMISSIONS_CALL_PHONE = 1
         @JvmStatic
         fun newInstance(contact: Contact) =
             ContactListFragment().apply {
@@ -267,8 +413,16 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         }
     }
 
+    fun onDialogDismissed() {
+        view?.requestLayout()
+    }
+
     override fun onResume() {
         super.onResume()
         contactViewModel.updateContacts(ContactManager.getContactListByDogName())
+    }
+
+    override fun onCallContact(phoneNumber: String) {
+        makeCall(phoneNumber)
     }
 }

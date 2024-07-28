@@ -3,6 +3,7 @@ package com.chanhue.dps.ui.activity
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -35,6 +36,7 @@ import com.chanhue.dps.ui.adapter.PhotoRecyclerAdapter
 import com.chanhue.dps.ui.fragment.AddContactDialogFragment
 import com.chanhue.dps.ui.fragment.NotificationDialogFragment
 import com.chanhue.dps.ui.listener.ContactUpdateListener
+import com.chanhue.dps.util.Constants
 import com.chanhue.dps.viewmodel.ContactViewModel
 import java.io.File
 import kotlin.random.Random
@@ -46,7 +48,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     private lateinit var adapter: PhotoRecyclerAdapter
 
     private var imageFile = File("")
-    private var data: Contact? = null
+    private var originData: Contact? = null
     private var param = ""
     private var delayTime = 0
     private val random = Random
@@ -94,14 +96,14 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        data = intent.getParcelableExtra<Contact>(ITEM_OBJECT)
+        originData = intent.getParcelableExtra<Contact>(ITEM_OBJECT)
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (data != null) {
+        if (originData != null) {
             val randomNumber = random.nextInt(colors.size)
-            adapter = PhotoRecyclerAdapter(data!!.petProfile.dogImageList.toMutableList())
+            adapter = PhotoRecyclerAdapter(originData!!.petProfile.dogImageList.toMutableList())
 
             adapter.itemClick = object : PhotoRecyclerAdapter.ItemClick {
                 override fun onLongClick(view: View, position: Int) {
@@ -127,9 +129,11 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                     setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
                             R.id.detail_edit_btn -> {
-                                val dataToSend = data
-                                val dialogFragment = dataToSend?.let {
-                                    AddContactDialogFragment.newInstance(it, this@DetailActivity)
+                                detailFragmenrContainer.visibility = View.VISIBLE
+                                val dataToSend = originData
+                                val dialogFragment = dataToSend?.let { it1 ->
+                                    AddContactDialogFragment.newInstance(
+                                        it1, this@DetailActivity)
                                 }
                                 val fragmentManager = supportFragmentManager
                                 fragmentManager.commit {
@@ -143,7 +147,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                                 true
                             }
                             R.id.detail_favorite_btn -> {
-                                data?.let { contact ->
+                                originData?.let { contact ->
                                     contactViewModel.toggleFavorite(contact.id)
                                     updateFavoriteIcon(menuItem, !contact.isFavorite)
                                 }
@@ -161,7 +165,7 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
 
                     // Set the correct favorite icon on creation
                     menu.findItem(R.id.detail_favorite_btn)?.let { menuItem ->
-                        data?.let { contact ->
+                        originData?.let { contact ->
                             updateFavoriteIcon(menuItem, contact.isFavorite)
                         }
                     }
@@ -179,31 +183,31 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                 }
 
                 Glide.with(detailProfileImg)
-                    .load(data!!.petProfile.thumbnailImage)
+                    .load(originData!!.petProfile.thumbnailImage)
                     .into(detailProfileImg)
 
-                detailNickname.text = data!!.owner.name
-                detailGenderAge.text = if (data!!.owner.gender) "여" else "남"
-                detailLocation.text = data!!.owner.region
-                detailCharacteristic.text = data!!.petProfile.memo
+                detailNickname.text = originData!!.owner.name
+                detailGenderAge.text = if (originData!!.owner.gender) "여" else "남"
+                detailLocation.text = originData!!.owner.region
+                detailCharacteristic.text = originData!!.petProfile.memo
 
                 detailPhoneNumber.apply {
-                    text = data!!.owner.phoneNumber
+                    text = originData!!.owner.phoneNumber
                     setOnClickListener {
                         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(this@DetailActivity, arrayOf(Manifest.permission.CALL_PHONE), PERMISSIONS_CALL_PHONE)
                         } else {
                             val callIntent = Intent(Intent.ACTION_CALL)
-                            callIntent.data = Uri.parse("tel:${data!!.owner.phoneNumber}")
+                            callIntent.data = Uri.parse("tel:${originData!!.owner.phoneNumber}")
                             startActivity(callIntent)
                         }
                     }
                 }
-                detailName.text = data!!.petProfile.name
-                detailAge.text = "${data!!.petProfile.age}세"
-                detailSpecies.text = data!!.petProfile.species
-                detailGender.text = if (data!!.petProfile.gender) "여" else "남"
-                detailCharacter.text = data!!.petProfile.personality
+                detailName.text = originData!!.petProfile.name
+                detailAge.text = "${originData!!.petProfile.age}세"
+                detailSpecies.text = originData!!.petProfile.species
+                detailGender.text = if (originData!!.petProfile.gender) "여" else "남"
+                detailCharacter.text = originData!!.petProfile.personality
             }
         } else {
             finish()
@@ -258,12 +262,21 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     }
 
     private fun showNotification(data: String) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra(Constants.ITEM_OBJECT, originData)
+        }
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        Log.d("DetailActivity", "pendingIntent: $pendingIntent")
+
         val notificationId = 1
         val builder = NotificationCompat.Builder(this, channelID)
             .setSmallIcon(R.drawable.ic_mainlogo)
             .setContentTitle("Wang!")
             .setContentText(data)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)  // 알림을 클릭하면 자동으로 제거되도록 설정
 
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -296,9 +309,9 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
     }
 
     override fun onContactUpdated(contact: Contact) {
-        if (contact.id == data?.id) {
+        if (contact.id == originData?.id) {
             Toast.makeText(this, "수정.", Toast.LENGTH_SHORT).show()
-            data = contact
+            originData = contact
             updateContact(contact)
             // 뷰모델에 변경된 연락처 정보를 전달
             contactViewModel.updateContact(contact)
@@ -331,10 +344,15 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                 }
             }
             detailName.text = contact.petProfile.name
-            detailAge.text = "${contact.petProfile.age}세"
+            detailAge.text = contact.petProfile.age.toString()
             detailSpecies.text = contact.petProfile.species
             detailGender.text = if (contact.petProfile.gender) "여" else "남"
             detailCharacter.text = contact.petProfile.personality
         }
+    }
+
+    fun onDialogDismissed() {
+        Log.d("DetailActivity", "Dialog dismissed.")
+        binding.detailFragmenrContainer.visibility = View.GONE
     }
 }

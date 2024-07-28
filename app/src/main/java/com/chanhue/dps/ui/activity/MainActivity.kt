@@ -1,17 +1,26 @@
 package com.chanhue.dps.ui.activity
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import androidx.viewpager2.widget.ViewPager2
 import com.chanhue.dps.R
 import com.chanhue.dps.databinding.ActivityMainBinding
+import com.chanhue.dps.model.Contact
 import com.chanhue.dps.ui.fragment.SearchFragment
 import com.chanhue.dps.ui.adapter.ViewPagerAdapter
+import com.chanhue.dps.util.Constants
+import com.chanhue.dps.util.Constants.ITEM_OBJECT
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +51,28 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "검색 버튼 클릭", Toast.LENGTH_SHORT).show()
             showSearchFragment()
         }
+
+        handleNotificationIntent(intent)
+    }
+
+    private fun handleNotificationIntent(intent: Intent?) {
+        intent?.let {
+            val notificationData = it.getParcelableExtra<Contact>(Constants.ITEM_OBJECT)
+            Log.d("MainActivity", "notificationData: $notificationData")
+            notificationData?.let { data ->
+                val detailIntent = Intent(this, DetailActivity::class.java).apply {
+                    putExtra(Constants.ITEM_OBJECT, data)
+                }
+                startActivity(detailIntent)
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleNotificationIntent(intent)
     }
 
     private fun showSearchFragment() {
@@ -60,14 +91,29 @@ class MainActivity : AppCompatActivity() {
             viewPager.visibility = View.GONE
             fragmentContainerSearch.visibility = View.VISIBLE
         }
-
     }
 
-    fun hideDetailFragment() {
-        supportFragmentManager.popBackStack()
-        with(binding) {
-            viewPager.visibility = View.VISIBLE
-            fragmentContainerSearch.visibility = View.GONE
-        }
+    fun hideSearchFragment() {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right,
+                android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right
+            )
+            .remove(supportFragmentManager.findFragmentById(R.id.fragment_container_search)!!)
+            .commit()
+
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
+                if (f is SearchFragment) {
+                    with(binding) {
+                        viewPager.visibility = View.VISIBLE
+                        fragmentContainerSearch.visibility = View.GONE
+                    }
+                    supportFragmentManager.unregisterFragmentLifecycleCallbacks(this)
+                }
+            }
+        }, false)
     }
 }
