@@ -1,6 +1,7 @@
 package com.chanhue.dps.ui.fragment
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
@@ -30,6 +31,7 @@ import com.chanhue.dps.model.ContactManager
 import com.chanhue.dps.model.Owner
 import com.chanhue.dps.model.PetProfile
 import com.chanhue.dps.model.AddContactManager
+import com.chanhue.dps.ui.activity.MainActivity
 import com.chanhue.dps.ui.dialog.AgeNumPickerDialog
 import com.chanhue.dps.ui.extensions.isValidInput
 import com.chanhue.dps.ui.extensions.isValidMemo
@@ -523,6 +525,11 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        (parentFragment as? ContactListFragment)?.onDialogDismissed()
     }
 
     companion object {

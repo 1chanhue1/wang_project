@@ -267,6 +267,10 @@ class ContactListFragment : Fragment(), ContactUpdateListener {
         }
     }
 
+    fun onDialogDismissed() {
+        view?.requestLayout()
+    }
+
     override fun onResume() {
         super.onResume()
         contactViewModel.updateContacts(ContactManager.getContactListByDogName())
