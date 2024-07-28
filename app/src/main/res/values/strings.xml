@@ -25,11 +25,13 @@
     <string name="label_owner_age">주인 나이</string>
     <string name="hint_owner_age">20</string>
     <string name="label_region">사는 지역</string>
+    <string name="hint_region_city">시</string>
+    <string name="hint_region_county">군/구</string>
     <string name="label_pet_name">반려동물 이름</string>
     <string name="label_pet_gender">반려동물 성별</string>
     <string name="hint_pet_name">ex) 코코</string>
     <string name="label_pet_species">종</string>
-    <string name="hint_pet_species">ex) 포메라니안</string>
+    <string name="hint_pet_species">종</string>
     <string name="label_pet_age">반려동물 나이</string>
     <string name="description_dialog_fold_icon">Number Picker를 띄우라고 알려주는 아이콘</string>
     <string name="label_memo">메모</string>
@@ -53,4 +55,5 @@
     <string name="detail_favorite_btn">favorite</string>
     <string name="detail_notification_btn">notification</string>
     <string name="dialog_hint">내용을 적어주세요</string>
+
 </resources>

@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Dps" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:colorBackground">@color/white</item>
-        <item name="colorPrimary">@color/light_orange</item>
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryContainer">@color/white</item>
     </style>
 
     <style name="Theme.Dps" parent="Base.Theme.Dps" />
