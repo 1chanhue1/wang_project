@@ -12,7 +12,6 @@ class ContactViewModel : ViewModel() {
     private val _contacts = MutableLiveData<List<Contact>>()
     val contacts: LiveData<List<Contact>> get() = _contacts
 
-    // 좋아요한 연락처를 표시하기 위한 LiveData, isFavorite가 true인 연락처만 필터링
     val favoriteContacts: LiveData<List<Contact>> = _contacts.map { contacts ->
         contacts.filter { it.isFavorite }
     }
@@ -52,7 +51,6 @@ class ContactViewModel : ViewModel() {
         applyFilters()
     }
 
-    // 모든 필터를 초기화 함
     fun clearFilters() {
         currentRegionFilter = null
         currentSpeciesFilter = null
@@ -60,7 +58,6 @@ class ContactViewModel : ViewModel() {
         _contacts.value = ContactManager.getContactListByDogName()
     }
 
-    // 나이 범위를 판단하기
     private fun getAgeRange(age: Int): String {
         return when (age) {
             in 1..5 -> "1-5세"
@@ -71,10 +68,9 @@ class ContactViewModel : ViewModel() {
             else -> "기타"
         }
     }
-
     // 필터 -> 연락처 목록 업데이트
     private fun applyFilters() {
-        var filteredContacts = ContactManager.getContactListByDogName() // 원래 데이터로 초기화하기
+        var filteredContacts = ContactManager.getContactListByDogName()
 
         currentRegionFilter?.let { region ->
             filteredContacts = filteredContacts.filter { it.owner.region == region }.toMutableList()
@@ -91,7 +87,6 @@ class ContactViewModel : ViewModel() {
 
         _contacts.value = filteredContacts
     }
-
     // 연락처 정보 수정
     fun updateContact(contact: Contact) {
         val currentContacts = _contacts.value.orEmpty().toMutableList()
@@ -103,5 +98,16 @@ class ContactViewModel : ViewModel() {
         Log.d("ContactViewModel", "contact: $contact")
         Log.d("ContactViewModel", "_contacts.value: ${_contacts.value}")
         Log.d("ContactViewModel", "currentContacts: ${currentContacts}")
+    }
+
+    fun toggleFavorite(contactId: Int) {
+        val currentContacts = _contacts.value.orEmpty().toMutableList()
+        val index = currentContacts.indexOfFirst { it.id == contactId }
+        if (index != -1) {
+            val contact = currentContacts[index]
+            contact.isFavorite = !contact.isFavorite
+            currentContacts[index] = contact
+            _contacts.value = currentContacts
+        }
     }
 }

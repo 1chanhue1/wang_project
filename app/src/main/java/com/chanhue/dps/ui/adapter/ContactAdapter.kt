@@ -65,7 +65,7 @@ class ContactAdapter(
                 .into(binding.thumbnailImageView)
 
             binding.ivFavorite.setImageResource(
-                if (contact.isFavorite) R.drawable.ic_favorite_full else R.drawable.ic_heart_empty
+                if (contact.isFavorite) R.drawable.ic_hear_full else R.drawable.ic_heart_empty
             )
 
             binding.ivFavorite.setOnClickListener {
