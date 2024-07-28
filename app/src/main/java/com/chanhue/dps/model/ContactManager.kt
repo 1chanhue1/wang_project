@@ -850,7 +850,7 @@ object ContactManager {
     }
 
     fun getRegionList(): List<String> {
-        return contactList.map { it.owner.region }.distinct()
+        return contactList.map { it.owner.region }.distinct().sorted()
     }
 
     fun getContactListByRegion(region: String): List<Contact> {
@@ -858,7 +858,7 @@ object ContactManager {
     }
 
     fun getPetSpeciesList(): List<String> {
-        return contactList.map { it.petProfile.species }.distinct()
+        return contactList.map { it.petProfile.species }.distinct().sorted()
     }
 
     fun getContactListByPetSpecies(species: String): List<Contact> {

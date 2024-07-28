@@ -151,6 +151,9 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
     private fun setContactInfo(contact: Contact) {
 
         Log.d("AddContactDialog", "contact: $contact")
+        val city = contact.owner.region.split(" ")[0]
+        val district = contact.owner.region.split(" ")[1]
+
         with(binding) {
             petProfileImageUri = contact.petProfile.thumbnailImage
             ivDialogPetProfile.setPadding(0)
@@ -166,7 +169,8 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
             }
             etInputPhoneNumber.setText(contact.owner.phoneNumber)
             etInputOwnerAge.setText(contact.owner.age.toString())
-            etInputRegionCity.setText(contact.owner.region)
+            etInputRegionCity.setText(city)
+            etInputRegionDistrict.setText(district)
 
             etInputPetName.setText(contact.petProfile.name)
             petGender = contact.petProfile.gender
@@ -290,7 +294,7 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
             ownerGender = radioBtnOwnerGenderFemale.isChecked
             isValidPhoneNumber = etInputPhoneNumber.text.toString().isValidPhoneNumber()
             isValidOwnerAge = etInputOwnerAge.text.toString().isValidInput()
-            isValidRegion = etInputRegionCity.text.toString().isValidInput()
+            isValidRegion = etInputRegionDistrict.text.toString().isValidInput()
             isValidPetName = etInputPetName.text.toString().isValidInput()
             petGender = radioBtnPetGenderFemale.isChecked
             isValidPetSpecies = etInputPetSpecies.text.toString().isValidInput()
@@ -316,6 +320,14 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
 
             Log.d("AddContactDialog", "contact: $contact")
 
+            val city = etInputRegionCity.text.toString()
+            val district = etInputRegionDistrict.text.toString()
+            val region = if (district.isNotEmpty()) {
+                "$city $district"
+            } else {
+                city
+            }
+
             return Contact(
                 getContactId("contact"),
                 PetProfile(
@@ -335,7 +347,7 @@ class AddContactDialogFragment() : DialogFragment(), AgeSelectListener, Personal
                     ownerGender,
                     etInputPhoneNumber.text.toString(),
                     etInputOwnerAge.text.toString().toInt(),
-                    etInputRegionCity.text.toString()
+                    region
                 ),
                 contact.isFavorite
             )
