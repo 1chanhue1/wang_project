@@ -142,18 +142,18 @@ class ContactAdapter(
         }
     }
 
-    fun updateContacts(newContacts: List<Contact>) {
-        contactList = newContacts
-        notifyDataSetChanged()
-    }
-
 //    fun updateContacts(newContacts: List<Contact>) {
-//        val diffCallback = ContactDiffCallback(contactList, newContacts)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//
 //        contactList = newContacts
-//        diffResult.dispatchUpdatesTo(this)
+//        notifyDataSetChanged()
 //    }
+
+    fun updateContacts(newContacts: List<Contact>) {
+        val diffCallback = ContactDiffCallback(contactList, newContacts)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        contactList = newContacts
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     fun getContactAtPosition(position: Int): Contact {
         return contactList[position]
