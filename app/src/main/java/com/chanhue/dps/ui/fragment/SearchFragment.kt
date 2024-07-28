@@ -1,5 +1,6 @@
 package com.chanhue.dps.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,9 @@ import androidx.fragment.app.Fragment
 import com.chanhue.dps.ui.activity.MainActivity
 import com.chanhue.dps.databinding.FragmentSearchBinding
 import com.chanhue.dps.model.ContactManager
+import com.chanhue.dps.ui.activity.DetailActivity
 import com.chanhue.dps.ui.adapter.SearchListAdapter
+import com.chanhue.dps.util.Constants
 
 class SearchFragment : Fragment() {
 
@@ -19,7 +22,10 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private val searchListAdapter by lazy {
         SearchListAdapter { contact ->
-            Toast.makeText(requireContext(), contact.owner.name, Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(Constants.ITEM_OBJECT, contact)
+            startActivity(intent)
+            (activity as? MainActivity)?.hideSearchFragment()
         }
     }
 
