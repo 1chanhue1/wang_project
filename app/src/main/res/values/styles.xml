@@ -122,6 +122,10 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="AppTextLabel.S18">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="AppTextLabel.S16">
         <item name="android:textSize">16sp</item>
     </style>
