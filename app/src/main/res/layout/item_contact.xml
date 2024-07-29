@@ -65,7 +65,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
-        android:src="@drawable/ic_close"
+        android:src="@drawable/ic_call"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_favorite"

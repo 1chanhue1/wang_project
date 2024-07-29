@@ -77,6 +77,7 @@ class ContactAdapter(
 
             binding.ivFavorite.setOnClickListener {
                 toggleFavoriteCallback(contact)
+                notifyItemChanged(bindingAdapterPosition)
             }
 
             itemView.setOnClickListener {
@@ -123,11 +124,12 @@ class ContactAdapter(
                 )
 
                 ivFavorite.setImageResource(
-                    if (contact.isFavorite) R.drawable.ic_favorite_full else R.drawable.ic_heart_empty
+                    if (contact.isFavorite) R.drawable.ic_hear_full else R.drawable.ic_heart_empty
                 )
 
                 ivFavorite.setOnClickListener {
                     toggleFavoriteCallback(contact)
+                    notifyItemChanged(bindingAdapterPosition)
                 }
 
                 itemView.setOnClickListener {
@@ -142,18 +144,18 @@ class ContactAdapter(
         }
     }
 
-    fun updateContacts(newContacts: List<Contact>) {
+    fun updateContact(newContacts: List<Contact>) {
         contactList = newContacts
         notifyDataSetChanged()
     }
 
-//    fun updateContacts(newContacts: List<Contact>) {
-//        val diffCallback = ContactDiffCallback(contactList, newContacts)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//
-//        contactList = newContacts
-//        diffResult.dispatchUpdatesTo(this)
-//    }
+    fun updateContacts(newContacts: List<Contact>) {
+        val diffCallback = ContactDiffCallback(contactList, newContacts)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        contactList = newContacts
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     fun getContactAtPosition(position: Int): Contact {
         return contactList[position]

@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         // test
 
         binding.toolbarHome.ivToolbarHomeSearchIcon.setOnClickListener {
-            Toast.makeText(this, "검색 버튼 클릭", Toast.LENGTH_SHORT).show()
             showSearchFragment()
         }
 

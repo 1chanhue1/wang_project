@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -210,6 +211,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.On
                 setOnClickListener {
                     positiveAction()
                     dialog.dismiss()
+                    Toast.makeText(requireContext(), "성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -420,6 +422,7 @@ class ContactListFragment : Fragment(), ContactUpdateListener, ContactAdapter.On
     override fun onResume() {
         super.onResume()
         contactViewModel.updateContacts(ContactManager.getContactListByDogName())
+        adapter.updateContact(ContactManager.getContactListByDogName())
     }
 
     override fun onCallContact(phoneNumber: String) {

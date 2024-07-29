@@ -150,11 +150,13 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
                                 originData?.let { contact ->
                                     contactViewModel.toggleFavorite(contact.id)
                                     updateFavoriteIcon(menuItem, !contact.isFavorite)
+                                    Toast.makeText(this@DetailActivity, "즐겨찾기에서 제거되었습니다.", Toast.LENGTH_SHORT).show()
                                 }
                                 true
                             }
                             else -> {
-                                val dialog = NotificationDialogFragment(this@DetailActivity, "알람", 1)
+                                val text = "${originData!!.petProfile.name} | ${originData!!.owner.name} 님과 곧 산책할 시간이에요!"
+                                val dialog = NotificationDialogFragment(this@DetailActivity, text, 1)
                                 dialog.isCancelable = false
                                 dialog.show(this@DetailActivity.supportFragmentManager, "ConfirmDialog")
                                 true
@@ -310,13 +312,13 @@ class DetailActivity : AppCompatActivity(), NotificationDialogFragment.FragmentD
 
     override fun onContactUpdated(contact: Contact) {
         if (contact.id == originData?.id) {
-            Toast.makeText(this, "수정.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "성공적으로 수정되었습니다.", Toast.LENGTH_SHORT).show()
             originData = contact
             updateContact(contact)
             // 뷰모델에 변경된 연락처 정보를 전달
             contactViewModel.updateContact(contact)
         } else {
-            Toast.makeText(this, "수정 실패.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "수정에 실패하였습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 
