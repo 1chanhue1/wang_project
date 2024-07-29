@@ -10,7 +10,7 @@ object ContactManager {
                 PetProfile(
                     1,
                     "https://post-phinf.pstatic.net/MjAyNDAxMzBfMjQ3/MDAxNzA2NTg4MzUzNDE0.tnVXDqzdrbm9PLfoMttZyBuL0uzr1dbySOwbruch4a4g.ZyQBiTAwqe3DDruXKp5NyrP4wqpbzmM7UR10dD8B5KQg.JPEG/8a89645c136a15dbe15ce70525630cc835aa0e4c.jpg?type=w1200",
-                    "두부",
+                    "누렁이",
                     false,
                     2,
                     "포메라니안",
@@ -27,7 +27,7 @@ object ContactManager {
                 ),
                 Owner(
                     1,
-                    "서정우",
+                    "윤동희",
                     false,
                     "010-1111-1111",
                     25,
@@ -42,7 +42,7 @@ object ContactManager {
                     "몽이",
                     false,
                     5,
-                    "비숑",
+                    "비숑 프리제",
                     mutableListOf(
                         "https://mblogthumb-phinf.pstatic.net/MjAyMjA4MjRfMTU0/MDAxNjYxMzIwMDgzODc1.NhSveasGmH8V8ukDCWxW4aqzb5IHQKmFNR65Q8dnziUg.pXICC5EkLUc6Xgk6MW6nKtDML-eBxjypZpeCVlWXISUg.JPEG.ages9090/KakaoTalk_20220824_140238973_09.jpg?type=w800",
                         "https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjNfNjkg/MDAxNTk1NTAxMzU3OTU0.c3cNYzSUnzwwFof34Ljr958vYCcDUZUTAju5AcPHncMg.GBkzSNM1CUEEtSP4RWJIxQ27_Qpx3eDyhS1zNwD1_VIg.JPEG.hyousang/2.jpg?type=w800",
@@ -58,11 +58,11 @@ object ContactManager {
                 ),
                 Owner(
                     2,
-                    "김찬휘",
+                    "김나라",
                     false,
                     "010-1111-2222",
                     25,
-                    "서울특별시 서초구"
+                    "서울특별시 마포구"
                 )
             ),
             // 추가 데이터들
@@ -97,7 +97,7 @@ object ContactManager {
                 4,
                 PetProfile(
                     4,
-                    "https://perrodog.co.kr/files/attach/images/2023/06/07/7ec0544c0a3878c60cfaf48aaafc52c7.jpg",
+                    "https://i.pinimg.com/originals/10/74/25/107425756bbfd5102867ed0f02c69095.jpg",
                     "눈송이",
                     true,
                     4,
@@ -109,7 +109,6 @@ object ContactManager {
                         "https://i.pinimg.com/originals/10/74/25/107425756bbfd5102867ed0f02c69095.jpg",
                         "https://i.pinimg.com/originals/10/74/25/107425756bbfd5102867ed0f02c69095.jpg",
                         "https://i.pinimg.com/originals/10/74/25/107425756bbfd5102867ed0f02c69095.jpg",
-                        "https://i.pinimg.com/originals/10/74/25/107425756bbfd5102867ed0f02c69095.jpg"
                     ),
                     "조용한 것을 좋아하며, 혼자 있는 시간이 많아요",
                     "침착하고 차분한 성격"
@@ -120,7 +119,7 @@ object ContactManager {
                     true,
                     "010-1111-4444",
                     25,
-                    "서울특별시 송파구"
+                    "경기도 성남시"
                 )
             ),
             Contact(
@@ -152,7 +151,7 @@ object ContactManager {
                     false,
                     "010-1111-5555",
                     28,
-                    "서울특별시 마포구"
+                    "경기도 하남시"
                 )
             ),
             Contact(
@@ -179,7 +178,7 @@ object ContactManager {
                     true,
                     "010-1111-6666",
                     28,
-                    "서울특별시 은평구"
+                    "서울특별시 강남구"
                 )
             ),
             Contact(
@@ -207,7 +206,7 @@ object ContactManager {
                     false,
                     "010-1111-7777",
                     28,
-                    "서울특별시 동작구"
+                    "서울특별시 마포구"
                 )
             ),
             Contact(
@@ -236,7 +235,7 @@ object ContactManager {
                     true,
                     "010-1111-8888",
                     28,
-                    "서울특별시 강동구"
+                    "서울특별시 종로구"
                 )
             ),
             Contact(
@@ -244,7 +243,7 @@ object ContactManager {
                 PetProfile(
                     9,
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJVgxx2MC4C4Ec_Bcz5cz0K1xtfDE-0u4iJDU_ixp0xiFYTtb6le1hAmWfVBkbFmJmlIk&usqp=CAU",
-                    "까미",
+                    "눈꽃",
                     false,
                     5,
                     "진돗개",
@@ -263,7 +262,7 @@ object ContactManager {
                     false,
                     "010-1111-9999",
                     21,
-                    "서울특별시 중구"
+                    "경기도 성남시"
                 )
             ),
             Contact(
@@ -291,14 +290,14 @@ object ContactManager {
                     true,
                     "010-2222-1111",
                     21,
-                    "서울특별시 동대문구"
+                    "경기도 하남시"
                 )
             ),
             Contact(
                 11,
                 PetProfile(
                     11,
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJVgxx2MC4C4Ec_Bcz5cz0K1xtfDE-0u4iJDU_ixp0xiFYTtb6le1hAmWfVBkbFmJmlIk&usqp=CAU",
+                    "https://image.dongascience.com/Photo/2017/06/14964815289707.jpg",
                     "구름이",
                     true,
                     2,
@@ -306,7 +305,7 @@ object ContactManager {
                     mutableListOf(
                         "https://i.namu.wiki/i/aaMqYjVgNYiLx7jR_6jjhsBZJrcLUTgI3eOMq7QxanQwZZEezETQ9gNNUqOPJzO7FlMS5dUDbzjZc3p6YFnhUw.webp",
                         "https://i.namu.wiki/i/paGSt-Agyaph_hPmknmB4J0u6nqEP-DUdVfmP7Y61D_nvXozhm9s1_wWAzOcWF5m_T49cUZyfMIMDnCQZN7IaQ.webp",
-                        "https://image.dongascience.com/Photo/2017/06/14964815289707.jpg"
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJVgxx2MC4C4Ec_Bcz5cz0K1xtfDE-0u4iJDU_ixp0xiFYTtb6le1hAmWfVBkbFmJmlIk&usqp=CAU"
                     ),
                     "사람을 잘 따르고 충직합니다",
                     "충직하고 온순한 성격"
@@ -317,7 +316,7 @@ object ContactManager {
                     false,
                     "010-2222-2222",
                     21,
-                    "서울특별시 노원구"
+                    "서울특별시 강남구"
                 )
             ),
             Contact(
@@ -343,7 +342,7 @@ object ContactManager {
                     true,
                     "010-3333-3333",
                     21,
-                    "서울특별시 강서구"
+                    "서울특별시 마포구"
                 )
             ),
             Contact(
@@ -353,7 +352,7 @@ object ContactManager {
                     "https://i.namu.wiki/i/p8f5LesuquLp-iZqt7celuMAnechji6RS0HwQzOsF5BBMBrikXUpTDS7OR8s7bQahBhpAlLeNzH-Uqu2ksatabCHq0LH7gwkDtM45Pjlug66aQ_z75OCEPg1WvuYGvdtSG9gHiXPi7uoGL8Tfezpfw.webp",
                     "뭉치",
                     false,
-                    5,
+                    9,
                     "포메라니안",
                     mutableListOf(
                         "https://post-phinf.pstatic.net/MjAyNDAxMzBfMTM2/MDAxNzA2NTg4MzUzNzUw.u8ut73TSYvMh1EDBku5xLOqtY6QeEqmCxKenXbPKo5Qg.f0qOv-kr0yuREvjQtiwV9AsoR7HrdB_HILcMdRs64EMg.JPEG/3cy7du4n5rky38z207iu.jpg?type=w1200",
@@ -369,7 +368,7 @@ object ContactManager {
                     false,
                     "010-4444-4444",
                     21,
-                    "서울특별시 서대문구"
+                    "서울특별시 종로구"
                 )
             ),
             Contact(
@@ -395,7 +394,7 @@ object ContactManager {
                     false,
                     "010-5555-5555",
                     30,
-                    "서울특별시 용산구"
+                    "경기도 성남시"
                 )
             ),
             Contact(
@@ -421,7 +420,7 @@ object ContactManager {
                     true,
                     "010-6666-6666",
                     30,
-                    "서울특별시 금천구"
+                    "경기도 하남시"
                 )
             ),
             Contact(
@@ -447,7 +446,7 @@ object ContactManager {
                     false,
                     "010-7777-7777",
                     30,
-                    "서울특별시 광진구"
+                    "서울특별시 강남구"
                 )
             ),
             Contact(
@@ -473,7 +472,7 @@ object ContactManager {
                     false,
                     "010-8888-8888",
                     30,
-                    "서울특별시 중랑구"
+                    "서울특별시 마포구"
                 )
             ),
             Contact(
@@ -483,7 +482,7 @@ object ContactManager {
                     "https://raingroup.co.kr/data/editor/2305/07f12eb7dd7a8321a87639b68bf165b8_1684475633_3204.jpg",
                     "해피",
                     true,
-                    2,
+                    13,
                     "포메라니안",
                     mutableListOf(
                         "https://post-phinf.pstatic.net/MjAyNDAxMzBfMTM2/MDAxNzA2NTg4MzUzNzUw.u8ut73TSYvMh1EDBku5xLOqtY6QeEqmCxKenXbPKo5Qg.f0qOv-kr0yuREvjQtiwV9AsoR7HrdB_HILcMdRs64EMg.JPEG/3cy7du4n5rky38z207iu.jpg?type=w1200",
@@ -499,7 +498,7 @@ object ContactManager {
                     true,
                     "010-9999-9999",
                     30,
-                    "서울특별시 양천구"
+                    "서울특별시 종로구"
                 )
             ),
             Contact(
@@ -525,7 +524,7 @@ object ContactManager {
                     true,
                     "010-0000-1111",
                     30,
-                    "서울특별시 성동구"
+                    "경기도 성남시"
                 )
             ),
             Contact(
@@ -535,7 +534,7 @@ object ContactManager {
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR3sLWXzpeywivrovkSC1uxzlHD-3UDep2bw&s",
                     "반달이",
                     false,
-                    3,
+                    8,
                     "닥스훈트",
                     mutableListOf(
                         "https://cdn.pixabay.com/photo/2019/09/03/06/45/dachshund-4448740_1280.jpg",
@@ -551,7 +550,7 @@ object ContactManager {
                     true,
                     "010-1111-0000",
                     30,
-                    "서울특별시 도봉구"
+                    "경기도 하남시"
                 )
             ),
             Contact(
@@ -559,9 +558,9 @@ object ContactManager {
                 PetProfile(
                     21,
                     "https://i.namu.wiki/i/z2O0p4vXdL7rV-QjZ1chB5_B39l9IO21-awQQdzeuyr7mDWvrwGHFUkex899yyLHwuFwYsp-wl8105822ym-Xw.webp",
-                    "누렁이",
+                    "휴지",
                     true,
-                    4,
+                    6,
                     "진돗개",
                     mutableListOf(
                         "https://i.namu.wiki/i/aaMqYjVgNYiLx7jR_6jjhsBZJrcLUTgI3eOMq7QxanQwZZEezETQ9gNNUqOPJzO7FlMS5dUDbzjZc3p6YFnhUw.webp",
@@ -577,7 +576,7 @@ object ContactManager {
                     false,
                     "010-1234-5678",
                     30,
-                    "서울특별시 강북구"
+                    "서울특별시 강남구"
                 )
             ),
             Contact(
@@ -603,7 +602,7 @@ object ContactManager {
                     false,
                     "010-8765-4321",
                     30,
-                    "서울특별시 영등포구"
+                    "서울특별시 마포구"
                 )
             ),
             Contact(
@@ -629,7 +628,7 @@ object ContactManager {
                     false,
                     "010-5555-7777",
                     18,
-                    "서울특별시 양재동"
+                    "서울특별시 종로구"
                 )
             ),
             Contact(
@@ -637,9 +636,9 @@ object ContactManager {
                 PetProfile(
                     24,
                     "https://mblogthumb-phinf.pstatic.net/MjAyMjExMDFfMjIg/MDAxNjY3MzEwMjgzNDYw._v7Y2yUe0T3Nh9hKKIF1vQVJpe4dJGxSMumHkNsuxAsg.I4H7xDUh4DlFEoZA1JY--eDEsN8oUHFOxT0IsHEyl88g.JPEG.hwadojinhaus/20221101_(11).jpg?type=w800",
-                    "꼬미",
+                    "깜이",
                     true,
-                    5,
+                    9,
                     "진돗개",
                     mutableListOf(
                         "https://i.namu.wiki/i/paGSt-Agyaph_hPmknmB4J0u6nqEP-DUdVfmP7Y61D_nvXozhm9s1_wWAzOcWF5m_T49cUZyfMIMDnCQZN7IaQ.webp",
@@ -655,7 +654,7 @@ object ContactManager {
                     true,
                     "010-6666-8888",
                     18,
-                    "서울특별시 도곡동"
+                    "경기도 성남시"
                 )
             ),
             Contact(
@@ -665,7 +664,7 @@ object ContactManager {
                     "https://cdn.pixabay.com/photo/2021/08/18/09/34/dachshund-6555136_960_720.jpg",
                     "바비",
                     false,
-                    1,
+                    6,
                     "닥스훈트",
                     mutableListOf(
                         "https://cdn.pixabay.com/photo/2019/09/03/06/45/dachshund-4448740_1280.jpg",
@@ -681,7 +680,7 @@ object ContactManager {
                     true,
                     "010-7777-9999",
                     18,
-                    "서울특별시 서초구"
+                    "경기도 하남시"
                 )
             ),
             Contact(
@@ -691,7 +690,7 @@ object ContactManager {
                     "https://blog.kakaocdn.net/dn/ekbnmV/btqMgtiqXni/DG9CE8ZEllV5rKlDgbSQok/img.jpg",
                     "쿠키",
                     true,
-                    3,
+                    11,
                     "비숑 프리제",
                     mutableListOf(
                         "https://mblogthumb-phinf.pstatic.net/MjAyMjA4MjRfMTU0/MDAxNjYxMzIwMDgzODc1.NhSveasGmH8V8ukDCWxW4aqzb5IHQKmFNR65Q8dnziUg.pXICC5EkLUc6Xgk6MW6nKtDML-eBxjypZpeCVlWXISUg.JPEG.ages9090/KakaoTalk_20220824_140238973_09.jpg?type=w800",
@@ -707,7 +706,7 @@ object ContactManager {
                     true,
                     "010-8888-0000",
                     18,
-                    "서울특별시 송파구"
+                    "서울특별시 강남구"
                 )
             ),
             Contact(
@@ -717,7 +716,7 @@ object ContactManager {
                     "https://i.namu.wiki/i/4BLiiPCZ592quXxgRmTRlKPilyQNk9a95Tjv929llJh2RGLo_1PcLqWC8FqFz5BcbuDqHwjCMQp9L4MnsAJ9vtHnhkeMcfzbW-EkHJxcL1z9R7l75dtOn8HzaVSRh46WvG1x5BZZlkQf3-io1oE1kw.webp",
                     "뽀삐",
                     false,
-                    4,
+                    5,
                     "포메라니안",
                     mutableListOf(
                         "https://post-phinf.pstatic.net/MjAyNDAxMzBfMTQ2/MDAxNzA2NTg4MzUzNjg3.CVn_9Q6znbgaWq8yTSnQMyqY_UNCDcxsgtJBoqiFjwog.DiRcun03d7Jtjwdp21blmsIjaNcZAMZXXWMly3x64ocg.JPEG/DktqMi3U8AAMjGA.jpg?type=w1200",
@@ -733,7 +732,7 @@ object ContactManager {
                     false,
                     "010-0000-2222",
                     18,
-                    "서울특별시 광진구"
+                    "서울특별시 마포구"
                 )
             ),
             Contact(
@@ -743,7 +742,7 @@ object ContactManager {
                     "https://lh3.googleusercontent.com/proxy/XuiGDQkMhYFGfrVqyx67xoNzenc3i8w9YYelJbCdgs6mPAQQt8OYCJssOc8VahhucViQSMD85cBqzG_LR2Qa4dzqI90ydy6vHGA3b6rIrJKVMpYLvQ",
                     "코코",
                     true,
-                    2,
+                    8,
                     "닥스훈트",
                     mutableListOf(
                         "https://cdn.pixabay.com/photo/2019/09/03/06/45/dachshund-4448740_1280.jpg",
@@ -759,7 +758,7 @@ object ContactManager {
                     false,
                     "010-3333-6666",
                     34,
-                    "서울특별시 강남구"
+                    "서울특별시 종로구"
                 )
             ),
             Contact(
@@ -769,7 +768,7 @@ object ContactManager {
                     "https://perrodog.co.kr/files/attach/images/2023/06/07/7ec0544c0a3878c60cfaf48aaafc52c7.jpg",
                     "루피",
                     false,
-                    3,
+                    8,
                     "포메라니안",
                     mutableListOf(
                         "https://post-phinf.pstatic.net/MjAyNDAxMzBfMTQ2/MDAxNzA2NTg4MzUzNjg3.CVn_9Q6znbgaWq8yTSnQMyqY_UNCDcxsgtJBoqiFjwog.DiRcun03d7Jtjwdp21blmsIjaNcZAMZXXWMly3x64ocg.JPEG/DktqMi3U8AAMjGA.jpg?type=w1200",
@@ -785,7 +784,7 @@ object ContactManager {
                     true,
                     "010-5555-4444",
                     34,
-                    "서울특별시 마포구"
+                    "경기도 성남시"
                 )
             ),
             Contact(
@@ -795,7 +794,7 @@ object ContactManager {
                     "https://t1.daumcdn.net/news/202105/25/dogmate/20210525045430145gtll.jpg",
                     "메리",
                     true,
-                    2,
+                    7,
                     "포메라니안",
                     mutableListOf(
                         "https://post-phinf.pstatic.net/MjAyNDAxMzBfMTQ2/MDAxNzA2NTg4MzUzNjg3.CVn_9Q6znbgaWq8yTSnQMyqY_UNCDcxsgtJBoqiFjwog.DiRcun03d7Jtjwdp21blmsIjaNcZAMZXXWMly3x64ocg.JPEG/DktqMi3U8AAMjGA.jpg?type=w1200",
@@ -811,7 +810,7 @@ object ContactManager {
                     true,
                     "010-6666-5555",
                     34,
-                    "서울특별시 은평구"
+                    "경기도 하남시"
                 )
             )
         )

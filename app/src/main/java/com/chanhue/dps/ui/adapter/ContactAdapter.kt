@@ -124,7 +124,7 @@ class ContactAdapter(
                 )
 
                 ivFavorite.setImageResource(
-                    if (contact.isFavorite) R.drawable.ic_favorite_full else R.drawable.ic_heart_empty
+                    if (contact.isFavorite) R.drawable.ic_hear_full else R.drawable.ic_heart_empty
                 )
 
                 ivFavorite.setOnClickListener {
@@ -144,10 +144,10 @@ class ContactAdapter(
         }
     }
 
-//    fun updateContacts(newContacts: List<Contact>) {
-//        contactList = newContacts
-//        notifyDataSetChanged()
-//    }
+    fun updateContact(newContacts: List<Contact>) {
+        contactList = newContacts
+        notifyDataSetChanged()
+    }
 
     fun updateContacts(newContacts: List<Contact>) {
         val diffCallback = ContactDiffCallback(contactList, newContacts)
